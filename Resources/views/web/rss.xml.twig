@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="{{ block('url') ~ '/bundles/zakjakuboswiscore/rss.css' }}" ?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
+    <channel>
+        <title>{% block title %}{{ title|default('RSS kanál aktualit') }}{% endblock title %}</title>
+        <link>{% block url %}{{ url|default('https://oswis.org') }}{% endblock url %}</link>
+        <description>{{ description|default('Přehled nejnovějších aktualit ve formě RSS kanálu.') }}</description>
+        <webMaster>{{ webmaster|default('webmaster@oswis.org (Jakub ZAK, https://jakubzak.cz)') }}</webMaster>
+        <managingEditor>{{ editor|default('webmaster@oswis.org (Jakub ZAK, https://jakubzak.cz)') }}</managingEditor>
+        <category>{{ type|default('website') }}</category>
+        <language>{{ language|default('cs-CZ') }}</language>
+        <pubDate>{{ "now"|date("D, d M Y H:i:s O") }}</pubDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>OSWIS (One Simple Web IS)</generator>
+        <lastBuildDate>{{ "now"|date("D, d M Y H:i:s O") }}</lastBuildDate>
+        <atom:link href="{{ block('url') }}/{{ rssPath|default('rss') }}" rel="self" type="application/rss+xml"/>
+        <sy:updatePeriod>{{ updatePeriod|default('hourly') }}</sy:updatePeriod>
+        <sy:updateFrequency>{{ updateFrequency|default('1') }}</sy:updateFrequency>
+
+        {% if image is defined and image and image.url is defined and image.url %}
+            <image>
+                <url>{{ block('url') }}/{{ image.url }}</url>
+                <width>{{ image.width|default }}</width>
+                <height>{{ image.height|default }}</height>
+                <description>{{ block('title') }}</description>
+                <title>{{ block('title') }}</title>
+                <link>{{ block('url') }}</link>
+            </image>
+        {% endif %}
+
+        {% for actuality in actualities|slice(0,limit|default(10)) %}
+            <item>
+                <title>{{ actuality.name }}</title>
+                <link>{% block actualityUrl %}{{ block('url') }}/{{ actualityPath }}/{{ actuality.slug }}{% endblock actualityUrl %}</link>
+                <guid>{{ block('actualityUrl') }}</guid>
+                <description>{{ actuality.textValue|markdown_to_html|striptags|slice(0,200) }}</description>
+                <pubDate>{{ actuality.dateTime|date("D, d M Y H:i:s O") }}</pubDate>
+            </item>
+        {% endfor %}
+
+    </channel>
+</rss><!-- OSWIS, Jakub ZAK, https://jakubzak.cz -->

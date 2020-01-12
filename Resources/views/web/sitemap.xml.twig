@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for item in items %}
+        <url>
+            <loc>{{ url|default('.') }}/{{ item.url|default('') }}</loc>
+            <changefreq>{{ item.changeFrequency|default('daily') }}</changefreq>
+            <priority>{{ item.priority|default('1.0000') }}</priority>
+        </url>
+    {% endfor %}
+</urlset>

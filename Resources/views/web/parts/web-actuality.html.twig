@@ -1,0 +1,15 @@
+{% block before_content %}
+{% endblock before_content %}
+<article class="col-lg-12 page">
+    <header>
+        <h3 class="text-left text-uppercase" id="actuality{{ page.id|default('0') }}">
+            {{ page.name }}
+            <time><small>{{ page.dateTime|date("j.n.Y") }}</small></time>
+        </h3>
+    </header>
+    <div class="web-actuality-content">
+        {{ page.textValue|markdown_to_html }}
+    </div>
+</article>
+{% block after_content %}
+{% endblock after_content %}

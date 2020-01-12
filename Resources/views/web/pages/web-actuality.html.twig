@@ -1,0 +1,14 @@
+{% extends '@ZakjakubOswisCore/web/page-skeleton-default.html.twig' %}
+
+{% set page = "web-actuality" %}
+
+{% block body_content %}
+    <main class="container web-actuality-main" id="main-content-container">
+        {% block before_content %}
+        {% endblock before_content %}
+        {% include '@ZakjakubOswisWeb/web/parts/web-actuality.html.twig' %}
+        {% block after_content %}
+        {% endblock after_content %}
+    </main>
+{% endblock body_content %}
+

@@ -1,0 +1,24 @@
+controllers:
+    resource: ../../Controller/
+    type: annotation
+
+zakjakub_oswis_web_page:
+    controller: zakjakub_oswis_web.web_controller::showPage
+    path: "/web/{slug}"
+
+zakjakub_oswis_web_faq:
+    controller: zakjakub_oswis_web.web_controller::showFaq
+    path: "/faq"
+
+zakjakub_oswis_rss:
+    controller: zakjakub_oswis_web.rss_feed_controller::showRss
+    path: "/rss/{limit}"
+
+zakjakub_oswis_sitemap_xml:
+    controller: zakjakub_oswis_web.site_map_controller::showSitemapXml
+    path: "/sitemap.xml"
+
+#zakjakub_oswis_sitemap:
+#    controller: zakjakub_oswis_web.site_map_controller::showSitemap
+#    path: "/sitemap"
+

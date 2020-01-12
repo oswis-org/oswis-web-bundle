@@ -1,0 +1,11 @@
+{% for actuality in actualities %}
+    {% include '@ZakjakubOswisWeb/web/parts/web-actuality-preview.html.twig' %}
+{% else %}
+    <article class="col-lg-12 actuality-preview">
+        {% if page is defined and page > 0 %}
+            <div><p>Na tuto stránku nezbyly žádné aktuality.</p></div>
+        {% else %}
+            <div><p>Nebyly nalezeny žádné aktuality.</p></div>
+        {% endif %}
+    </article>
+{% endfor %}

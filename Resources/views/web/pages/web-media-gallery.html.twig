@@ -1,0 +1,14 @@
+{% extends '@ZakjakubOswisCore/web/page-skeleton-default.html.twig' %}
+
+{% set page = "web-media-gallery" %}
+
+{% block body_content %}
+    <main class="container web-media-gallery-main" id="main-content-container">
+        {% block before_content %}
+        {% endblock before_content %}
+        {% include '@ZakjakubOswisWeb/web/parts/web-media-gallery.html.twig' %}
+        {% block after_content %}
+        {% endblock after_content %}
+    </main>
+{% endblock body_content %}
+
