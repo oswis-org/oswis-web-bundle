@@ -29,7 +29,7 @@ class WebService
         ?DateTime $dateTime = null,
         ?int $limit = null,
         ?int $offset = null,
-        ?int $slug = null,
+        ?string $slug = null,
         ?string $class = null
     ): Collection {
         return $this->getRepository()->getAbstractPages($dateTime, $limit, $offset, $slug, $class);
@@ -47,7 +47,7 @@ class WebService
         ?DateTime $dateTime = null,
         ?int $limit = null,
         ?int $offset = null,
-        ?int $slug = null,
+        ?string $slug = null,
         ?string $class = null
     ): ?AbstractWebPage {
         return $this->getRepository()->getAbstractPage($dateTime, $limit, $offset, $slug, $class);

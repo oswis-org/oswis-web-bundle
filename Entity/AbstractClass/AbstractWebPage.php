@@ -15,6 +15,7 @@ use Zakjakub\OswisCoreBundle\Traits\Entity\NameableBasicTrait;
 use Zakjakub\OswisCoreBundle\Traits\Entity\PriorityTrait;
 use Zakjakub\OswisCoreBundle\Traits\Entity\TextValueTrait;
 use Zakjakub\OswisWebBundle\Entity\MediaObject\ContactImage;
+use Zakjakub\OswisWebBundle\Entity\MediaObject\WebImage;
 use Zakjakub\OswisWebBundle\Entity\WebActuality;
 use Zakjakub\OswisWebBundle\Entity\WebMediaGallery;
 use Zakjakub\OswisWebBundle\Entity\WebPage;
@@ -42,12 +43,12 @@ abstract class AbstractWebPage
 
     /**
      * @Doctrine\ORM\Mapping\OneToOne(
-     *     targetEntity="Zakjakub\OswisAddressBookBundle\Entity\MediaObject\ContactImage",
+     *     targetEntity="Zakjakub\OswisWebBundle\Entity\MediaObject\WebImage",
      *     cascade={"all"},
      *     fetch="EAGER"
      * )
      */
-    protected ?ContactImage $image = null;
+    protected ?WebImage $image = null;
 
     public function __construct(
         ?Nameable $nameable = null,
@@ -63,12 +64,12 @@ abstract class AbstractWebPage
         $this->setPriority($priority);
     }
 
-    public function getImage(): ?ContactImage
+    public function getImage(): ?WebImage
     {
         return $this->image;
     }
 
-    public function setImage(?ContactImage $image): void
+    public function setImage(?WebImage $image): void
     {
         $this->image = $image;
     }

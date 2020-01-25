@@ -28,7 +28,7 @@ class AbstractWebPageRepository extends EntityRepository
         ?DateTime $dateTime = null,
         ?int $limit = null,
         ?int $offset = null,
-        ?int $slug = null,
+        ?string $slug = null,
         ?string $class = null
     ): Collection {
         return new ArrayCollection(
@@ -40,7 +40,7 @@ class AbstractWebPageRepository extends EntityRepository
         ?DateTime $dateTime = null,
         ?int $limit = null,
         ?int $offset = null,
-        ?int $slug = null,
+        ?string $slug = null,
         ?string $class = null
     ): QueryBuilder {
         $queryBuilder = $this->createQueryBuilder('p');
@@ -101,13 +101,13 @@ class AbstractWebPageRepository extends EntityRepository
         ?DateTime $dateTime = null,
         ?int $limit = null,
         ?int $offset = null,
-        ?int $slug = null,
+        ?string $slug = null,
         ?string $class = null
     ): ?AbstractWebPage {
         try {
             $page = $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getOneOrNullResult();
 
-            return is_a($page, $class ?? AbstractWebPage::class) ? $page : null;
+            return $page instanceof AbstractWebPage && is_a($page, $class) ? $page : null;
         } catch (Exception $e) {
             return null;
         }

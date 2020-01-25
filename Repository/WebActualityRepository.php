@@ -27,12 +27,12 @@ class WebActualityRepository extends AbstractWebPageRepository
         ?DateTime $dateTime = null,
         ?int $limit = null,
         ?int $offset = null,
-        ?int $slug = null
+        ?string $slug = null
     ): QueryBuilder {
         return $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, WebActuality::class);
     }
 
-    public function getActuality(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?int $slug = null): ?WebActuality
+    public function getActuality(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): ?WebActuality
     {
         try {
             $actuality = $this->getActualitiesQueryBuilder($dateTime, $limit, $offset, $slug)->getQuery()->getOneOrNullResult();

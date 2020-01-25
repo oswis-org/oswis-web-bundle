@@ -1,6 +1,6 @@
-<?php /** @noinspection MethodShouldBeFinalInspection */
-
+<?php
 /**
+ * @noinspection MethodShouldBeFinalInspection
  * @noinspection PhpUnused
  */
 
@@ -53,7 +53,7 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param int|null $page
+     * @param int $page
      *
      * @return Response
      * @throws LogicException

@@ -14,7 +14,7 @@ use Zakjakub\OswisWebBundle\Controller\MediaObject\CreateWebImageAction;
  *     "get",
  *     "post"={
  *         "method"="POST",
- *         "path"="/web_page_image",
+ *         "path"="/web_image",
  *         "controller"=CreateWebImageAction::class,
  *         "defaults"={"_api_receive"=false},
  *     },

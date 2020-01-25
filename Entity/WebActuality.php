@@ -19,11 +19,11 @@ use Zakjakub\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
  *   collectionOperations={
  *     "get"={
  *       "access_control"="is_granted('ROLE_MEMBER')",
- *       "normalization_context"={"groups"={"web_actualitys_get"}},
+ *       "normalization_context"={"groups"={"web_actualities_get"}},
  *     },
  *     "post"={
  *       "access_control"="is_granted('ROLE_MEMBER')",
- *       "denormalization_context"={"groups"={"web_actualitys_post"}}
+ *       "denormalization_context"={"groups"={"web_actualities_post"}}
  *     }
  *   },
  *   itemOperations={

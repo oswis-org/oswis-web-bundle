@@ -76,7 +76,7 @@ class WebFrequentlyAskedQuestion
 
     final public function addWebQuestion(?WebQuestion $webQuestion): void
     {
-        if ($webQuestion && !$this->webQuestions->contains($webQuestion)) {
+        if (null !== $webQuestion && !$this->webQuestions->contains($webQuestion)) {
             $this->webQuestions->add($webQuestion);
             $webQuestion->setFrequentlyAskedQuestion($this);
         }
@@ -84,7 +84,7 @@ class WebFrequentlyAskedQuestion
 
     final public function removeWebQuestion(?WebQuestion $webQuestion): void
     {
-        if ($webQuestion && $this->webQuestions->removeElement($webQuestion)) {
+        if (null !== $webQuestion && $this->webQuestions->removeElement($webQuestion)) {
             $webQuestion->setFrequentlyAskedQuestion(null);
         }
     }
