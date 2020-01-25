@@ -10,7 +10,7 @@ services:
     ##
     ## Controllers wildcard (TODO: To be refactored. Do not use wildcards.)
     ##
-    Zakjakub\OswisCalendarBundle\Controller\:
+    Zakjakub\OswisWebBundle\Controller\:
         resource: '../../Controller/*'
         tags: ['controller.service_arguments']
         public: true
