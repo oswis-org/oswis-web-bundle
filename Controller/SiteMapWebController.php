@@ -4,7 +4,7 @@
  * @noinspection PhpUnused
  */
 
-namespace App\Controller\Website;
+namespace Zakjakub\OswisWebBundle\Controller;
 
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
