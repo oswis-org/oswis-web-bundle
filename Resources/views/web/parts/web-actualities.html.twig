@@ -1,7 +1,7 @@
 {% for actuality in actualities %}
     {% include '@ZakjakubOswisWeb/web/parts/web-actuality-preview.html.twig' %}
 {% else %}
-    <article class="col-lg-12 actuality-preview">
+    <article class="col-12 actuality-preview">
         {% if page is defined and page > 0 %}
             <div><p>Na tuto stránku nezbyly žádné aktuality.</p></div>
         {% else %}
@@ -9,3 +9,13 @@
         {% endif %}
     </article>
 {% endfor %}
+{% if pagination is defined and pagination %}
+    <div class="col-12 actualities-pagination ">
+        <div class="container">
+            <nav class="row">
+                <a class="col-6 text-left">⇐<small class="d-none d-md-inline"> Starší</small></a>
+                <a class="col-6 text-right"><small class="d-none d-md-inline">Novější </small>⇒</a>
+            </nav>
+        </div>
+    </div>
+{% endif %}

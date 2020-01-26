@@ -53,29 +53,64 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param int $page
+     * @param int|null $limit
+     * @param int      $page
+     * @param bool     $pagination
      *
-     * @return Response
-     * @throws LogicException
+     * @return array
      * @throws OswisNotFoundException
      */
-    public function showWebActualities(int $page = 0): Response
+    public function getWebActualitiesData(?int $limit = null, int $page = 0, bool $pagination = false): array
     {
         if ($page < 0) {
             throw new OswisNotFoundException('Požadovaná stránka aktualit musí být kladným číslem.');
         }
-        $data = [
+
+        return [
             'page'        => $page,
+            'pagination'  => $pagination,
             'actualities' => $this->webService->getAbstractWebPages(
                 new DateTime(),
-                self::PAGE_SIZE,
+                $limit > 0 ? $limit : self::PAGE_SIZE,
                 $page * self::PAGE_SIZE,
                 null,
                 WebActuality::class
             ),
         ];
+    }
 
-        return $this->render('@ZakjakubOswisWeb/web/parts/web-actualities.html.twig', $data);
+    /**
+     * @param int|null $limit      Limit of items on page.
+     * @param bool     $pagination Enables pagination.
+     * @param int      $page       Number of page.
+     *
+     * @return Response
+     * @throws LogicException
+     * @throws OswisNotFoundException
+     */
+    public function showWebActualitiesChunk(?int $limit = null, int $page = 0, bool $pagination = false): Response
+    {
+        return $this->render(
+            '@ZakjakubOswisWeb/web/parts/web-actualities.html.twig',
+            $this->getWebActualitiesData($limit, $page, $pagination)
+        );
+    }
+
+    /**
+     * @param int|null $limit      Limit of items on page.
+     * @param bool     $pagination Enables pagination.
+     * @param int      $page       Number of page.
+     *
+     * @return Response
+     * @throws LogicException
+     * @throws OswisNotFoundException
+     */
+    public function showWebActualities(int $page = 0, bool $pagination = false, ?int $limit = null): Response
+    {
+        return $this->render(
+            '@ZakjakubOswisWeb/web/pages/web-actualities.html.twig',
+            $this->getWebActualitiesData($limit, $page, $pagination)
+        );
     }
 
     /**
