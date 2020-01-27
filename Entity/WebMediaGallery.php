@@ -13,7 +13,7 @@ use Zakjakub\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
 /**
  * @Doctrine\ORM\Mapping\Entity(repositoryClass="Zakjakub\OswisWebBundle\Repository\WebPageRepository")
- * @Doctrine\ORM\Mapping\Table(name="web_page")
+ * @Doctrine\ORM\Mapping\Table(name="web_media_gallery")
  * @ApiResource(
  *   attributes={
  *     "filters"={"search"},

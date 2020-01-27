@@ -53,6 +53,23 @@ class WebController extends AbstractController
     }
 
     /**
+     * @param int|null $limit      Limit of items on page.
+     * @param bool     $pagination Enables pagination.
+     * @param int      $page       Number of page.
+     *
+     * @return Response
+     * @throws LogicException
+     * @throws OswisNotFoundException
+     */
+    public function showWebActualitiesChunk(?int $limit = null, int $page = 0, bool $pagination = false): Response
+    {
+        return $this->render(
+            '@ZakjakubOswisWeb/web/parts/web-actualities.html.twig',
+            $this->getWebActualitiesData($limit, $page, $pagination)
+        );
+    }
+
+    /**
      * @param int|null $limit
      * @param int      $page
      * @param bool     $pagination
@@ -77,23 +94,6 @@ class WebController extends AbstractController
                 WebActuality::class
             ),
         ];
-    }
-
-    /**
-     * @param int|null $limit      Limit of items on page.
-     * @param bool     $pagination Enables pagination.
-     * @param int      $page       Number of page.
-     *
-     * @return Response
-     * @throws LogicException
-     * @throws OswisNotFoundException
-     */
-    public function showWebActualitiesChunk(?int $limit = null, int $page = 0, bool $pagination = false): Response
-    {
-        return $this->render(
-            '@ZakjakubOswisWeb/web/parts/web-actualities.html.twig',
-            $this->getWebActualitiesData($limit, $page, $pagination)
-        );
     }
 
     /**
