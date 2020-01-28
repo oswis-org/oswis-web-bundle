@@ -61,11 +61,11 @@ class WebController extends AbstractController
      * @throws LogicException
      * @throws OswisNotFoundException
      */
-    public function showWebActualitiesChunk(?int $limit = null, int $page = 0, bool $pagination = false): Response
+    public function showWebActualitiesChunk(int $page = 0, ?int $limit = null, bool $pagination = false): Response
     {
         return $this->render(
             '@ZakjakubOswisWeb/web/parts/web-actualities.html.twig',
-            $this->getWebActualitiesData($limit, $page, $pagination)
+            $this->getWebActualitiesData($page, $limit, $pagination)
         );
     }
 

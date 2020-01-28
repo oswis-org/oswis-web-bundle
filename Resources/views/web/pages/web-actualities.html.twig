@@ -15,7 +15,11 @@
 {% block body_content %}
     <main class="container web-actualities-main" id="main-content-container">
         {% for actuality in actualities %}
+            {% block before_actuality %}
+            {% endblock before_actuality %}
             {% include '@ZakjakubOswisWeb/web/parts/web-actuality-preview.html.twig' %}
+            {% block after_actuality %}
+            {% endblock after_actuality %}
         {% else %}
             <article class="col-lg-12 actuality-preview">
                 <div class="text-center pt-4 pb-4">
