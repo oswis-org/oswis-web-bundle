@@ -18,7 +18,7 @@ use Zakjakub\OswisWebBundle\Service\WebService;
 
 class WebController extends AbstractController
 {
-    public const PAGE_SIZE = 15;
+    public const PAGE_SIZE = 10;
 
     private WebService $webService;
 
@@ -88,7 +88,7 @@ class WebController extends AbstractController
             'pagination'  => $pagination,
             'actualities' => $this->webService->getAbstractWebPages(
                 new DateTime(),
-                $limit > 0 ? $limit : self::PAGE_SIZE,
+                $limit > 0 ? $limit : 3,
                 $page * self::PAGE_SIZE,
                 null,
                 WebActuality::class
@@ -105,11 +105,11 @@ class WebController extends AbstractController
      * @throws LogicException
      * @throws OswisNotFoundException
      */
-    public function showWebActualities(int $page = 0, bool $pagination = false, ?int $limit = null): Response
+    public function showWebActualities(int $page = 0, ?int $limit = null, bool $pagination = true): Response
     {
         return $this->render(
             '@ZakjakubOswisWeb/web/pages/web-actualities.html.twig',
-            $this->getWebActualitiesData($limit, $page, $pagination)
+            $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
         );
     }
 

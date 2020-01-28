@@ -6,6 +6,13 @@ zakjakub_oswis_web_page:
     controller: zakjakub_oswis_web.web_controller::showPage
     path: "/web/{slug}"
 
+zakjakub_oswis_web_actualities:
+    controller: zakjakub_oswis_web.web_controller::showWebActualities
+    path: "/aktuality/{page?}/{limit?}"
+    defaults:
+        page: null
+        limit: null
+
 zakjakub_oswis_web_faq:
     controller: zakjakub_oswis_web.web_controller::showFaq
     path: "/faq"
