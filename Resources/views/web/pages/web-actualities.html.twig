@@ -5,13 +5,22 @@
 {% block html_title %}{{ title|default('Aktuality') }}{% endblock html_title %}
 {% block html_description %}{{ description|default('Přehled aktualit.') }}{% endblock html_description %}
 
+{% block meta_tags_canonical %}
+    <link rel="next" href="{{ path('zakjakub_oswis_web_actualities', {'page': (page|number_format + 1), 'limit': limit}) }}">
+    {% if page is defined and page|number_format > 0 %}
+        <link rel="prev" href="{{ path('zakjakub_oswis_web_actualities', {page: (page|number_format - 1), 'limit': limit}) }}">
+    {% endif %}
+{% endblock meta_tags_canonical %}
+
 {% block body_content %}
     <main class="container web-actualities-main" id="main-content-container">
         {% for actuality in actualities %}
             {% include '@ZakjakubOswisWeb/web/parts/web-actuality-preview.html.twig' %}
         {% else %}
             <article class="col-lg-12 actuality-preview">
-                <div><p>Nebyly nalezeny žádné aktuality.</p></div>
+                <div class="text-center pt-4 pb-4">
+                    <p>Nebyly nalezeny žádné aktuality.</p>
+                </div>
             </article>
         {% endfor %}
     </main>

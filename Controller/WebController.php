@@ -77,22 +77,19 @@ class WebController extends AbstractController
      * @return array
      * @throws OswisNotFoundException
      */
-    public function getWebActualitiesData(?int $limit = null, int $page = 0, bool $pagination = false): array
+    public function getWebActualitiesData(int $page = 0, ?int $limit = null, bool $pagination = false): array
     {
         if ($page < 0) {
             throw new OswisNotFoundException('Požadovaná stránka aktualit musí být kladným číslem.');
         }
+        $limit = $limit > 0 ? $limit : 3;
+        $offset = $page * self::PAGE_SIZE;
 
         return [
             'page'        => $page,
             'pagination'  => $pagination,
-            'actualities' => $this->webService->getAbstractWebPages(
-                new DateTime(),
-                $limit > 0 ? $limit : 3,
-                $page * self::PAGE_SIZE,
-                null,
-                WebActuality::class
-            ),
+            'limit'       => $limit,
+            'actualities' => $this->webService->getAbstractWebPages(new DateTime(), $limit, $offset, null, WebActuality::class),
         ];
     }
 
