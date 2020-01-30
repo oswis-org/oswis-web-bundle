@@ -1,10 +1,13 @@
+{% block before_content %}{% endblock before_content %}
 <div class="row">
     <div class="col-12">
         <header>
             <h2 class="text-uppercase">{{ page.name }}</h2>
         </header>
     </div>
+    {% block inside_content %}{% endblock inside_content %}
     <div class="col-12">
         {{ page.textValue|markdown_to_html }}
     </div>
 </div>
+{% block after_content %}{% endblock after_content %}

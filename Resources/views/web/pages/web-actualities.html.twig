@@ -14,15 +14,14 @@
 
 {% block body_content %}
     <main class="container web-actualities-main" id="main-content-container">
+        <header class="row">
+            <h2 class="col-lg-12 text-uppercase">Časté dotazy</h2>
+        </header>
         {% for actuality in actualities %}
-            {% block before_actuality %}
-            {% endblock before_actuality %}
             {% include '@ZakjakubOswisWeb/web/parts/web-actuality-preview.html.twig' %}
-            {% block after_actuality %}
-            {% endblock after_actuality %}
         {% else %}
-            <article class="col-lg-12 actuality-preview">
-                <div class="text-center pt-4 pb-4">
+            <article class="row">
+                <div class="col-lg-12 pt-4 pb-4 actuality-preview text-center">
                     <p>Nebyly nalezeny žádné aktuality.</p>
                 </div>
             </article>

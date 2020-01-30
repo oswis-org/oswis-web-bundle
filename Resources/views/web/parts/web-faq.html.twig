@@ -1,4 +1,10 @@
-<div>
-    <p class="faq-question">Můžu poslat zálohu i doplatek dohromady?</p>
-    <p class="faq-answer">Ano, můžeš, jednoduše pošli celou částku se stejným variabilním symbolem.</p>
+{% block before_content %}{% endblock before_content %}
+<div class="row">
+    <div class="col-12">
+        <p class="faq-question">{{ question.textContent }}</p>
+        {% for answer in question.answers %}
+            <p class="faq-answer">{{ answer.textValue }}</p>
+        {% endfor %}
+    </div>
 </div>
+{% block after_content %}{% endblock after_content %}

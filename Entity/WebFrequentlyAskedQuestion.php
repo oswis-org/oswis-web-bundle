@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnused */
+<?php /** @noinspection MethodShouldBeFinalInspection */
+
+/** @noinspection PhpUnused */
 
 namespace Zakjakub\OswisWebBundle\Entity;
 
@@ -55,53 +57,40 @@ class WebFrequentlyAskedQuestion
     use TextValueTrait;
 
     /**
-     * @Doctrine\ORM\Mapping\OneToOne(targetEntity="Zakjakub\OswisWebBundle\Entity\WebFrequentlyAskedQuestionAnswer", fetch="EAGER")
+     * @Doctrine\ORM\Mapping\OneToMany(targetEntity="Zakjakub\OswisWebBundle\Entity\WebFrequentlyAskedQuestionAnswer", fetch="EAGER")
      * @Doctrine\ORM\Mapping\JoinColumn(name="web_faq_answer_id", referencedColumnName="id")
      */
-    protected ?WebFrequentlyAskedQuestionAnswer $answer = null;
+    protected ?Collection $answers = null;
 
-    /**
-     * @Doctrine\ORM\Mapping\OneToMany(
-     *     targetEntity="Zakjakub\OswisWebBundle\Entity\WebQuestion",
-     *     mappedBy="frequentlyAskedQuestion",
-     *     cascade={"all"},
-     *     fetch="EAGER"
-     * )
-     */
-    protected ?Collection $webQuestions = null;
-
-    final public function getWebQuestions(): Collection
+    public function __construct(?string $textValue = null, ?Collection $answers = null)
     {
-        return $this->webQuestions ?? new ArrayCollection();
+        $this->setTextValue($textValue);
+        $this->answers = $answers ?? new ArrayCollection();
     }
 
-    final public function addWebQuestion(?WebQuestion $webQuestion): void
+    public function isPublic(): ?bool
     {
-        if (null !== $webQuestion && !$this->webQuestions->contains($webQuestion)) {
-            $this->webQuestions->add($webQuestion);
-            $webQuestion->setFrequentlyAskedQuestion($this);
+        return $this->getAnswers(true)->count() > 0;
+    }
+
+    public function getAnswers(bool $onlyPublic = false): Collection
+    {
+        if ($onlyPublic) {
+            return $this->getAnswers()->filter(fn(WebFrequentlyAskedQuestionAnswer $a) => $a->isPublicOnWeb());
+        }
+
+        return $this->answers ?? new ArrayCollection();
+    }
+
+    public function addAnswer(?WebFrequentlyAskedQuestionAnswer $answer): void
+    {
+        if (null !== $answer && !$this->answers->contains($answer)) {
+            $this->answers->add($answer);
         }
     }
 
-    final public function removeWebQuestion(?WebQuestion $webQuestion): void
+    public function removeAnswer(?WebFrequentlyAskedQuestionAnswer $answer): void
     {
-        if (null !== $webQuestion && $this->webQuestions->removeElement($webQuestion)) {
-            $webQuestion->setFrequentlyAskedQuestion(null);
-        }
-    }
-
-    final public function isPublic(): ?bool
-    {
-        return $this->getAnswer() && $this->getAnswer()->isPublicOnWeb();
-    }
-
-    final public function getAnswer(): ?WebFrequentlyAskedQuestionAnswer
-    {
-        return $this->answer;
-    }
-
-    final public function setAnswer(?WebFrequentlyAskedQuestionAnswer $answer): void
-    {
-        $this->answer = $answer;
+        $this->answers->removeElement($answer);
     }
 }

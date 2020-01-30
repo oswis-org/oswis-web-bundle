@@ -51,30 +51,4 @@ class WebQuestion
 {
     use BasicEntityTrait;
     use TextValueTrait;
-
-    /**
-     * @Doctrine\ORM\Mapping\ManyToOne(
-     *     targetEntity="Zakjakub\OswisWebBundle\Entity\WebFrequentlyAskedQuestion",
-     *     inversedBy="webQuestions",
-     *     fetch="EAGER"
-     * )
-     * @Doctrine\ORM\Mapping\JoinColumn(nullable=true)
-     */
-    protected ?WebFrequentlyAskedQuestion $frequentlyAskedQuestion = null;
-
-    final public function getFrequentlyAskedQuestion(): ?WebFrequentlyAskedQuestion
-    {
-        return $this->frequentlyAskedQuestion;
-    }
-
-    final public function setFrequentlyAskedQuestion(?WebFrequentlyAskedQuestion $frequentlyAskedQuestion): void
-    {
-        if ($this->frequentlyAskedQuestion && $frequentlyAskedQuestion !== $this->frequentlyAskedQuestion) {
-            $this->frequentlyAskedQuestion->removeWebQuestion($this);
-        }
-        if ($frequentlyAskedQuestion && $this->frequentlyAskedQuestion !== $frequentlyAskedQuestion) {
-            $this->frequentlyAskedQuestion = $frequentlyAskedQuestion;
-            $frequentlyAskedQuestion->addWebQuestion($this);
-        }
-    }
 }
