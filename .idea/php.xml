@@ -156,7 +156,7 @@
   </component>
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter id="3b28fc5e-efc2-4a59-9a0f-f9a26bcb3c1a" name="PHP latest" home="$USER_HOME$/.PhpStorm2019.3/system/plugins/idea-php-latest-plugin/php-v7.3.1/php.sh" debugger_id="php.debugger.XDebug" />
+      <interpreter id="d31dc9bc-5fb6-4d81-8870-995e76325064" name="PHP latest" home="$USER_HOME$/.cache/JetBrains/PhpStorm2020.1/plugins/idea-php-latest-plugin/php-v7.3.1/php.sh" debugger_id="php.debugger.XDebug" />
     </interpreters>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
