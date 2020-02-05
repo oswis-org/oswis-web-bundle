@@ -33,7 +33,7 @@
                 <title>{{ actuality.name }}</title>
                 <link>{% block actualityUrl %}{{ block('url') }}/{{ actualityPath }}/{{ actuality.slug }}{% endblock actualityUrl %}</link>
                 <guid>{{ block('actualityUrl') }}</guid>
-                <description>{{ actuality.textValue|markdown_to_html|striptags|slice(0,200) }}</description>
+                <description>{{ actuality.textValue|markdown_to_html|striptags|u.truncate(200,'…') }}</description>
                 <pubDate>{{ actuality.dateTime|date("D, d M Y H:i:s O") }}</pubDate>
             </item>
         {% endfor %}
