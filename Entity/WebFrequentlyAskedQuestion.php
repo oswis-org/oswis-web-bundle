@@ -56,10 +56,6 @@ class WebFrequentlyAskedQuestion
     use BasicEntityTrait;
     use TextValueTrait;
 
-    /**
-     * @Doctrine\ORM\Mapping\OneToMany(targetEntity="Zakjakub\OswisWebBundle\Entity\WebFrequentlyAskedQuestionAnswer", fetch="EAGER")
-     * @Doctrine\ORM\Mapping\JoinColumn(name="web_faq_answer_id", referencedColumnName="id")
-     */
     protected ?Collection $answers = null;
 
     public function __construct(?string $textValue = null, ?Collection $answers = null)
