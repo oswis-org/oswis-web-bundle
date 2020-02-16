@@ -23,15 +23,6 @@ class WebActualityRepository extends AbstractWebPageRepository
         );
     }
 
-    private function getActualitiesQueryBuilder(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null,
-        ?string $slug = null
-    ): QueryBuilder {
-        return $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, WebActuality::class);
-    }
-
     public function getActuality(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): ?WebActuality
     {
         try {
@@ -41,5 +32,14 @@ class WebActualityRepository extends AbstractWebPageRepository
         } catch (Exception $e) {
             return null;
         }
+    }
+
+    private function getActualitiesQueryBuilder(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null,
+        ?string $slug = null
+    ): QueryBuilder {
+        return $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, WebActuality::class);
     }
 }

@@ -10,7 +10,7 @@ use Zakjakub\OswisWebBundle\Entity\MediaObject\WebImage;
 
 final class WebImageType extends AbstractImageType
 {
-    public static function getImageClassName(): string
+    public static function getFileClassName(): string
     {
         return WebImage::class;
     }

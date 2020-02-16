@@ -8,12 +8,12 @@ use Zakjakub\OswisWebBundle\Entity\MediaObject\WebImage;
 
 final class CreateWebImageAction extends AbstractImageAction
 {
-    public static function getImageClassName(): string
+    public static function getFileClassName(): string
     {
         return WebImage::class;
     }
 
-    public static function getImageNewInstance(): AbstractImage
+    public static function getFileNewInstance(): AbstractImage
     {
         return new WebImage();
     }

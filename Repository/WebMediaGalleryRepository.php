@@ -23,11 +23,6 @@ class WebMediaGalleryRepository extends AbstractWebPageRepository
         );
     }
 
-    private function getPagesQueryBuilder(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): QueryBuilder
-    {
-        return $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, WebMediaGallery::class);
-    }
-
     public function getActuality(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): ?WebMediaGallery
     {
         try {
@@ -37,5 +32,10 @@ class WebMediaGalleryRepository extends AbstractWebPageRepository
         } catch (Exception $e) {
             return null;
         }
+    }
+
+    private function getPagesQueryBuilder(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): QueryBuilder
+    {
+        return $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, WebMediaGallery::class);
     }
 }

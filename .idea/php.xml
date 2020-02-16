@@ -49,7 +49,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/form" />
       <path value="$PROJECT_DIR$/vendor/symfony/templating" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
-      <path value="$PROJECT_DIR$/vendor/stof/doctrine-extensions-bundle" />
       <path value="$PROJECT_DIR$/vendor/mpdf/mpdf" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/setasign/fpdi" />
@@ -113,8 +112,6 @@
       <path value="$PROJECT_DIR$/vendor/phpstan/extension-installer" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/vendor/bigit/vokativ" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/ringphp" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/streams" />
       <path value="$PROJECT_DIR$/vendor/league/commonmark" />
       <path value="$PROJECT_DIR$/vendor/league/commonmark-ext-smartpunct" />
       <path value="$PROJECT_DIR$/vendor/league/csv" />
@@ -153,6 +150,14 @@
       <path value="$PROJECT_DIR$/vendor/imagine/imagine" />
       <path value="$PROJECT_DIR$/vendor/liip/imagine-bundle" />
       <path value="$PROJECT_DIR$/vendor/twig/string-extra" />
+      <path value="$PROJECT_DIR$/vendor/antishov/doctrine-extensions-bundle" />
+      <path value="$PROJECT_DIR$/vendor/nette/finder" />
+      <path value="$PROJECT_DIR$/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/symplify/package-builder" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/doctrine-behaviors" />
+      <path value="$PROJECT_DIR$/vendor/ezimuel/guzzlestreams" />
+      <path value="$PROJECT_DIR$/vendor/ezimuel/ringphp" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

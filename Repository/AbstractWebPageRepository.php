@@ -24,35 +24,6 @@ class AbstractWebPageRepository extends EntityRepository
         }
     }
 
-    public function getAbstractPages(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null,
-        ?string $slug = null,
-        ?string $class = null
-    ): Collection {
-        return new ArrayCollection(
-            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getArrayResult()
-        );
-    }
-
-    public function getAbstractPagesQueryBuilder(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null,
-        ?string $slug = null,
-        ?string $class = null
-    ): QueryBuilder {
-        $queryBuilder = $this->createQueryBuilder('p');
-        self::addSlugQuery($queryBuilder, $slug);
-        self::addDateRangeQuery($queryBuilder, $dateTime);
-        self::addLimit($queryBuilder, $limit, $offset);
-        self::addOrderBy($queryBuilder, true, true);
-        self::addClassQuery($queryBuilder, $class);
-
-        return $queryBuilder;
-    }
-
     public static function addSlugQuery(QueryBuilder $queryBuilder, ?string $slug = null): void
     {
         if (!empty($slug)) {
@@ -95,6 +66,35 @@ class AbstractWebPageRepository extends EntityRepository
         if (!empty($class)) {
             $queryBuilder->andWhere('p INSTANCE OF :class')->setParameter('class', $class);
         }
+    }
+
+    public function getAbstractPages(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null,
+        ?string $slug = null,
+        ?string $class = null
+    ): Collection {
+        return new ArrayCollection(
+            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getArrayResult()
+        );
+    }
+
+    public function getAbstractPagesQueryBuilder(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null,
+        ?string $slug = null,
+        ?string $class = null
+    ): QueryBuilder {
+        $queryBuilder = $this->createQueryBuilder('p');
+        self::addSlugQuery($queryBuilder, $slug);
+        self::addDateRangeQuery($queryBuilder, $dateTime);
+        self::addLimit($queryBuilder, $limit, $offset);
+        self::addOrderBy($queryBuilder, true, true);
+        self::addClassQuery($queryBuilder, $class);
+
+        return $queryBuilder;
     }
 
     public function getAbstractPage(
