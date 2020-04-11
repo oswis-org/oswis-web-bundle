@@ -19,7 +19,7 @@ class WebService
 
     protected LoggerInterface $logger;
 
-    public function __construct(EntityManagerInterface $em, ?LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, LoggerInterface $logger)
     {
         $this->em = $em;
         $this->logger = $logger;
