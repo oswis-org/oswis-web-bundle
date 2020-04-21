@@ -4,7 +4,7 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Repository;
+namespace OswisOrg\OswisWebBundle\Repository;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,8 +12,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
-use Zakjakub\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
-use Zakjakub\OswisWebBundle\Entity\JobFairEvent;
+use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
+use OswisOrg\OswisWebBundle\Entity\JobFairEvent;
 
 class AbstractWebPageRepository extends EntityRepository
 {

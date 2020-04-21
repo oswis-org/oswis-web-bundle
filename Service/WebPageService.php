@@ -4,16 +4,16 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Service;
+namespace OswisOrg\OswisWebBundle\Service;
 
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
-use Zakjakub\OswisCoreBundle\Entity\Nameable;
-use Zakjakub\OswisWebBundle\Entity\WebPage;
-use Zakjakub\OswisWebBundle\Repository\WebPageRepository;
+use OswisOrg\OswisCoreBundle\Entity\Nameable;
+use OswisOrg\OswisWebBundle\Entity\WebPage;
+use OswisOrg\OswisWebBundle\Repository\WebPageRepository;
 
 class WebPageService
 {

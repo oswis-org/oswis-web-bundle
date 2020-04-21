@@ -3,10 +3,10 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Form\MediaObjects;
+namespace OswisOrg\OswisWebBundle\Form\MediaObjects;
 
-use Zakjakub\OswisCoreBundle\Form\AbstractClass\AbstractImageType;
-use Zakjakub\OswisWebBundle\Entity\MediaObject\WebImage;
+use OswisOrg\OswisCoreBundle\Form\AbstractClass\AbstractImageType;
+use OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage;
 
 final class WebImageType extends AbstractImageType
 {

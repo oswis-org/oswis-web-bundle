@@ -3,7 +3,7 @@
  * @noinspection ClassNameCollisionInspection
  */
 
-namespace Zakjakub\OswisWebBundle\DependencyInjection;
+namespace OswisOrg\OswisWebBundle\DependencyInjection;
 
 use RuntimeException;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
      */
     final public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('zakjakub_oswis_web');
+        $treeBuilder = new TreeBuilder('oswis_org_oswis_web');
         $rootNode = $treeBuilder->getRootNode();
         $rootNode->info('Default configuration for web module for OSWIS (One Simple Web IS).')->end();
 

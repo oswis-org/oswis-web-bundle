@@ -4,17 +4,17 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Controller;
+namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Zakjakub\OswisCoreBundle\Exceptions\OswisNotFoundException;
-use Zakjakub\OswisWebBundle\Entity\WebActuality;
-use Zakjakub\OswisWebBundle\Entity\WebMediaGallery;
-use Zakjakub\OswisWebBundle\Service\WebService;
+use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
+use OswisOrg\OswisWebBundle\Entity\WebActuality;
+use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
+use OswisOrg\OswisWebBundle\Service\WebService;
 
 class WebController extends AbstractController
 {
@@ -43,13 +43,13 @@ class WebController extends AbstractController
             throw new OswisNotFoundException("(požadovaná stránka: '$slug')");
         }
         if ($data['page'] instanceof WebActuality) {
-            return $this->render('@ZakjakubOswisWeb/web/pages/web-actuality.html.twig', $data);
+            return $this->render('@OswisOrgOswisWeb/web/pages/web-actuality.html.twig', $data);
         }
         if ($data['page'] instanceof WebMediaGallery) {
-            return $this->render('@ZakjakubOswisWeb/web/pages/web-media-gallery.html.twig', $data);
+            return $this->render('@OswisOrgOswisWeb/web/pages/web-media-gallery.html.twig', $data);
         }
 
-        return $this->render('@ZakjakubOswisWeb/web/pages/web-page.html.twig', $data);
+        return $this->render('@OswisOrgOswisWeb/web/pages/web-page.html.twig', $data);
     }
 
     /**
@@ -64,7 +64,7 @@ class WebController extends AbstractController
     public function showWebActualitiesChunk(int $page = 0, ?int $limit = null, bool $pagination = false): Response
     {
         return $this->render(
-            '@ZakjakubOswisWeb/web/parts/web-actualities.html.twig',
+            '@OswisOrgOswisWeb/web/parts/web-actualities.html.twig',
             $this->getWebActualitiesData($page, $limit, $pagination)
         );
     }
@@ -105,7 +105,7 @@ class WebController extends AbstractController
     public function showWebActualities(int $page = 0, ?int $limit = null, bool $pagination = true): Response
     {
         return $this->render(
-            '@ZakjakubOswisWeb/web/pages/web-actualities.html.twig',
+            '@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
             $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
         );
     }
@@ -120,6 +120,6 @@ class WebController extends AbstractController
             'questions' => new ArrayCollection(),
         ];
 
-        return $this->render('@ZakjakubOswisWeb/web/parts/web-actualities.html.twig', $data);
+        return $this->render('@OswisOrgOswisWeb/web/parts/web-actualities.html.twig', $data);
     }
 }

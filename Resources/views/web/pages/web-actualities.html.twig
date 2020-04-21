@@ -1,4 +1,4 @@
-{% extends '@ZakjakubOswisCore/web/page-skeleton-default.html.twig' %}
+{% extends '@OswisOrgOswisCore/web/page-skeleton-default.html.twig' %}
 
 {% set page = "actualities" %}
 
@@ -6,9 +6,9 @@
 {% block html_description %}{{ description|default('Přehled aktualit.') }}{% endblock html_description %}
 
 {% block meta_tags_canonical %}
-    <link rel="next" href="{{ path('zakjakub_oswis_web_actualities', {'page': (page|number_format + 1), 'limit': limit}) }}">
+    <link rel="next" href="{{ path('oswis_org_oswis_web_actualities', {'page': (page|number_format + 1), 'limit': limit}) }}">
     {% if page is defined and page|number_format > 0 %}
-        <link rel="prev" href="{{ path('zakjakub_oswis_web_actualities', {page: (page|number_format - 1), 'limit': limit}) }}">
+        <link rel="prev" href="{{ path('oswis_org_oswis_web_actualities', {page: (page|number_format - 1), 'limit': limit}) }}">
     {% endif %}
 {% endblock meta_tags_canonical %}
 
@@ -18,7 +18,7 @@
             <h2 class="col-lg-12 text-uppercase">Časté dotazy</h2>
         </header>
         {% for actuality in actualities %}
-            {% include '@ZakjakubOswisWeb/web/parts/web-actuality-preview.html.twig' %}
+            {% include '@OswisOrgOswisWeb/web/parts/web-actuality-preview.html.twig' %}
         {% else %}
             <article class="row">
                 <div class="col-lg-12 pt-4 pb-4 actuality-preview text-center">

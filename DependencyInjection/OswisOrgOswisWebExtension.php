@@ -1,6 +1,6 @@
 <?php
 
-namespace Zakjakub\OswisWebBundle\DependencyInjection;
+namespace OswisOrg\OswisWebBundle\DependencyInjection;
 
 use Exception;
 use Symfony\Component\Config\FileLocator;
@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class ZakjakubOswisWebExtension extends Extension implements PrependExtensionInterface
+class OswisOrgOswisWebExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * Loads a specific configuration.

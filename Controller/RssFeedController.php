@@ -4,14 +4,14 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Controller;
+namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Zakjakub\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
-use Zakjakub\OswisWebBundle\Service\WebActualityService;
+use OswisOrg\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
+use OswisOrg\OswisWebBundle\Service\WebActualityService;
 
 class RssFeedController extends AbstractController
 {
@@ -41,6 +41,6 @@ class RssFeedController extends AbstractController
         ];
         $response = (new Response())->headers->set('Content-Type', 'application/xml; charset=utf-8');
 
-        return $this->render('@ZakjakubOswisWeb/web/rss.xml.twig', $data, $response);
+        return $this->render('@OswisOrgOswisWeb/web/rss.xml.twig', $data, $response);
     }
 }

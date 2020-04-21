@@ -4,16 +4,16 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Controller;
+namespace OswisOrg\OswisWebBundle\Controller;
 
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Zakjakub\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
-use Zakjakub\OswisWebBundle\Entity\WebActuality;
-use Zakjakub\OswisWebBundle\Entity\WebPage;
-use Zakjakub\OswisWebBundle\Service\WebActualityService;
-use Zakjakub\OswisWebBundle\Service\WebPageService;
+use OswisOrg\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
+use OswisOrg\OswisWebBundle\Entity\WebActuality;
+use OswisOrg\OswisWebBundle\Entity\WebPage;
+use OswisOrg\OswisWebBundle\Service\WebActualityService;
+use OswisOrg\OswisWebBundle\Service\WebPageService;
 
 class SiteMapWebController extends AbstractController
 {
@@ -48,7 +48,7 @@ class SiteMapWebController extends AbstractController
             'items' => [...$pages, ...$actualities, ...$otherItems],
         ];
 
-        return $this->render('@ZakjakubOswisWeb/web/sitemap.xml.twig', $data, $response);
+        return $this->render('@OswisOrgOswisWeb/web/sitemap.xml.twig', $data, $response);
     }
 
     /**

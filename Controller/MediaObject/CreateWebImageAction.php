@@ -1,10 +1,10 @@
 <?php
 
-namespace Zakjakub\OswisWebBundle\Controller\MediaObject;
+namespace OswisOrg\OswisWebBundle\Controller\MediaObject;
 
-use Zakjakub\OswisCoreBundle\Controller\AbstractClass\AbstractImageAction;
-use Zakjakub\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
-use Zakjakub\OswisWebBundle\Entity\MediaObject\WebImage;
+use OswisOrg\OswisCoreBundle\Controller\AbstractClass\AbstractImageAction;
+use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
+use OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage;
 
 final class CreateWebImageAction extends AbstractImageAction
 {

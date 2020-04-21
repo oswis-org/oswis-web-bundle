@@ -4,13 +4,13 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Repository;
+namespace OswisOrg\OswisWebBundle\Repository;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
-use Zakjakub\OswisWebBundle\Entity\JobFairEvent;
+use OswisOrg\OswisWebBundle\Entity\JobFairEvent;
 
 class WebPartnerRepository extends EntityRepository
 {

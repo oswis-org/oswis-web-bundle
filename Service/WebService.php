@@ -4,14 +4,14 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Service;
+namespace OswisOrg\OswisWebBundle\Service;
 
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Zakjakub\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
-use Zakjakub\OswisWebBundle\Repository\AbstractWebPageRepository;
+use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
+use OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository;
 
 class WebService
 {

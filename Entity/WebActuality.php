@@ -1,15 +1,15 @@
 <?php
 
-namespace Zakjakub\OswisWebBundle\Entity;
+namespace OswisOrg\OswisWebBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use Zakjakub\OswisCoreBundle\Filter\SearchAnnotation as Searchable;
-use Zakjakub\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
+use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation as Searchable;
+use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
 /**
- * @Doctrine\ORM\Mapping\Entity(repositoryClass="Zakjakub\OswisWebBundle\Repository\WebActualityRepository")
+ * @Doctrine\ORM\Mapping\Entity(repositoryClass="OswisOrg\OswisWebBundle\Repository\WebActualityRepository")
  * @Doctrine\ORM\Mapping\Table(name="web_actuality")
  * @ApiResource(
  *   attributes={

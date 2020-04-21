@@ -4,7 +4,7 @@
  * @noinspection PhpUnused
  */
 
-namespace Zakjakub\OswisWebBundle\Controller;
+namespace OswisOrg\OswisWebBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use LogicException;
@@ -23,6 +23,6 @@ class FaqController extends AbstractController
             'questions' => new ArrayCollection(),
         ];
 
-        return $this->render('@ZakjakubOswisWeb/web/parts/web-actualities.html.twig', $data);
+        return $this->render('@OswisOrgOswisWeb/web/parts/web-actualities.html.twig', $data);
     }
 }

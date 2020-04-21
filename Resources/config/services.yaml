@@ -1,6 +1,6 @@
 ##
 ## OswisWebBundle - Services configuration
-## zakjakub/oswis-web-bundle/Resources/config/services.yaml
+## oswis-org/oswis-web-bundle/Resources/config/services.yaml
 ##
 services:
     _defaults:
@@ -10,54 +10,54 @@ services:
     ##
     ## Controllers wildcard (TODO: To be refactored. Do not use wildcards.)
     ##
-    Zakjakub\OswisWebBundle\Controller\:
+    OswisOrg\OswisWebBundle\Controller\:
         resource: '../../Controller/*'
         tags: ['controller.service_arguments']
         public: true
 
     ### Web controller
-    zakjakub_oswis_web.web_controller:
-        class: Zakjakub\OswisWebBundle\Controller\WebController
+    oswis_org_oswis_web.web_controller:
+        class: OswisOrg\OswisWebBundle\Controller\WebController
         autowire: true
         public: true
         arguments:
-            - '@zakjakub_oswis_web.web_service'
-    Zakjakub\OswisWebBundle\Controller\WebController:
-        alias: zakjakub_oswis_web.web_controller
+            - '@oswis_org_oswis_web.web_service'
+    OswisOrg\OswisWebBundle\Controller\WebController:
+        alias: oswis_org_oswis_web.web_controller
         public: true
 
     ### Web service
-    zakjakub_oswis_web.web_service:
-        class: Zakjakub\OswisWebBundle\Service\WebService
+    oswis_org_oswis_web.web_service:
+        class: OswisOrg\OswisWebBundle\Service\WebService
         autowire: true
         public: true
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@monolog.logger'
-    Zakjakub\OswisWebBundle\Service\WebService:
-        alias: zakjakub_oswis_web.web_service
+    OswisOrg\OswisWebBundle\Service\WebService:
+        alias: oswis_org_oswis_web.web_service
         public: true
 
     ### WebPage Service
-    zakjakub_oswis_web.web_page_service:
-        class: Zakjakub\OswisWebBundle\Service\WebPageService
+    oswis_org_oswis_web.web_page_service:
+        class: OswisOrg\OswisWebBundle\Service\WebPageService
         autowire: true
         public: true
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@monolog.logger'
-    Zakjakub\OswisWebBundle\Service\WebPageService:
-        alias: zakjakub_oswis_web.web_page_service
+    OswisOrg\OswisWebBundle\Service\WebPageService:
+        alias: oswis_org_oswis_web.web_page_service
         public: true
 
     ### WebActuality Service
-    zakjakub_oswis_web.web_actuality_service:
-        class: Zakjakub\OswisWebBundle\Service\WebActualityService
+    oswis_org_oswis_web.web_actuality_service:
+        class: OswisOrg\OswisWebBundle\Service\WebActualityService
         autowire: true
         public: true
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@monolog.logger'
-    Zakjakub\OswisWebBundle\Service\WebActualityService:
-        alias: zakjakub_oswis_web.web_actuality_service
+    OswisOrg\OswisWebBundle\Service\WebActualityService:
+        alias: oswis_org_oswis_web.web_actuality_service
         public: true
