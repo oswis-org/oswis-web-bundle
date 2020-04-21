@@ -1,7 +1,7 @@
 {
-  "name": "zakjakub/oswis-web-bundle",
+  "name": "oswis-org/oswis-web-bundle",
   "description": "Web module for One Simple Web IS.",
-  "homepage": "https://github.com/zakjakub/oswis-web-bundle",
+  "homepage": "https://github.com/oswis-org/oswis-web-bundle",
   "type": "symfony-bundle",
   "minimum-stability": "stable",
   "keywords": [
@@ -14,7 +14,7 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "zakjakub",
+      "name": "Jakub Žák",
       "email": "mail@jakubzak.eu",
       "homepage": "https://jakubzak.cz",
       "role": "author"
@@ -22,7 +22,7 @@
   ],
   "require": {
     "php": "^7.4",
-    "zakjakub/oswis-core-bundle": "^0.0"
+    "oswis-org/oswis-core-bundle": "^0.0"
   },
   "require-dev": {
     "bigit/vokativ": "dev-master",
@@ -31,7 +31,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Zakjakub\\OswisWebBundle\\": ""
+      "OswisOrg\\OswisWebBundle\\": ""
     },
     "classmap": [
       ""
