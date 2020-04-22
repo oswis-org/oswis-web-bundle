@@ -2,9 +2,9 @@
 
 namespace OswisOrg\OswisWebBundle;
 
+use OswisOrg\OswisWebBundle\DependencyInjection\OswisOrgOswisWebExtension;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use OswisOrg\OswisWebBundle\DependencyInjection\OswisOrgOswisWebExtension;
 
 class OswisOrgOswisWebBundle extends Bundle
 {

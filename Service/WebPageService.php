@@ -10,10 +10,10 @@ use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Psr\Log\LoggerInterface;
 use OswisOrg\OswisCoreBundle\Entity\Nameable;
 use OswisOrg\OswisWebBundle\Entity\WebPage;
 use OswisOrg\OswisWebBundle\Repository\WebPageRepository;
+use Psr\Log\LoggerInterface;
 
 class WebPageService
 {

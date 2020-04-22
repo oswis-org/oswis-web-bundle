@@ -7,13 +7,13 @@
 namespace OswisOrg\OswisWebBundle\Controller;
 
 use LogicException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use OswisOrg\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebPage;
 use OswisOrg\OswisWebBundle\Service\WebActualityService;
 use OswisOrg\OswisWebBundle\Service\WebPageService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class SiteMapWebController extends AbstractController
 {

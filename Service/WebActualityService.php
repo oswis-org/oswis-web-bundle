@@ -10,10 +10,10 @@ use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Psr\Log\LoggerInterface;
 use OswisOrg\OswisCoreBundle\Entity\Nameable;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Repository\WebActualityRepository;
+use Psr\Log\LoggerInterface;
 
 class WebActualityService
 {

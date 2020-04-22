@@ -24,6 +24,35 @@ class AbstractWebPageRepository extends EntityRepository
         }
     }
 
+    public function getAbstractPages(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null,
+        ?string $slug = null,
+        ?string $class = null
+    ): Collection {
+        return new ArrayCollection(
+            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getArrayResult()
+        );
+    }
+
+    public function getAbstractPagesQueryBuilder(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null,
+        ?string $slug = null,
+        ?string $class = null
+    ): QueryBuilder {
+        $queryBuilder = $this->createQueryBuilder('p');
+        self::addSlugQuery($queryBuilder, $slug);
+        self::addDateRangeQuery($queryBuilder, $dateTime);
+        self::addLimit($queryBuilder, $limit, $offset);
+        self::addOrderBy($queryBuilder, true, true);
+        self::addClassQuery($queryBuilder, $class);
+
+        return $queryBuilder;
+    }
+
     public static function addSlugQuery(QueryBuilder $queryBuilder, ?string $slug = null): void
     {
         if (!empty($slug)) {
@@ -34,7 +63,7 @@ class AbstractWebPageRepository extends EntityRepository
     public static function addDateRangeQuery(QueryBuilder $queryBuilder, ?DateTime $dateTime = null): void
     {
         if (null !== $dateTime) {
-            $dateRangeQuery = ' (:ref BETWEEN p.startDateTime AND p.endDateTime) ';
+            $dateRangeQuery = ' (:ref BETWEEN p.startDateTime AND p.endDateTime) OR (p.startDateTime IS NULL AND p.endDateTime IS NULL)';
             $dateRangeQuery .= ' OR (p.startDateTime IS NULL AND :ref < p.endDateTime) OR (p.endDateTime IS NULL AND :ref > p.startDateTime) ';
             $queryBuilder->andWhere($dateRangeQuery)->setParameter('ref', $dateTime);
         }
@@ -64,37 +93,8 @@ class AbstractWebPageRepository extends EntityRepository
     public static function addClassQuery(QueryBuilder $queryBuilder, ?string $class = null): void
     {
         if (!empty($class)) {
-            $queryBuilder->andWhere('p INSTANCE OF :class')->setParameter('class', $class);
+            $queryBuilder->andWhere($queryBuilder->expr()->isInstanceOf('p', $class));
         }
-    }
-
-    public function getAbstractPages(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null,
-        ?string $slug = null,
-        ?string $class = null
-    ): Collection {
-        return new ArrayCollection(
-            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getArrayResult()
-        );
-    }
-
-    public function getAbstractPagesQueryBuilder(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null,
-        ?string $slug = null,
-        ?string $class = null
-    ): QueryBuilder {
-        $queryBuilder = $this->createQueryBuilder('p');
-        self::addSlugQuery($queryBuilder, $slug);
-        self::addDateRangeQuery($queryBuilder, $dateTime);
-        self::addLimit($queryBuilder, $limit, $offset);
-        self::addOrderBy($queryBuilder, true, true);
-        self::addClassQuery($queryBuilder, $class);
-
-        return $queryBuilder;
     }
 
     public function getAbstractPage(

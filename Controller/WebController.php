@@ -9,12 +9,12 @@ namespace OswisOrg\OswisWebBundle\Controller;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use LogicException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
 use OswisOrg\OswisWebBundle\Service\WebService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class WebController extends AbstractController
 {

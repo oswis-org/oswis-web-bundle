@@ -8,10 +8,10 @@ namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
 use LogicException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use OswisOrg\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
 use OswisOrg\OswisWebBundle\Service\WebActualityService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class RssFeedController extends AbstractController
 {

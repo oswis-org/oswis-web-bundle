@@ -3,9 +3,9 @@
 namespace OswisOrg\OswisWebBundle\Entity\MediaObject;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\HttpFoundation\File\File;
 use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
 use OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebImageAction;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Doctrine\ORM\Mapping\Entity()

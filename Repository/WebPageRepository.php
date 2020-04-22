@@ -21,6 +21,11 @@ class WebPageRepository extends AbstractWebPageRepository
         return new ArrayCollection($this->getPagesQueryBuilder($dateTime, $limit, $offset)->getQuery()->getArrayResult());
     }
 
+    private function getPagesQueryBuilder(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): QueryBuilder
+    {
+        return $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, WebPage::class);
+    }
+
     public function getPage(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): ?WebPage
     {
         try {
@@ -30,10 +35,5 @@ class WebPageRepository extends AbstractWebPageRepository
         } catch (Exception $e) {
             return null;
         }
-    }
-
-    private function getPagesQueryBuilder(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): QueryBuilder
-    {
-        return $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, WebPage::class);
     }
 }

@@ -9,9 +9,9 @@ namespace OswisOrg\OswisWebBundle\Service;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository;
+use Psr\Log\LoggerInterface;
 
 class WebService
 {

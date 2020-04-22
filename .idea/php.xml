@@ -155,6 +155,8 @@
       <path value="$PROJECT_DIR$/vendor/ezimuel/ringphp" />
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/vendor/oswis-org/oswis-core-bundle" />
+      <path value="$PROJECT_DIR$/vendor/php-console/php-console" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

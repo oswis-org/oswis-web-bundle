@@ -26,9 +26,9 @@ use OswisOrg\OswisWebBundle\Entity\WebPage;
  * @Doctrine\ORM\Mapping\InheritanceType("JOINED")
  * @Doctrine\ORM\Mapping\DiscriminatorColumn(name="discriminator", type="text")
  * @Doctrine\ORM\Mapping\DiscriminatorMap({
- *   "web_web_page" = "OswisOrg\OswisWebBundle\Entity\WebPage",
- *   "web_web_actuality" = "OswisOrg\OswisWebBundle\Entity\WebActuality",
- *   "web_web_media_gallery" = "OswisOrg\OswisWebBundle\Entity\WebMediaGallery"
+ *   "web_page" = "OswisOrg\OswisWebBundle\Entity\WebPage",
+ *   "web_actuality" = "OswisOrg\OswisWebBundle\Entity\WebActuality",
+ *   "web_media_gallery" = "OswisOrg\OswisWebBundle\Entity\WebMediaGallery"
  * })
  * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_abstract_web_page")
  */
