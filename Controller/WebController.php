@@ -7,8 +7,6 @@
 namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use LogicException;
 use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
@@ -31,7 +29,6 @@ class WebController extends AbstractController
      * @param string|null $slug
      *
      * @return Response
-     * @throws LogicException
      * @throws OswisNotFoundException
      */
     public function showPage(string $slug = null): Response
@@ -58,7 +55,6 @@ class WebController extends AbstractController
      * @param int      $page       Number of page.
      *
      * @return Response
-     * @throws LogicException
      * @throws OswisNotFoundException
      */
     public function showWebActualitiesChunk(int $page = 0, ?int $limit = null, bool $pagination = false): Response
@@ -99,7 +95,6 @@ class WebController extends AbstractController
      * @param int      $page       Number of page.
      *
      * @return Response
-     * @throws LogicException
      * @throws OswisNotFoundException
      */
     public function showWebActualities(int $page = 0, ?int $limit = null, bool $pagination = true): Response
@@ -108,18 +103,5 @@ class WebController extends AbstractController
             '@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
             $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
         );
-    }
-
-    /**
-     * @return Response
-     * @throws LogicException
-     */
-    public function showFaq(): Response
-    {
-        $data = [
-            'questions' => new ArrayCollection(),
-        ];
-
-        return $this->render('@OswisOrgOswisWeb/web/parts/web-actualities.html.twig', $data);
     }
 }

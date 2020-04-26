@@ -9,7 +9,7 @@ use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation as Searchable;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
 /**
- * @Doctrine\ORM\Mapping\Entity(repositoryClass="OswisOrg\OswisWebBundle\Repository\WebActualityRepository")
+ * @Doctrine\ORM\Mapping\Entity()
  * @Doctrine\ORM\Mapping\Table(name="web_actuality")
  * @ApiResource(
  *   attributes={

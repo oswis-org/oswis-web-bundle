@@ -7,9 +7,10 @@
 namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
-use LogicException;
 use OswisOrg\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
+use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Service\WebActualityService;
+use OswisOrg\OswisWebBundle\Service\WebService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,27 +18,26 @@ class RssFeedController extends AbstractController
 {
     private OswisCoreSettingsProvider $coreSettings;
 
-    private WebActualityService $actualityService;
+    private WebService $webService;
 
-    public function __construct(OswisCoreSettingsProvider $coreSettings, WebActualityService $actualityService)
+    public function __construct(OswisCoreSettingsProvider $coreSettings, WebService $webService)
     {
         $this->coreSettings = $coreSettings;
-        $this->actualityService = $actualityService;
+        $this->webService = $webService;
     }
 
     /**
      * @param int|null $limit Amount of messages.
      *
      * @return Response
-     * @throws LogicException
      */
     public function showRss(?int $limit = null): Response
     {
         $data = [
             'title'       => $this->coreSettings->getWeb()['title'],
             'base'        => $this->coreSettings->getWeb()['url'],
-            'actualities' => $this->actualityService->getRepository()
-                ->getActualities(new DateTime(), $limit ?? 15),
+            'actualities' => $this->webService->getAbstractWebPages(new DateTime(), $limit ?? 15, 0, null, WebActuality::class),
+            'image'       => $this->coreSettings->getApp()['logo'],
             // 'image'       => ['url' => '', 'width' => null, 'height' => null],
         ];
         $response = (new Response())->headers->set('Content-Type', 'application/xml; charset=utf-8');

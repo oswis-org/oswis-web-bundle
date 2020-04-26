@@ -21,7 +21,7 @@ services:
         autowire: true
         public: true
         arguments:
-            - '@oswis_org_oswis_web.web_service'
+            - '@oswis_org_oswis_web.faq_web_service'
     OswisOrg\OswisWebBundle\Controller\FaqWebController:
         alias: oswis_org_oswis_web.faq_web_controller
         public: true
@@ -38,26 +38,13 @@ services:
         alias: oswis_org_oswis_web.web_service
         public: true
 
-    ### WebPage Service
-    oswis_org_oswis_web.web_page_service:
-        class: OswisOrg\OswisWebBundle\Service\WebPageService
+    ### FAQ web service
+    oswis_org_oswis_web.faq_web_service:
+        class: OswisOrg\OswisWebBundle\Service\FaqWebService
         autowire: true
         public: true
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@monolog.logger'
-    OswisOrg\OswisWebBundle\Service\WebPageService:
-        alias: oswis_org_oswis_web.web_page_service
-        public: true
-
-    ### WebActuality Service
-    oswis_org_oswis_web.web_actuality_service:
-        class: OswisOrg\OswisWebBundle\Service\WebActualityService
-        autowire: true
-        public: true
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@monolog.logger'
-    OswisOrg\OswisWebBundle\Service\WebActualityService:
-        alias: oswis_org_oswis_web.web_actuality_service
+    OswisOrg\OswisWebBundle\Service\FaqWebService:
+        alias: oswis_org_oswis_web.faq_web_service
         public: true

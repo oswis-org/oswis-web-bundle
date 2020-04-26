@@ -11,6 +11,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation as Searchable;
 use OswisOrg\OswisCoreBundle\Traits\Entity\BasicEntityTrait;
+use OswisOrg\OswisCoreBundle\Traits\Entity\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Entity\TextValueTrait;
 
 /**
@@ -55,13 +56,15 @@ class WebFrequentlyAskedQuestion
 {
     use BasicEntityTrait;
     use TextValueTrait;
+    use PriorityTrait;
 
     protected ?string $answer = null;
 
-    public function __construct(?string $textValue = null, ?string $answer = null)
+    public function __construct(?string $textValue = null, ?string $answer = null, ?int $priority = null)
     {
         $this->setTextValue($textValue);
         $this->setAnswer($answer);
+        $this->setPriority($priority);
     }
 
     public function isPublic(): ?bool

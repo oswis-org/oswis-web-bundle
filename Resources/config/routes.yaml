@@ -1,7 +1,3 @@
-controllers:
-    resource: ../../Controller/
-    type: annotation
-
 oswis_org_oswis_web_page:
     controller: oswis_org_oswis_web.web_controller::showPage
     path: "/web/{slug}"
@@ -14,12 +10,12 @@ oswis_org_oswis_web_actualities:
         limit: null
 
 oswis_org_oswis_web_faq:
-    controller: oswis_org_oswis_web.web_controller::showFaq
+    controller: oswis_org_oswis_web.faq_web_controller::showFaq
     path: "/faq"
 
 oswis_org_oswis_rss:
     controller: oswis_org_oswis_web.rss_feed_controller::showRss
-    path: "/rss/{limit}"
+    path: "/rss/{limit?}"
 
 oswis_org_oswis_sitemap_xml:
     controller: oswis_org_oswis_web.site_map_controller::showSitemapXml

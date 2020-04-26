@@ -6,50 +6,39 @@
 
 namespace OswisOrg\OswisWebBundle\Controller;
 
-use LogicException;
 use OswisOrg\OswisCoreBundle\Provider\OswisCoreSettingsProvider;
-use OswisOrg\OswisWebBundle\Entity\WebActuality;
-use OswisOrg\OswisWebBundle\Entity\WebPage;
+use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Service\WebActualityService;
 use OswisOrg\OswisWebBundle\Service\WebPageService;
+use OswisOrg\OswisWebBundle\Service\WebService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class SiteMapWebController extends AbstractController
 {
-    private WebPageService $pageService;
-
-    private WebActualityService $actualityService;
+    private WebService $webService;
 
     private OswisCoreSettingsProvider $coreSettings;
 
-    public function __construct(
-        WebPageService $pageService,
-        WebActualityService $actualityService,
-        OswisCoreSettingsProvider $coreSettings
-    ) {
-        $this->pageService = $pageService;
-        $this->actualityService = $actualityService;
+    public function __construct(WebService $webService, OswisCoreSettingsProvider $coreSettings)
+    {
+        $this->webService = $webService;
         $this->coreSettings = $coreSettings;
     }
 
     /**
      * @return Response
-     * @throws LogicException
      */
     final public function showSitemapXml(): Response
     {
         $response = (new Response())->headers->set('Content-Type', 'application/xml; charset=utf-8');
-        $pages = $this->pageService->getWebPages()
-            ->map(fn(WebPage $p) => ['url' => $p->getSlug()])
-            ->toArray();
-        $actualities = $this->actualityService->getActualities()
-            ->map(fn(WebActuality $a) => ['url' => $a->getSlug()])
+        $items = $this->webService->getAbstractWebPages()
+            ->map(fn(AbstractWebPage $p) => ['url' => $p->getSlug()])
             ->toArray();
         $otherItems = $this->getOtherItems();
         $data = [
             'url'   => $this->coreSettings->getWeb()['url'],
-            'items' => [...$pages, ...$actualities, ...$otherItems],
+            'items' => [...$items, ...$otherItems],
         ];
 
         return $this->render('@OswisOrgOswisWeb/web/sitemap.xml.twig', $data, $response);
@@ -60,7 +49,7 @@ class SiteMapWebController extends AbstractController
      */
     public function getOtherItems(): array
     {
-        return []; // $item = ['url' => '', 'changeFrequency' => '', 'priority' => ''];
+        return []; // $item = ['url' => '', 'changeFrequency' => '', 'priority' => (0.0...1.0)];
     }
 
 }

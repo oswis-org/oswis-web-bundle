@@ -3,7 +3,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
     <channel>
         <title>{% block title %}{{ title|default('RSS kanál aktualit') }}{% endblock title %}</title>
-        <link>{% block url %}{{ url|default('https://oswis.org') }}{% endblock url %}</link>
+        <link>{% block url %}{{ url|default(path('oswis_org_oswis_core_homepage_action'))|default('https://oswis.org') }}{% endblock url %}</link>
         <description>{{ description|default('Přehled nejnovějších aktualit ve formě RSS kanálu.') }}</description>
         <webMaster>{{ webmaster|default('webmaster@oswis.org (Jakub ZAK, https://jakubzak.cz)') }}</webMaster>
         <managingEditor>{{ editor|default('webmaster@oswis.org (Jakub ZAK, https://jakubzak.cz)') }}</managingEditor>
@@ -19,9 +19,11 @@
 
         {% if image is defined and image and image.url is defined and image.url %}
             <image>
-                <url>{{ block('url') }}/{{ image.url }}</url>
-                <width>{{ image.width|default }}</width>
-                <height>{{ image.height|default }}</height>
+                <url>{{ absolute_url(path(image.url)) }}</url>
+                {% if image.width %}
+                    <width>{{ image.width|default }}</width>{% endif %}
+                {% if image.height %}
+                    <height>{{ image.height|default }}</height>{% endif %}
                 <description>{{ block('title') }}</description>
                 <title>{{ block('title') }}</title>
                 <link>{{ block('url') }}</link>
