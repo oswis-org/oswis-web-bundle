@@ -40,8 +40,12 @@ class SiteMapWebController extends AbstractController
     final public function showSitemapXml(): Response
     {
         $response = (new Response())->headers->set('Content-Type', 'application/xml; charset=utf-8');
-        $pages = $this->pageService->getWebPages()->map(fn(WebPage $p) => ['url' => $p->getSlug()])->toArray();
-        $actualities = $this->actualityService->getActualities()->map(fn(WebActuality $a) => ['url' => $a->getSlug()])->toArray();
+        $pages = $this->pageService->getWebPages()
+            ->map(fn(WebPage $p) => ['url' => $p->getSlug()])
+            ->toArray();
+        $actualities = $this->actualityService->getActualities()
+            ->map(fn(WebActuality $a) => ['url' => $a->getSlug()])
+            ->toArray();
         $otherItems = $this->getOtherItems();
         $data = [
             'url'   => $this->coreSettings->getWeb()['url'],

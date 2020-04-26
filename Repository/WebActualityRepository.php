@@ -19,7 +19,9 @@ class WebActualityRepository extends AbstractWebPageRepository
     public function getActualities(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null): Collection
     {
         return new ArrayCollection(
-            $this->getActualitiesQueryBuilder($dateTime, $limit, $offset)->getQuery()->getArrayResult()
+            $this->getActualitiesQueryBuilder($dateTime, $limit, $offset)
+                ->getQuery()
+                ->getArrayResult()
         );
     }
 
@@ -35,7 +37,9 @@ class WebActualityRepository extends AbstractWebPageRepository
     public function getActuality(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): ?WebActuality
     {
         try {
-            $actuality = $this->getActualitiesQueryBuilder($dateTime, $limit, $offset, $slug)->getQuery()->getOneOrNullResult();
+            $actuality = $this->getActualitiesQueryBuilder($dateTime, $limit, $offset, $slug)
+                ->getQuery()
+                ->getOneOrNullResult();
 
             return $actuality instanceof WebActuality ? $actuality : null;
         } catch (Exception $e) {

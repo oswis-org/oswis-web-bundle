@@ -50,7 +50,8 @@ class WebActualityService
 
     public function getActualities(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null): Collection
     {
-        return $this->getRepository()->getActualities($dateTime, $limit, $offset);
+        return $this->getRepository()
+            ->getActualities($dateTime, $limit, $offset);
     }
 
     final public function getRepository(): WebActualityRepository

@@ -11,11 +11,10 @@ use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class FaqController extends AbstractController
+class FaqWebController extends AbstractController
 {
     /**
      * @return Response
-     * @throws LogicException
      */
     public function showFaq(): Response
     {
@@ -23,6 +22,6 @@ class FaqController extends AbstractController
             'questions' => new ArrayCollection(),
         ];
 
-        return $this->render('@OswisOrgOswisWeb/web/parts/web-actualities.html.twig', $data);
+        return $this->render('@OswisOrgOswisWeb/web/pages/web-faq.html.twig', $data);
     }
 }

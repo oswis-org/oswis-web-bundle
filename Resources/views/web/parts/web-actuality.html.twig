@@ -1,14 +1,20 @@
 {% block before_content %}{% endblock before_content %}
-<article class="col-lg-12 page">
+<article class="col-lg-12 page" itemscope itemtype="http://schema.org/NewsArticle">
+    {% if pageData.slug is defined and pageData.slug|length>0 %}
+        <meta itemprop="url" content="{{ path('oswis_org_oswis_web_page', {'slug': pageData.slug}) }}">
+        <meta itemprop="mainEntityOfPage" content="{{ path('oswis_org_oswis_web_page', {'slug': pageData.slug}) }}">
+    {% endif %}
     <header>
-        <h2 class="text-left text-uppercase" id="actuality{{ page.id|default('0') }}">
-            {{ page.name }}
-            <time><small>{{ page.dateTime|date("j.n.Y") }}</small></time>
+        <h2 class="text-left text-uppercase" id="actuality{{ pageData.id|default('0') }}">
+            <span itemprop="headline">{{ pageData.name }}</span>
+            <time itemprop="datePublished" content="{{ pageData.dateTime|date("Y-m-d\\TH:i:sP")|default }}">
+                <small>{{ pageData.dateTime|date("j.n.Y") }}</small>
+            </time>
         </h2>
     </header>
     {% block inside_content %}{% endblock inside_content %}
-    <div class="web-actuality-content">
-        {{ page.textValue|markdown_to_html }}
+    <div class="web-actuality-content" itemprop="articleBody">
+        {{ pageData.textValue|markdown_to_html }}
     </div>
 </article>
 {% block after_content %}{% endblock after_content %}

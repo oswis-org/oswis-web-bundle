@@ -50,7 +50,8 @@ class WebPageService
 
     public function getWebPages(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null): Collection
     {
-        return $this->getRepository()->getPages($dateTime, $limit, $offset);
+        return $this->getRepository()
+            ->getPages($dateTime, $limit, $offset);
     }
 
     final public function getRepository(): WebPageRepository

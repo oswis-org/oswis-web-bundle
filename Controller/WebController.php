@@ -37,15 +37,15 @@ class WebController extends AbstractController
     public function showPage(string $slug = null): Response
     {
         $data = [
-            'page' => $this->webService->getAbstractWebPage(new DateTime(), null, null, $slug),
+            'pageData' => $this->webService->getAbstractWebPage(new DateTime(), null, null, $slug),
         ];
-        if (empty($data['page'])) {
+        if (empty($data['pageData'])) {
             throw new OswisNotFoundException("(požadovaná stránka: '$slug')");
         }
-        if ($data['page'] instanceof WebActuality) {
+        if ($data['pageData'] instanceof WebActuality) {
             return $this->render('@OswisOrgOswisWeb/web/pages/web-actuality.html.twig', $data);
         }
-        if ($data['page'] instanceof WebMediaGallery) {
+        if ($data['pageData'] instanceof WebMediaGallery) {
             return $this->render('@OswisOrgOswisWeb/web/pages/web-media-gallery.html.twig', $data);
         }
 
@@ -82,8 +82,8 @@ class WebController extends AbstractController
         if ($page < 0) {
             throw new OswisNotFoundException('Požadovaná stránka aktualit musí být kladným číslem.');
         }
-        $limit = $limit > 0 ? $limit : 3;
-        $offset = $page * self::PAGE_SIZE;
+        $limit = $limit > 0 ? $limit : self::PAGE_SIZE;
+        $offset = $page * $limit;
 
         return [
             'page'        => $page,

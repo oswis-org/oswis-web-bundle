@@ -1,10 +1,14 @@
 {% block before_content %}{% endblock before_content %}
-<div class="row">
-    <div class="col-12">
-        <p class="faq-question">{{ question.textContent }}</p>
-        {% for answer in question.answers %}
-            <p class="faq-answer">{{ answer.textValue }}</p>
-        {% endfor %}
-    </div>
+<div class="row faq-container" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <article class="col-12">
+        <header>
+            <p class="faq-question" itemprop="name">{{ question.textContent }}</p>
+        </header>
+        {% if question.answer %}
+            <main itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p class="faq-answer" itemprop="text">{{ question.answer }}</p>
+            </main>
+        {% endif %}
+    </article>
 </div>
 {% block after_content %}{% endblock after_content %}

@@ -3,17 +3,6 @@
 ## oswis-org/oswis-web-bundle/Resources/config/services.yaml
 ##
 services:
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
-    ##
-    ## Controllers wildcard (TODO: To be refactored. Do not use wildcards.)
-    ##
-    OswisOrg\OswisWebBundle\Controller\:
-        resource: '../../Controller/*'
-        tags: ['controller.service_arguments']
-        public: true
 
     ### Web controller
     oswis_org_oswis_web.web_controller:
@@ -24,6 +13,17 @@ services:
             - '@oswis_org_oswis_web.web_service'
     OswisOrg\OswisWebBundle\Controller\WebController:
         alias: oswis_org_oswis_web.web_controller
+        public: true
+
+    ### FAQ web controller
+    oswis_org_oswis_web.faq_web_controller:
+        class: OswisOrg\OswisWebBundle\Controller\FaqWebController
+        autowire: true
+        public: true
+        arguments:
+            - '@oswis_org_oswis_web.web_service'
+    OswisOrg\OswisWebBundle\Controller\FaqWebController:
+        alias: oswis_org_oswis_web.faq_web_controller
         public: true
 
     ### Web service

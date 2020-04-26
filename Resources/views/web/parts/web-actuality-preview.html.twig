@@ -1,13 +1,24 @@
 {% block before_actuality %}{% endblock before_actuality %}
-<article class="row actuality-preview" id="actuality{{ actuality.id|default() }}">
+<article class="row actuality-preview news-article" id="actuality{{ actuality.id|default() }}" itemscope itemtype="http://schema.org/NewsArticle">
     <header class="col-lg-12">
-        <h3 class="text-left text-uppercase">
-            {{ actuality.name }}
-            <time><small>{{ actuality.dateTime|date("j.n.Y") }}</small></time>
-        </h3>
+        {% if actuality.slug is defined and actuality.slug|length>0 %}
+            <a href="{{ path('oswis_org_oswis_web_page', {'slug': actuality.slug}) }}" itemprop="url">
+                <meta itemprop="mainEntityOfPage" content="{{ path('oswis_org_oswis_web_page', {'slug': actuality.slug}) }}">
+                {% block actuality_content %}
+                    <h3 class="text-left text-uppercase">
+                        <span itemprop="headline">{{ actuality.name }}</span>
+                        <time itemprop="datePublished" content="{{ actuality.dateTime|date("Y-m-d\\TH:i:sP")|default }}">
+                            <small>{{ actuality.dateTime|date("j.n.Y") }}</small>
+                        </time>
+                    </h3>
+                {% endblock actuality_content %}
+            </a>
+        {% else %}
+            {{ block('actuality_content') }}
+        {% endif %}
     </header>
     {% block inside_actuality %}{% endblock inside_actuality %}
-    <div class="col-lg-12">
+    <div class="col-lg-12" itemprop="articleBody">
         {{ actuality.textValue|markdown_to_html }}
     </div>
 </article>

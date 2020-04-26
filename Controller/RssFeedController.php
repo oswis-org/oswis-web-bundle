@@ -36,7 +36,8 @@ class RssFeedController extends AbstractController
         $data = [
             'title'       => $this->coreSettings->getWeb()['title'],
             'base'        => $this->coreSettings->getWeb()['url'],
-            'actualities' => $this->actualityService->getRepository()->getActualities(new DateTime(), $limit ?? 15),
+            'actualities' => $this->actualityService->getRepository()
+                ->getActualities(new DateTime(), $limit ?? 15),
             // 'image'       => ['url' => '', 'width' => null, 'height' => null],
         ];
         $response = (new Response())->headers->set('Content-Type', 'application/xml; charset=utf-8');

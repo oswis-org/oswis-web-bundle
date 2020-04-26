@@ -19,7 +19,9 @@ class WebMediaGalleryRepository extends AbstractWebPageRepository
     public function getActualities(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null): Collection
     {
         return new ArrayCollection(
-            $this->getPagesQueryBuilder($dateTime, $limit, $offset)->getQuery()->getArrayResult()
+            $this->getPagesQueryBuilder($dateTime, $limit, $offset)
+                ->getQuery()
+                ->getArrayResult()
         );
     }
 
@@ -31,7 +33,9 @@ class WebMediaGalleryRepository extends AbstractWebPageRepository
     public function getActuality(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null, ?string $slug = null): ?WebMediaGallery
     {
         try {
-            $actuality = $this->getPagesQueryBuilder($dateTime, $limit, $offset, $slug)->getQuery()->getOneOrNullResult();
+            $actuality = $this->getPagesQueryBuilder($dateTime, $limit, $offset, $slug)
+                ->getQuery()
+                ->getOneOrNullResult();
 
             return $actuality instanceof WebMediaGallery ? $actuality : null;
         } catch (Exception $e) {

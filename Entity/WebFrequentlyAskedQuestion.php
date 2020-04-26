@@ -1,14 +1,14 @@
-<?php /** @noinspection MethodShouldBeFinalInspection */
-
-/** @noinspection PhpUnused */
+<?php
+/**
+ * @noinspection MethodShouldBeFinalInspection
+ * @noinspection PhpUnused
+ */
 
 namespace OswisOrg\OswisWebBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation as Searchable;
 use OswisOrg\OswisCoreBundle\Traits\Entity\BasicEntityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Entity\TextValueTrait;
@@ -56,37 +56,26 @@ class WebFrequentlyAskedQuestion
     use BasicEntityTrait;
     use TextValueTrait;
 
-    protected ?Collection $answers = null;
+    protected ?string $answer = null;
 
-    public function __construct(?string $textValue = null, ?Collection $answers = null)
+    public function __construct(?string $textValue = null, ?string $answer = null)
     {
         $this->setTextValue($textValue);
-        $this->answers = $answers ?? new ArrayCollection();
+        $this->setAnswer($answer);
     }
 
     public function isPublic(): ?bool
     {
-        return $this->getAnswers(true)->count() > 0;
+        return !empty($this->getAnswer());
     }
 
-    public function getAnswers(bool $onlyPublic = false): Collection
+    public function getAnswer(): ?string
     {
-        if ($onlyPublic) {
-            return $this->getAnswers()->filter(fn(WebFrequentlyAskedQuestionAnswer $a) => $a->isPublicOnWeb());
-        }
-
-        return $this->answers ?? new ArrayCollection();
+        return $this->answer;
     }
 
-    public function addAnswer(?WebFrequentlyAskedQuestionAnswer $answer): void
+    public function setAnswer(?string $answer): void
     {
-        if (null !== $answer && !$this->answers->contains($answer)) {
-            $this->answers->add($answer);
-        }
-    }
-
-    public function removeAnswer(?WebFrequentlyAskedQuestionAnswer $answer): void
-    {
-        $this->answers->removeElement($answer);
+        $this->answer = $answer;
     }
 }
