@@ -117,7 +117,7 @@ class AbstractWebPageRepository extends EntityRepository
                 ->getQuery()
                 ->getOneOrNullResult();
 
-            return $page instanceof AbstractWebPage && is_a($page, $class) ? $page : null;
+            return $page instanceof AbstractWebPage && (empty($class) || $page instanceof $class) ? $page : null;
         } catch (Exception $e) {
             return null;
         }

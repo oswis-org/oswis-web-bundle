@@ -20,10 +20,10 @@ class SiteMapWebController extends AbstractController
 
     private OswisCoreSettingsProvider $coreSettings;
 
-    public function __construct(WebService $webService, OswisCoreSettingsProvider $coreSettings)
+    public function __construct(OswisCoreSettingsProvider $coreSettings, WebService $webService)
     {
-        $this->webService = $webService;
         $this->coreSettings = $coreSettings;
+        $this->webService = $webService;
     }
 
     /**
