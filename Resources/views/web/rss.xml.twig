@@ -3,7 +3,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
     <channel>
         <title>{% block title %}{{ title|default('RSS kanál aktualit') }}{% endblock title %}</title>
-        <link>{% block url %}{{ url|default(path('oswis_org_oswis_core_homepage_action'))|default('https://oswis.org') }}{% endblock url %}</link>
+        <link>{% block url %}{{ url|default(absolute_url(path('oswis_org_oswis_core_homepage_action'))) }}{% endblock url %}</link>
         <description>{{ description|default('Přehled nejnovějších aktualit ve formě RSS kanálu.') }}</description>
         <webMaster>{{ webmaster|default('webmaster@oswis.org (Jakub ZAK, https://jakubzak.cz)') }}</webMaster>
         <managingEditor>{{ editor|default('webmaster@oswis.org (Jakub ZAK, https://jakubzak.cz)') }}</managingEditor>
@@ -13,7 +13,7 @@
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>OSWIS (One Simple Web IS)</generator>
         <lastBuildDate>{{ "now"|date("D, d M Y H:i:s O") }}</lastBuildDate>
-        <atom:link href="{{ block('url') }}/{{ rssPath|default('rss') }}" rel="self" type="application/rss+xml"/>
+        <atom:link href="{{ absolute_url(path('oswis_org_oswis_rss')) }}" rel="self" type="application/rss+xml"/>
         <sy:updatePeriod>{{ updatePeriod|default('hourly') }}</sy:updatePeriod>
         <sy:updateFrequency>{{ updateFrequency|default('1') }}</sy:updateFrequency>
 
@@ -33,7 +33,7 @@
         {% for actuality in actualities|slice(0,limit|default(10)) %}
             <item>
                 <title>{{ actuality.name }}</title>
-                <link>{% block actualityUrl %}{{ block('url') }}/{{ actualityPath }}/{{ actuality.slug }}{% endblock actualityUrl %}</link>
+                <link>{% block actualityUrl %}{{ absolute_url(path('oswis_org_oswis_web_page', {'slug': actuality.slug})) }}{% endblock actualityUrl %}</link>
                 <guid>{{ block('actualityUrl') }}</guid>
                 <description>{{ actuality.textValue|markdown_to_html|striptags|u.truncate(200,'…') }}</description>
                 <pubDate>{{ actuality.dateTime|date("D, d M Y H:i:s O") }}</pubDate>

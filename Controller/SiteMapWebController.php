@@ -33,11 +33,10 @@ class SiteMapWebController extends AbstractController
     {
         $response = (new Response())->headers->set('Content-Type', 'application/xml; charset=utf-8');
         $items = $this->webService->getAbstractWebPages()
-            ->map(fn(AbstractWebPage $p) => ['url' => $p->getSlug()])
+            ->map(fn(AbstractWebPage $p) => ['slug' => $p->getSlug()])
             ->toArray();
         $otherItems = $this->getOtherItems();
         $data = [
-            'url'   => $this->coreSettings->getWeb()['url'],
             'items' => [...$items, ...$otherItems],
         ];
 

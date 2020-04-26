@@ -18,7 +18,7 @@ oswis_org_oswis_rss:
     path: "/rss/{limit?}"
 
 oswis_org_oswis_sitemap_xml:
-    controller: oswis_org_oswis_web.site_map_controller::showSitemapXml
+    controller: oswis_org_oswis_web.site_map_web_controller::showSitemapXml
     path: "/sitemap.xml"
 
 #oswis_org_oswis_sitemap:

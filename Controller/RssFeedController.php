@@ -35,7 +35,6 @@ class RssFeedController extends AbstractController
     {
         $data = [
             'title'       => $this->coreSettings->getWeb()['title'],
-            'base'        => $this->coreSettings->getWeb()['url'],
             'actualities' => $this->webService->getAbstractWebPages(new DateTime(), $limit ?? 15, 0, null, WebActuality::class),
             'image'       => $this->coreSettings->getApp()['logo'],
             // 'image'       => ['url' => '', 'width' => null, 'height' => null],

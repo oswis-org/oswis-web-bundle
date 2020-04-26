@@ -35,7 +35,7 @@ class AbstractWebPageRepository extends EntityRepository
         return new ArrayCollection(
             $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)
                 ->getQuery()
-                ->getArrayResult()
+                ->getResult()
         );
     }
 
