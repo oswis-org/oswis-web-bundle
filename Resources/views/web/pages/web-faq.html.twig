@@ -7,6 +7,8 @@
         <header class="row">
             <h2 class="col-lg-12 text-uppercase">Časté dotazy</h2>
         </header>
+        {% block faq_pre %}
+        {% endblock faq_pre %}
         {% for question in questions|default %}
             {% include '@OswisOrgOswisWeb/web/parts/web-faq.html.twig' %}
         {% else %}
@@ -16,6 +18,8 @@
                 </article>
             </div>
         {% endfor %}
+        {% block faq_post %}
+        {% endblock faq_post %}
     </main>
 {% endblock body_content %}
 
