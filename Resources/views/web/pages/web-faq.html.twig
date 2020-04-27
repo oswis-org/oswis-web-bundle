@@ -1,14 +1,21 @@
 {% extends '@OswisOrgOswisCore/web/page-skeleton-default.html.twig' %}
 
 {% set page = "faq" %}
-{% set default_title = 'Často kladené dotazy' %}
 
 {% block body_content %}
     <main class="container web-faq-main" id="main-content-container" itemscope itemtype="https://schema.org/FAQPage">
         <header class="row">
             <h2 class="col-lg-12 text-uppercase">Časté dotazy</h2>
         </header>
-        {% include '@OswisOrgOswisWeb/web/parts/web-faq.html.twig' %}
+        {% for question in questions|default %}
+            {% include '@OswisOrgOswisWeb/web/parts/web-faq.html.twig' %}
+        {% else %}
+            <div class="row faq-container" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <article class="col-12">
+                    <p>Aktuálně zde nejsou k dispozici žádné zodpovězené dotazy.</p>
+                </article>
+            </div>
+        {% endfor %}
     </main>
 {% endblock body_content %}
 

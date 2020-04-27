@@ -16,9 +16,9 @@ class FaqWebRepository extends EntityRepository
     public function getAnsweredQuestions(?int $limit = null, ?int $offset = null): Collection
     {
         $queryBuilder = $this->createQueryBuilder('faq');
-        $queryBuilder->where('faq.answer IS NOT NULL AND faq.answer != ""');
-        $queryBuilder->orderBy('priority', 'DESC')
-            ->addOrderBy('id', 'ASC');
+        $queryBuilder->where("faq.answer IS NOT NULL AND faq.answer != ''");
+        $queryBuilder->orderBy('faq.priority', 'DESC')
+            ->addOrderBy('faq.id', 'ASC');
         if (null !== $limit) {
             $queryBuilder->setMaxResults($limit);
         }

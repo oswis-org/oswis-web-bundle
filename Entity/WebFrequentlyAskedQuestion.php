@@ -9,13 +9,14 @@ namespace OswisOrg\OswisWebBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use Doctrine\ORM\Mapping as ORM;
 use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation as Searchable;
 use OswisOrg\OswisCoreBundle\Traits\Entity\BasicEntityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Entity\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Entity\TextValueTrait;
 
 /**
- * @Doctrine\ORM\Mapping\Entity()
+ * @Doctrine\ORM\Mapping\Entity(repositoryClass="OswisOrg\OswisWebBundle\Repository\FaqWebRepository")
  * @Doctrine\ORM\Mapping\Table(name="web_frequently_asked_question")
  * @ApiResource(
  *   attributes={
@@ -58,6 +59,9 @@ class WebFrequentlyAskedQuestion
     use TextValueTrait;
     use PriorityTrait;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     protected ?string $answer = null;
 
     public function __construct(?string $textValue = null, ?string $answer = null, ?int $priority = null)
