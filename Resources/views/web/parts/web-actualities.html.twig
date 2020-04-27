@@ -1,5 +1,5 @@
 {% for actuality in actualities %}
-    {% include '@OswisOrgOswisWeb/web/parts/web-actuality-preview.html.twig' %}
+    {% include '@OswisOrgOswisWeb/web/parts/web-actuality-preview.html.twig' with {'loop': loop} %}
 {% else %}
     <article class="col-12 actuality-preview">
         {% if page is defined and page > 0 %}

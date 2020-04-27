@@ -1,7 +1,7 @@
 {% block before_actuality %}{% endblock before_actuality %}
 <article class="row actuality-preview news-article" id="actuality{{ actuality.id|default() }}" itemscope itemtype="http://schema.org/NewsArticle">
     <header class="col-lg-12">
-        {% if actuality.slug is defined and actuality.slug|length>0 %}
+        {% if actuality.slug is defined and actuality.slug|length > 0 %}
             <a href="{{ path('oswis_org_oswis_web_page', {'slug': actuality.slug}) }}" itemprop="url">
                 <meta itemprop="mainEntityOfPage" content="{{ path('oswis_org_oswis_web_page', {'slug': actuality.slug}) }}">
                 {% block actuality_content %}
