@@ -26,30 +26,6 @@ services:
         alias: oswis_org_oswis_web.faq_web_controller
         public: true
 
-    ### RSS
-    oswis_org_oswis_web.rss_feed_controller:
-        class: OswisOrg\OswisWebBundle\Controller\RssFeedController
-        autowire: true
-        public: true
-        arguments:
-            - '@oswis_org_oswis_core.oswis_core_settings_provider'
-            - '@oswis_org_oswis_web.web_service'
-    OswisOrg\OswisWebBundle\Controller\RssFeedController:
-        alias: oswis_org_oswis_web.rss_feed_controller
-        public: true
-
-    ### Sitemap
-    oswis_org_oswis_web.site_map_web_controller:
-        class: OswisOrg\OswisWebBundle\Controller\SiteMapWebController
-        autowire: true
-        public: true
-        arguments:
-            - '@oswis_org_oswis_core.oswis_core_settings_provider'
-            - '@oswis_org_oswis_web.web_service'
-    OswisOrg\OswisWebBundle\Controller\SiteMapWebController:
-        alias: oswis_org_oswis_web.site_map_web_controller
-        public: true
-
     ### Web service
     oswis_org_oswis_web.web_service:
         class: OswisOrg\OswisWebBundle\Service\WebService

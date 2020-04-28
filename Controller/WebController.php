@@ -8,8 +8,10 @@ namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
 use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
+use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
+use OswisOrg\OswisWebBundle\Service\FaqWebService;
 use OswisOrg\OswisWebBundle\Service\WebService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,5 +105,51 @@ class WebController extends AbstractController
             '@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
             $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
         );
+    }
+
+    public function showRssChunk(): Response
+    {
+        $response = $this->render(
+            '@OswisOrgOswisCore/web/pages/rss-items.xml.twig',
+            ['actualities' => $this->webService->getAbstractWebPages(new DateTime(), null, null, null, WebActuality::class)]
+        );
+        $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
+
+        return $response;
+    }
+
+    public function showSitemapXmlChunk(FaqWebService $faqWebService): Response
+    {
+        $items = $this->webService->getAbstractWebPages()
+            ->map(
+                fn(AbstractWebPage $p) => [
+                    'path'        => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $p->getSlug()]),
+                    'isActuality' => $p instanceof WebActuality,
+                    'created'     => $p->getCreatedDateTime(),
+                    'changed'     => $p->getUpdatedDateTime(),
+                    'title'       => $p->getName(),
+                ]
+            )
+            ->toArray();
+        $lastFaq = $faqWebService->getLastUpdatedAnsweredQuestion();
+        $items[] = [
+            'path'    => $this->generateUrl('oswis_org_oswis_web_faq'),
+            'changed' => $lastFaq ? $lastFaq->getUpdatedDateTime() : null,
+        ];
+        $response = $this->render(
+            '@OswisOrgOswisCore/web/pages/sitemap-items.xml.twig',
+            ['items' => [...$items, ...$this->getOtherItems()]]
+        );
+        $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
+
+        return $response;
+    }
+
+    /**
+     * Other (custom) items that may be exported to sitemap.
+     */
+    public function getOtherItems(): array
+    {
+        return []; // $item = ['url' => '', 'changeFrequency' => '', 'priority' => (0.0...1.0)];
     }
 }

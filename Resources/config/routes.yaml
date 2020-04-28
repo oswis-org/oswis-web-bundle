@@ -12,16 +12,3 @@ oswis_org_oswis_web_actualities:
 oswis_org_oswis_web_faq:
     controller: oswis_org_oswis_web.faq_web_controller::showFaq
     path: "/faq"
-
-oswis_org_oswis_rss:
-    controller: oswis_org_oswis_web.rss_feed_controller::showRss
-    path: "/rss/{limit?}"
-
-oswis_org_oswis_sitemap_xml:
-    controller: oswis_org_oswis_web.site_map_web_controller::showSitemapXml
-    path: "/sitemap.xml"
-
-#oswis_org_oswis_sitemap:
-#    controller: oswis_org_oswis_web.site_map_controller::showSitemap
-#    path: "/sitemap"
-

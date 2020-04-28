@@ -1,0 +1,5 @@
+{% extends '@OswisOrgOswisCore/web/pages/sitemap.xml.twig' %}
+
+{% block items_additional %}
+    {{ render_esi(controller('OswisOrg\\OswisWebBundle\\Controller\\WebController::showSitemapXmlChunk')) }}
+{% endblock items_additional %}

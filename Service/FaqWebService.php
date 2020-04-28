@@ -20,10 +20,11 @@ class FaqWebService
         $this->em = $em;
     }
 
-    public function getAnsweredQuestions(?int $limit = null, ?int $offset = null): Collection
+    public function getLastUpdatedAnsweredQuestion(): ?WebFrequentlyAskedQuestion
     {
         return $this->getRepository()
-            ->getAnsweredQuestions($limit, $offset);
+            ->getLastUpdatedAnsweredQuestions(1)
+            ->first();
     }
 
     final public function getRepository(): FaqWebRepository
@@ -32,5 +33,11 @@ class FaqWebService
         assert($repository instanceof FaqWebRepository);
 
         return $repository;
+    }
+
+    public function getAnsweredQuestions(?int $limit = null, ?int $offset = null): Collection
+    {
+        return $this->getRepository()
+            ->getAnsweredQuestions($limit, $offset);
     }
 }
