@@ -22,9 +22,11 @@ class FaqWebService
 
     public function getLastUpdatedAnsweredQuestion(): ?WebFrequentlyAskedQuestion
     {
-        return $this->getRepository()
+        $lastFaq = $this->getRepository()
             ->getLastUpdatedAnsweredQuestions(1)
             ->first();
+
+        return empty($lastFaq) ? null : $lastFaq;
     }
 
     final public function getRepository(): FaqWebRepository

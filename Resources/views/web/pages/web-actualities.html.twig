@@ -6,7 +6,7 @@
 {% block html_description %}{{ description|default('Přehled aktualit.') }}{% endblock html_description %}
 
 {% block meta_tags_canonical %}
-    <link rel="next" href="{{ path('oswis_org_oswis_web_actualities', {'page': (page|number_format + 1), 'limit': limit}) }}">
+    <link rel="next" href="{{ path('oswis_org_oswis_web_actualities', {'pages': (page|number_format + 1), 'limit': limit}) }}">
     {% if page is defined and page|number_format > 0 %}
         <link rel="prev" href="{{ path('oswis_org_oswis_web_actualities', {page: (page|number_format - 1), 'limit': limit}) }}">
     {% endif %}

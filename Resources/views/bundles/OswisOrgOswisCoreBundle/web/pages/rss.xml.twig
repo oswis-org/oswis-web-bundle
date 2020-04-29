@@ -1,5 +1,7 @@
-{% extends '@OswisOrgOswisCore/web/pages/rss.xml.twig' %}
+{% extends '@!OswisOrgOswisCore/web/pages/rss.xml.twig' %}
 
 {% block items_additional %}
+    {{ parent() }}
+    <!-- OswisWebBundle -->
     {{ render_esi(controller('OswisOrg\\OswisWebBundle\\Controller\\WebController::showRssChunk')) }}
 {% endblock items_additional %}

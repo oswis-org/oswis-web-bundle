@@ -11,6 +11,7 @@ services:
         public: true
         arguments:
             - '@oswis_org_oswis_web.web_service'
+            - '@oswis_org_oswis_web.faq_web_service'
     OswisOrg\OswisWebBundle\Controller\WebController:
         alias: oswis_org_oswis_web.web_controller
         public: true

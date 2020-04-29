@@ -22,9 +22,12 @@ class WebController extends AbstractController
 
     private WebService $webService;
 
-    public function __construct(WebService $webService)
+    private FaqWebService $faqWebService;
+
+    public function __construct(WebService $webService, FaqWebService $faqWebService)
     {
         $this->webService = $webService;
+        $this->faqWebService = $faqWebService;
     }
 
     /**
@@ -111,14 +114,24 @@ class WebController extends AbstractController
     {
         $response = $this->render(
             '@OswisOrgOswisCore/web/pages/rss-items.xml.twig',
-            ['actualities' => $this->webService->getAbstractWebPages(new DateTime(), null, null, null, WebActuality::class)]
+            [
+                'items' => $this->webService->getLastActualities()
+                    ->map(
+                        fn(WebActuality $a) => [
+                            'path'      => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $a->getSlug()]),
+                            'name'      => $a->getName(),
+                            'textValue' => $a->getTextValue(),
+                            'dateTime'  => $a->getCreatedDateTime(),
+                        ]
+                    ),
+            ]
         );
         $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
 
         return $response;
     }
 
-    public function showSitemapXmlChunk(FaqWebService $faqWebService): Response
+    public function showSitemapXmlChunk(): Response
     {
         $items = $this->webService->getAbstractWebPages()
             ->map(
@@ -131,7 +144,7 @@ class WebController extends AbstractController
                 ]
             )
             ->toArray();
-        $lastFaq = $faqWebService->getLastUpdatedAnsweredQuestion();
+        $lastFaq = $this->faqWebService->getLastUpdatedAnsweredQuestion();
         $items[] = [
             'path'    => $this->generateUrl('oswis_org_oswis_web_faq'),
             'changed' => $lastFaq ? $lastFaq->getUpdatedDateTime() : null,

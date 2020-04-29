@@ -10,6 +10,7 @@ use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
+use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository;
 use Psr\Log\LoggerInterface;
 
@@ -23,6 +24,14 @@ class WebService
     {
         $this->em = $em;
         $this->logger = $logger;
+    }
+
+    public function getLastActualities(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null
+    ): Collection {
+        return $this->getAbstractWebPages($dateTime, $limit, $offset, null, WebActuality::class);
     }
 
     public function getAbstractWebPages(

@@ -3,6 +3,7 @@
 namespace OswisOrg\OswisWebBundle\DependencyInjection;
 
 use Exception;
+use OswisOrg\OswisCoreBundle\DependencyInjection\OswisOrgOswisCoreExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -23,12 +24,12 @@ class OswisOrgOswisWebExtension extends Extension implements PrependExtensionInt
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
-        $configuration = $this->getConfiguration($configs, $container);
-        /** @noinspection PhpUnusedLocalVariableInspection */
-        $config = $configuration ? $this->processConfiguration($configuration, $configs) : [];
+        // $configuration = $this->getConfiguration($configs, $container);
+        // $config = $configuration ? $this->processConfiguration($configuration, $configs) : [];
     }
 
     final public function prepend(ContainerBuilder $container): void
     {
+        OswisOrgOswisCoreExtension::prependForBundleTemplatesOverride($container, ['OswisOrgOswisCore']);
     }
 }
