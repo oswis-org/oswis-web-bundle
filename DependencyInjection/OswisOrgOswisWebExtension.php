@@ -3,7 +3,6 @@
 namespace OswisOrg\OswisWebBundle\DependencyInjection;
 
 use Exception;
-use OswisOrg\OswisCoreBundle\DependencyInjection\OswisOrgOswisCoreExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -30,6 +29,29 @@ class OswisOrgOswisWebExtension extends Extension implements PrependExtensionInt
 
     final public function prepend(ContainerBuilder $container): void
     {
-        OswisOrgOswisCoreExtension::prependForBundleTemplatesOverride($container, ['OswisOrgOswisCore']);
+        self::prependForBundleTemplatesOverride($container, ['OswisOrgOswisCore']);
+    }
+
+
+    /**
+     * This work-around allows overriding of other bundles templates OswisCore.
+     *
+     * @param ContainerBuilder $container
+     * @param array            $bundleNames
+     */
+    final public static function prependForBundleTemplatesOverride(ContainerBuilder $container, array $bundleNames): void
+    {
+        $twigConfigs = $container->getExtensionConfig('twig');
+        $paths = [];
+        foreach ($twigConfigs as $twigConfig) {
+            if (isset($twigConfig['paths'])) {
+                $paths += $twigConfig['paths'];
+            }
+        }
+        foreach ($bundleNames as $bundleName) {
+            $paths['templates/bundles/'.$bundleName.'Bundle/'] = $bundleName;
+            $paths[dirname(__DIR__).'/Resources/views/bundles/'.$bundleName.'Bundle/'] = $bundleName;
+        }
+        $container->prependExtensionConfig('twig', ['paths' => $paths]);
     }
 }
