@@ -1,30 +1,21 @@
-{% extends '@OswisOrgOswisCore/web/page-skeleton-default.html.twig' %}
-
-{% set page = "actualities" %}
-
-{% block html_title %}{{ title|default('Aktuality') }}{% endblock html_title %}
-{% block html_description %}{{ description|default('Přehled aktualit.') }}{% endblock html_description %}
-
-{% block meta_tags_canonical %}
-    <link rel="next" href="{{ path('oswis_org_oswis_web_actualities', {'pages': (page|number_format + 1), 'limit': limit}) }}">
-    {% if page is defined and page|number_format > 0 %}
-        <link rel="prev" href="{{ path('oswis_org_oswis_web_actualities', {page: (page|number_format - 1), 'limit': limit}) }}">
+{% for actuality in actualities %}
+    {% include '@OswisOrgOswisWeb/web/parts/web-actuality-preview.html.twig' with {'loop': loop} %}
+{% else %}
+    {% if page is defined and page > 0 %}
+        {% include '@OswisOrgOswisWeb/web/parts/web-actuality-preview.html.twig'
+            with {'name': 'Žádné novinky', 'textValue': 'Na tuto stránku nezbyly žádné aktuality.'} %}
+    {% else %}
+        {% include '@OswisOrgOswisWeb/web/parts/web-actuality-preview.html.twig'
+            with {'name': 'Žádné novinky', 'textValue': 'Nebyly nalezeny žádné aktuality.'} %}
     {% endif %}
-{% endblock meta_tags_canonical %}
-
-{% block body_content %}
-    <main class="container web-actualities-main" id="main-content-container">
-        <header class="row">
-            <h2 class="col-lg-12 text-uppercase">Časté dotazy</h2>
-        </header>
-        {% for actuality in actualities %}
-            {% include '@OswisOrgOswisWeb/web/parts/web-actuality-preview.html.twig' %}
-        {% else %}
-            <article class="row">
-                <div class="col-lg-12 pt-4 pb-4 actuality-preview text-center">
-                    <p>Nebyly nalezeny žádné aktuality.</p>
-                </div>
-            </article>
-        {% endfor %}
-    </main>
-{% endblock body_content %}
+{% endfor %}
+{% if pagination is defined and pagination %}
+    <div class="col-12 actualities-pagination ">
+        <div class="container">
+            <nav class="row">
+                <a class="col-6 text-left">⇐<small class="d-none d-md-inline"> Starší</small></a>
+                <a class="col-6 text-right"><small class="d-none d-md-inline">Novější </small>⇒</a>
+            </nav>
+        </div>
+    </div>
+{% endif %}
