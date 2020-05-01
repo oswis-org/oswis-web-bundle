@@ -7,8 +7,9 @@
     <header>
         <h2 class="text-left text-uppercase" id="actuality{{ pageData.id|default('0') }}">
             <span itemprop="headline">{{ pageData.name }}</span>
-            <time itemprop="datePublished" content="{{ pageData.dateTime|date("Y-m-d\\TH:i:sP")|default }}">
-                <small>{{ pageData.dateTime|date("j.n.Y") }}</small>
+            <time itemprop="datePublished" content="{{ pageData.dateTime|date("Y-m-d\\TH:i:sP")|default }}" class="small text-muted"
+                  datetime="{{ pageData.dateTime|date("Y-m-d\\TH:i:sP")|default }}">
+                {{ pageData.dateTime|date("j.n.Y") }}
             </time>
         </h2>
     </header>
