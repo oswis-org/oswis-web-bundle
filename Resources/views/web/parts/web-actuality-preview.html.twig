@@ -1,5 +1,6 @@
 {% block before_actuality %}{% endblock before_actuality %}
-<article class="row actuality-preview news-article" id="actuality{{ actuality.id|default() }}" itemscope itemtype="http://schema.org/NewsArticle">
+<article class="row actuality-preview news-article pt-4 pb-2 border-bottom border-primary-transparent"
+         id="actuality{{ actuality.id|default() }}" itemscope itemtype="http://schema.org/NewsArticle">
     <header class="col-lg-12 pl-4 pl-sm-3">
         {% if actuality.slug is defined and actuality.slug|length > 0 %}
             <a href="{{ path('oswis_org_oswis_web_page', {'slug': actuality.slug}) }}" itemprop="url">
@@ -9,7 +10,7 @@
                         <span itemprop="headline">{{ actuality.name }}</span>
                         <time itemprop="datePublished" content="{{ actuality.dateTime|date("Y-m-d\\TH:i:sP")|default }}"
                               datetime="{{ actuality.dateTime|date("Y-m-d\\TH:i:sP")|default }}" class="small text-muted">
-                            {{ actuality.dateTime|date("j.n.Y") }}
+                            {{ actuality.dateTime|date("j. n. Y")|replace({' ': "&nbsp;"})|raw }}
                         </time>
                     </h3>
                 {% endblock actuality_content %}
