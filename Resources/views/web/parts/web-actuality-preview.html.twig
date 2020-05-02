@@ -1,5 +1,5 @@
 {% block before_actuality %}{% endblock before_actuality %}
-<article class="row actuality-preview news-article pt-4 pb-2 border-bottom border-primary-transparent"
+<article class="row actuality-preview news-article pt-4 pb-2 border-bottom border-primary-transparent mw-100 overflow-hidden"
          id="actuality{{ actuality.id|default() }}" itemscope itemtype="http://schema.org/NewsArticle">
     <header class="col-lg-12 pl-4 pl-sm-3">
         {% if actuality.slug is defined and actuality.slug|length > 0 %}
