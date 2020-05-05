@@ -11,12 +11,16 @@ use Symfony\Component\HttpFoundation\File\File;
  * @Doctrine\ORM\Mapping\Entity()
  * @Doctrine\ORM\Mapping\Table(name="web_image")
  * @ApiResource(iri="http://schema.org/ImageObject", collectionOperations={
- *     "get",
+ *     "get"={
+ *       "access_control"="is_granted('ROLE_MANAGER')",
+ *       "normalization_context"={"groups"={"web_actualities_get"}},
+ *     },
  *     "post"={
  *         "method"="POST",
  *         "path"="/web_image",
  *         "controller"=CreateWebImageAction::class,
  *         "defaults"={"_api_receive"=false},
+ *         "access_control"="is_granted('ROLE_MANAGER')",
  *     },
  * })
  * @Vich\UploaderBundle\Mapping\Annotation\Uploadable()

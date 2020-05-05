@@ -22,7 +22,7 @@ use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
  *       "normalization_context"={"groups"={"web_actualities_get"}},
  *     },
  *     "post"={
- *       "access_control"="is_granted('ROLE_MEMBER')",
+ *       "access_control"="is_granted('ROLE_MANAGER')",
  *       "denormalization_context"={"groups"={"web_actualities_post"}}
  *     }
  *   },
@@ -32,7 +32,7 @@ use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
  *       "normalization_context"={"groups"={"web_actuality_get"}},
  *     },
  *     "put"={
- *       "access_control"="is_granted('ROLE_MEMBER')",
+ *       "access_control"="is_granted('ROLE_MANAGER')",
  *       "denormalization_context"={"groups"={"web_actuality_put"}}
  *     }
  *   }

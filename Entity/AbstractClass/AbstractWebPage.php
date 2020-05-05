@@ -21,6 +21,13 @@ use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
 use OswisOrg\OswisWebBundle\Entity\WebPage;
 
 /**
+ * Abstract web page (page, actuality, web gallery...).
+ *
+ * Abstract web page is base for many kind of web pages (ie. web page, web actuality, web gallery...).
+ * Page is visible on website in interval given by startDateTime and endDateTime (no need to use publicOnWeb property).
+ * Page is deleted by setting endDateTime (no need to use deleted property).
+ * Column dateTime is used for overwriting createdDateTime on website.
+ *
  * @Doctrine\ORM\Mapping\Entity(repositoryClass="OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository")
  * @Doctrine\ORM\Mapping\Table(name="web_abstract_web_page")
  * @Doctrine\ORM\Mapping\InheritanceType("JOINED")
@@ -36,7 +43,9 @@ abstract class AbstractWebPage
 {
     use BasicEntityTrait;
     use NameableBasicTrait;
-    use DateTimeTrait;
+    use DateTimeTrait {
+        getDateTime as protected traitGetDateTime;
+    }
     use DateRangeTrait;
     use PriorityTrait;
     use TextValueTrait;
@@ -87,5 +96,18 @@ abstract class AbstractWebPage
     public function isWebMediaGallery(): bool
     {
         return $this instanceof WebMediaGallery;
+    }
+
+    /**
+     * Date and time of actuality.
+     *
+     * Date and time of creation is returned if it's not overwritten by dateTime property.
+     * This method overrides method from trait.
+     *
+     * @return DateTime|null
+     */
+    public function getDateTime(): ?DateTime
+    {
+        return $this->traitGetDateTime() ?? $this->getCreatedDateTime();
     }
 }
