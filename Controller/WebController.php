@@ -115,8 +115,7 @@ class WebController extends AbstractController
         $response = $this->render(
             '@OswisOrgOswisCore/web/pages/rss-items.xml.twig',
             [
-                'items' => $this->webService->getLastActualities()
-                    ->map(
+                'items' => $this->webService->getLastActualities()->map(
                         fn(WebActuality $a) => [
                             'path'      => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $a->getSlug()]),
                             'name'      => $a->getName(),
@@ -133,8 +132,7 @@ class WebController extends AbstractController
 
     public function showSitemapXmlChunk(): Response
     {
-        $items = $this->webService->getAbstractWebPages()
-            ->map(
+        $items = $this->webService->getAbstractWebPages()->map(
                 fn(AbstractWebPage $p) => [
                     'path'        => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $p->getSlug()]),
                     'isActuality' => $p instanceof WebActuality,
@@ -142,8 +140,7 @@ class WebController extends AbstractController
                     'changed'     => $p->getUpdatedDateTime(),
                     'title'       => $p->getName(),
                 ]
-            )
-            ->toArray();
+            )->toArray();
         $lastFaq = $this->faqWebService->getLastUpdatedAnsweredQuestion();
         $items[] = [
             'path'    => $this->generateUrl('oswis_org_oswis_web_faq'),

@@ -7,13 +7,13 @@
 namespace OswisOrg\OswisWebBundle\Entity\AbstractClass;
 
 use DateTime;
-use OswisOrg\OswisCoreBundle\Entity\Nameable;
-use OswisOrg\OswisCoreBundle\Traits\Entity\BasicEntityTrait;
-use OswisOrg\OswisCoreBundle\Traits\Entity\DateRangeTrait;
-use OswisOrg\OswisCoreBundle\Traits\Entity\DateTimeTrait;
-use OswisOrg\OswisCoreBundle\Traits\Entity\NameableBasicTrait;
-use OswisOrg\OswisCoreBundle\Traits\Entity\PriorityTrait;
-use OswisOrg\OswisCoreBundle\Traits\Entity\TextValueTrait;
+use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Nameable;
+use OswisOrg\OswisCoreBundle\Interfaces\Common\NameableEntityInterface;
+use OswisOrg\OswisCoreBundle\Traits\Common\DateRangeTrait;
+use OswisOrg\OswisCoreBundle\Traits\Common\DateTimeTrait;
+use OswisOrg\OswisCoreBundle\Traits\Common\NameableBasicTrait;
+use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
+use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
 use OswisOrg\OswisWebBundle\Entity\MediaObject\ContactImage;
 use OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
@@ -39,9 +39,8 @@ use OswisOrg\OswisWebBundle\Entity\WebPage;
  * })
  * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_abstract_web_page")
  */
-abstract class AbstractWebPage
+abstract class AbstractWebPage implements NameableEntityInterface
 {
-    use BasicEntityTrait;
     use NameableBasicTrait;
     use DateTimeTrait {
         getDateTime as protected traitGetDateTime;

@@ -41,8 +41,7 @@ class WebService
         ?string $slug = null,
         ?string $class = null
     ): Collection {
-        return $this->getRepository()
-            ->getAbstractPages($dateTime, $limit, $offset, $slug, $class);
+        return $this->getRepository()->getAbstractPages($dateTime, $limit, $offset, $slug, $class);
     }
 
     final public function getRepository(): AbstractWebPageRepository
@@ -60,7 +59,6 @@ class WebService
         ?string $slug = null,
         ?string $class = null
     ): ?AbstractWebPage {
-        return $this->getRepository()
-            ->getAbstractPage($dateTime, $limit, $offset, $slug, $class);
+        return $this->getRepository()->getAbstractPage($dateTime, $limit, $offset, $slug, $class);
     }
 }

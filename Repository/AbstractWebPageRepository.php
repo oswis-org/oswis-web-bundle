@@ -20,8 +20,7 @@ class AbstractWebPageRepository extends EntityRepository
     public static function addIdQuery(QueryBuilder $queryBuilder, ?int $id = null): void
     {
         if ($id !== null) {
-            $queryBuilder->andWhere('p.id = :id')
-                ->setParameter('id', $id);
+            $queryBuilder->andWhere('p.id = :id')->setParameter('id', $id);
         }
     }
 
@@ -33,9 +32,7 @@ class AbstractWebPageRepository extends EntityRepository
         ?string $class = null
     ): Collection {
         return new ArrayCollection(
-            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)
-                ->getQuery()
-                ->getResult()
+            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getResult()
         );
     }
 
@@ -59,8 +56,7 @@ class AbstractWebPageRepository extends EntityRepository
     public static function addSlugQuery(QueryBuilder $queryBuilder, ?string $slug = null): void
     {
         if (!empty($slug)) {
-            $queryBuilder->andWhere('p.slug = :slug')
-                ->setParameter('slug', $slug);
+            $queryBuilder->andWhere('p.slug = :slug')->setParameter('slug', $slug);
         }
     }
 
@@ -69,8 +65,7 @@ class AbstractWebPageRepository extends EntityRepository
         if (null !== $dateTime) {
             $dateRangeQuery = ' (:ref BETWEEN p.startDateTime AND p.endDateTime) OR (p.startDateTime IS NULL AND p.endDateTime IS NULL)';
             $dateRangeQuery .= ' OR (p.startDateTime IS NULL AND :ref < p.endDateTime) OR (p.endDateTime IS NULL AND :ref > p.startDateTime) ';
-            $queryBuilder->andWhere($dateRangeQuery)
-                ->setParameter('ref', $dateTime);
+            $queryBuilder->andWhere($dateRangeQuery)->setParameter('ref', $dateTime);
         }
     }
 
@@ -99,8 +94,7 @@ class AbstractWebPageRepository extends EntityRepository
     {
         if (!empty($class)) {
             $queryBuilder->andWhere(
-                $queryBuilder->expr()
-                    ->isInstanceOf('p', $class)
+                $queryBuilder->expr()->isInstanceOf('p', $class)
             );
         }
     }
@@ -113,9 +107,7 @@ class AbstractWebPageRepository extends EntityRepository
         ?string $class = null
     ): ?AbstractWebPage {
         try {
-            $page = $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)
-                ->getQuery()
-                ->getOneOrNullResult();
+            $page = $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getOneOrNullResult();
 
             return $page instanceof AbstractWebPage && (empty($class) || $page instanceof $class) ? $page : null;
         } catch (Exception $e) {

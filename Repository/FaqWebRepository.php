@@ -28,8 +28,7 @@ class FaqWebRepository extends EntityRepository
         }
 
         return new ArrayCollection(
-            $queryBuilder->getQuery()
-                ->getArrayResult()
+            $queryBuilder->getQuery()->getArrayResult()
         );
     }
 
@@ -47,8 +46,7 @@ class FaqWebRepository extends EntityRepository
         }
 
         return new ArrayCollection(
-            $queryBuilder->getQuery()
-                ->getArrayResult()
+            $queryBuilder->getQuery()->getArrayResult()
         );
     }
 }
