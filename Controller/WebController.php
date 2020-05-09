@@ -116,13 +116,13 @@ class WebController extends AbstractController
             '@OswisOrgOswisCore/web/pages/rss-items.xml.twig',
             [
                 'items' => $this->webService->getLastActualities()->map(
-                        fn(WebActuality $a) => [
-                            'path'      => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $a->getSlug()]),
-                            'name'      => $a->getName(),
-                            'textValue' => $a->getTextValue(),
-                            'dateTime'  => $a->getCreatedDateTime(),
-                        ]
-                    ),
+                    fn(WebActuality $a) => [
+                        'path'      => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $a->getSlug()]),
+                        'name'      => $a->getName(),
+                        'textValue' => $a->getTextValue(),
+                        'dateTime'  => $a->getCreatedDateTime(),
+                    ]
+                ),
             ]
         );
         $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
@@ -133,14 +133,14 @@ class WebController extends AbstractController
     public function showSitemapXmlChunk(): Response
     {
         $items = $this->webService->getAbstractWebPages()->map(
-                fn(AbstractWebPage $p) => [
-                    'path'        => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $p->getSlug()]),
-                    'isActuality' => $p instanceof WebActuality,
-                    'created'     => $p->getCreatedDateTime(),
-                    'changed'     => $p->getUpdatedDateTime(),
-                    'title'       => $p->getName(),
-                ]
-            )->toArray();
+            fn(AbstractWebPage $p) => [
+                'path'        => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $p->getSlug()]),
+                'isActuality' => $p instanceof WebActuality,
+                'created'     => $p->getCreatedDateTime(),
+                'changed'     => $p->getUpdatedDateTime(),
+                'title'       => $p->getName(),
+            ]
+        )->toArray();
         $lastFaq = $this->faqWebService->getLastUpdatedAnsweredQuestion();
         $items[] = [
             'path'    => $this->generateUrl('oswis_org_oswis_web_faq'),
