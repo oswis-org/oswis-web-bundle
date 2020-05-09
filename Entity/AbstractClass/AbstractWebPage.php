@@ -37,7 +37,7 @@ use OswisOrg\OswisWebBundle\Entity\WebPage;
  *   "web_actuality" = "OswisOrg\OswisWebBundle\Entity\WebActuality",
  *   "web_media_gallery" = "OswisOrg\OswisWebBundle\Entity\WebMediaGallery"
  * })
- * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_abstract_web_page")
+ * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
  */
 abstract class AbstractWebPage implements NameableEntityInterface
 {

@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\File\File;
  *     },
  * })
  * @Vich\UploaderBundle\Mapping\Annotation\Uploadable()
+ * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
  */
 class WebImage extends AbstractImage
 {

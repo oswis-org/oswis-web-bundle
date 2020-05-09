@@ -53,6 +53,8 @@ use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
  * @Searchable({
  *     "id"
  * })
+ * @author Jakub Zak <mail@jakubzak.eu>
+ * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
  */
 class WebFrequentlyAskedQuestion implements BasicEntityInterface
 {
