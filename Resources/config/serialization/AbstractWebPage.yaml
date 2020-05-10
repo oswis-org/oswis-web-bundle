@@ -1,0 +1,33 @@
+OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage:
+    attributes:
+        dateTime:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
+        startDateTime:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
+        endDateTime:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
+        priority:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
+        textValue:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
+

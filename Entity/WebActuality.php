@@ -19,21 +19,21 @@ use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
  *   collectionOperations={
  *     "get"={
  *       "access_control"="is_granted('ROLE_MEMBER')",
- *       "normalization_context"={"groups"={"web_actualities_get"}},
+ *       "normalization_context"={"groups"={"nameable, "web_abstract_pages_get", "web_actualities_get"}},
  *     },
  *     "post"={
  *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "denormalization_context"={"groups"={"web_actualities_post"}}
+ *       "denormalization_context"={"groups"={"nameable, "web_abstract_pages_post", "web_actualities_post"}}
  *     }
  *   },
  *   itemOperations={
  *     "get"={
  *       "access_control"="is_granted('ROLE_MEMBER')",
- *       "normalization_context"={"groups"={"web_actuality_get"}},
+ *       "normalization_context"={"groups"={"nameable, "web_abstract_page_get", "web_actuality_get"}},
  *     },
  *     "put"={
  *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "denormalization_context"={"groups"={"web_actuality_put"}}
+ *       "denormalization_context"={"groups"={"nameable, "web_abstract_page_put", "web_actuality_put"}}
  *     }
  *   }
  * )
@@ -45,10 +45,12 @@ use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
  *     "shortName",
  *     "description",
  *     "note",
+ *     "dateTime",
  *     "createdDateTime",
  *     "updatedDateTime",
  *     "startDateTime",
- *     "endDateTime"
+ *     "endDateTime",
+ *     "textValue"
  * })
  * @author Jakub Zak <mail@jakubzak.eu>
  * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
