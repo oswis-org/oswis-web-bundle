@@ -63,7 +63,7 @@ class WebFrequentlyAskedQuestion implements BasicInterface
     use PriorityTrait;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @Doctrine\ORM\Mapping\Column(type="string", nullable=true)
      */
     protected ?string $answer = null;
 
