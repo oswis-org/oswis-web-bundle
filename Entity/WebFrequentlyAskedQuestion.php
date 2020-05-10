@@ -11,8 +11,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\ORM\Mapping as ORM;
 use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation as Searchable;
-use OswisOrg\OswisCoreBundle\Interfaces\Common\BasicEntityInterface;
-use OswisOrg\OswisCoreBundle\Traits\Common\BasicEntityTrait;
+use OswisOrg\OswisCoreBundle\Interfaces\Common\BasicInterface;
+use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
 
@@ -56,9 +56,9 @@ use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
  * @author Jakub Zak <mail@jakubzak.eu>
  * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
  */
-class WebFrequentlyAskedQuestion implements BasicEntityInterface
+class WebFrequentlyAskedQuestion implements BasicInterface
 {
-    use BasicEntityTrait;
+    use BasicTrait;
     use TextValueTrait;
     use PriorityTrait;
 
