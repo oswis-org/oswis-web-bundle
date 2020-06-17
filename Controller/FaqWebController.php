@@ -6,15 +6,15 @@
 
 namespace OswisOrg\OswisWebBundle\Controller;
 
-use OswisOrg\OswisWebBundle\Service\FaqWebService;
+use OswisOrg\OswisWebBundle\Service\WebFAQuestionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class FaqWebController extends AbstractController
 {
-    private FaqWebService $faqWebService;
+    private WebFAQuestionService $faqWebService;
 
-    public function __construct(FaqWebService $webService)
+    public function __construct(WebFAQuestionService $webService)
     {
         $this->faqWebService = $webService;
     }

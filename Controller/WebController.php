@@ -7,11 +7,12 @@
 namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
+use OswisOrg\OswisCoreBundle\Exceptions\NotFoundException;
 use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
-use OswisOrg\OswisWebBundle\Service\FaqWebService;
+use OswisOrg\OswisWebBundle\Service\WebFAQuestionService;
 use OswisOrg\OswisWebBundle\Service\WebService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,9 +23,9 @@ class WebController extends AbstractController
 
     private WebService $webService;
 
-    private FaqWebService $faqWebService;
+    private WebFAQuestionService $faqWebService;
 
-    public function __construct(WebService $webService, FaqWebService $faqWebService)
+    public function __construct(WebService $webService, WebFAQuestionService $faqWebService)
     {
         $this->webService = $webService;
         $this->faqWebService = $faqWebService;
@@ -34,7 +35,7 @@ class WebController extends AbstractController
      * @param string|null $slug
      *
      * @return Response
-     * @throws OswisNotFoundException
+     * @throws NotFoundException
      */
     public function showPage(string $slug = null): Response
     {
@@ -42,7 +43,7 @@ class WebController extends AbstractController
             'pageData' => $this->webService->getAbstractWebPage(new DateTime(), null, null, $slug),
         ];
         if (empty($data['pageData'])) {
-            throw new OswisNotFoundException("(požadovaná stránka: '$slug')");
+            throw new NotFoundException("(požadovaná stránka: '$slug')");
         }
         if ($data['pageData'] instanceof WebActuality) {
             return $this->render('@OswisOrgOswisWeb/web/pages/web-actuality.html.twig', $data);
@@ -60,7 +61,7 @@ class WebController extends AbstractController
      * @param int      $page       Number of page.
      *
      * @return Response
-     * @throws OswisNotFoundException
+     * @throws NotFoundException
      */
     public function showWebActualitiesChunk(int $page = 0, ?int $limit = null, bool $pagination = false): Response
     {
@@ -76,12 +77,12 @@ class WebController extends AbstractController
      * @param bool     $pagination
      *
      * @return array
-     * @throws OswisNotFoundException
+     * @throws NotFoundException
      */
     public function getWebActualitiesData(int $page = 0, ?int $limit = null, bool $pagination = false): array
     {
         if ($page < 0) {
-            throw new OswisNotFoundException('Požadovaná stránka aktualit musí být kladným číslem.');
+            throw new NotFoundException('Požadovaná stránka aktualit musí být kladným číslem.');
         }
         $limit = $limit > 0 ? $limit : self::PAGE_SIZE;
         $offset = $page * $limit;
@@ -100,7 +101,7 @@ class WebController extends AbstractController
      * @param int      $page       Number of page.
      *
      * @return Response
-     * @throws OswisNotFoundException
+     * @throws NotFoundException
      */
     public function showWebActualities(int $page = 0, ?int $limit = null, bool $pagination = true): Response
     {
@@ -120,7 +121,7 @@ class WebController extends AbstractController
                         'path'      => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $a->getSlug()]),
                         'name'      => $a->getName(),
                         'textValue' => $a->getTextValue(),
-                        'dateTime'  => $a->getCreatedDateTime(),
+                        'dateTime'  => $a->getCreatedAt(),
                     ]
                 ),
             ]
@@ -136,15 +137,15 @@ class WebController extends AbstractController
             fn(AbstractWebPage $p) => [
                 'path'        => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $p->getSlug()]),
                 'isActuality' => $p instanceof WebActuality,
-                'created'     => $p->getCreatedDateTime(),
-                'changed'     => $p->getUpdatedDateTime(),
+                'created'     => $p->getCreatedAt(),
+                'changed'     => $p->getUpdatedAt(),
                 'title'       => $p->getName(),
             ]
         )->toArray();
         $lastFaq = $this->faqWebService->getLastUpdatedAnsweredQuestion();
         $items[] = [
             'path'    => $this->generateUrl('oswis_org_oswis_web_faq'),
-            'changed' => $lastFaq ? $lastFaq->getUpdatedDateTime() : null,
+            'changed' => $lastFaq ? $lastFaq->getUpdatedAt() : null,
         ];
         $response = $this->render(
             '@OswisOrgOswisCore/web/pages/sitemap-items.xml.twig',

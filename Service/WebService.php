@@ -8,29 +8,21 @@ namespace OswisOrg\OswisWebBundle\Service;
 
 use DateTime;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository;
-use Psr\Log\LoggerInterface;
 
 class WebService
 {
-    protected EntityManagerInterface $em;
+    protected AbstractWebPageRepository $abstractWebPageRepository;
 
-    protected LoggerInterface $logger;
-
-    public function __construct(EntityManagerInterface $em, LoggerInterface $logger)
+    public function __construct(AbstractWebPageRepository $abstractWebPageRepository)
     {
-        $this->em = $em;
-        $this->logger = $logger;
+        $this->abstractWebPageRepository = $abstractWebPageRepository;
     }
 
-    public function getLastActualities(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null
-    ): Collection {
+    public function getLastActualities(?DateTime $dateTime = null, ?int $limit = null, ?int $offset = null): Collection
+    {
         return $this->getAbstractWebPages($dateTime, $limit, $offset, null, WebActuality::class);
     }
 
@@ -46,10 +38,7 @@ class WebService
 
     final public function getRepository(): AbstractWebPageRepository
     {
-        $repository = $this->em->getRepository(AbstractWebPage::class);
-        assert($repository instanceof AbstractWebPageRepository);
-
-        return $repository;
+        return $this->abstractWebPageRepository;
     }
 
     public function getAbstractWebPage(

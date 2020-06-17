@@ -7,21 +7,62 @@
 namespace OswisOrg\OswisWebBundle\Repository;
 
 use DateTime;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use LogicException;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Entity\JobFairEvent;
 
-class AbstractWebPageRepository extends EntityRepository
+class AbstractWebPageRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     *
+     * @throws LogicException
+     */
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, AbstractWebPage::class);
+    }
+
     public static function addIdQuery(QueryBuilder $queryBuilder, ?int $id = null): void
     {
         if ($id !== null) {
             $queryBuilder->andWhere('p.id = :id')->setParameter('id', $id);
         }
+    }
+
+    public function getAbstractPages(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null,
+        ?string $slug = null,
+        ?string $class = null
+    ): Collection {
+        return new ArrayCollection(
+            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getResult()
+        );
+    }
+
+    public function getAbstractPagesQueryBuilder(
+        ?DateTime $dateTime = null,
+        ?int $limit = null,
+        ?int $offset = null,
+        ?string $slug = null,
+        ?string $class = null
+    ): QueryBuilder {
+        $queryBuilder = $this->createQueryBuilder('p');
+        self::addSlugQuery($queryBuilder, $slug);
+        self::addDateRangeQuery($queryBuilder, $dateTime);
+        self::addLimit($queryBuilder, $limit, $offset);
+        self::addOrderBy($queryBuilder, true, true);
+        self::addClassQuery($queryBuilder, $class);
+
+        return $queryBuilder;
     }
 
     public static function addSlugQuery(QueryBuilder $queryBuilder, ?string $slug = null): void
@@ -68,35 +109,6 @@ class AbstractWebPageRepository extends EntityRepository
                 $queryBuilder->expr()->isInstanceOf('p', $class)
             );
         }
-    }
-
-    public function getAbstractPages(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null,
-        ?string $slug = null,
-        ?string $class = null
-    ): Collection {
-        return new ArrayCollection(
-            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getResult()
-        );
-    }
-
-    public function getAbstractPagesQueryBuilder(
-        ?DateTime $dateTime = null,
-        ?int $limit = null,
-        ?int $offset = null,
-        ?string $slug = null,
-        ?string $class = null
-    ): QueryBuilder {
-        $queryBuilder = $this->createQueryBuilder('p');
-        self::addSlugQuery($queryBuilder, $slug);
-        self::addDateRangeQuery($queryBuilder, $dateTime);
-        self::addLimit($queryBuilder, $limit, $offset);
-        self::addOrderBy($queryBuilder, true, true);
-        self::addClassQuery($queryBuilder, $class);
-
-        return $queryBuilder;
     }
 
     public function getAbstractPage(

@@ -5,7 +5,7 @@
 
 namespace OswisOrg\OswisWebBundle\Entity\MediaObject;
 
-use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
+use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractFile;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Publicity;
 use OswisOrg\OswisCoreBundle\Exceptions\InvalidTypeException;
 use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
@@ -17,9 +17,8 @@ use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Doctrine\ORM\Mapping\Entity()
- * @Doctrine\ORM\Mapping\Table(name="web_image")
+ * @Doctrine\ORM\Mapping\Table(name="web_file")
  * @ApiPlatform\Core\Annotation\ApiResource(
- *     iri="http://schema.org/ImageObject",
  *     collectionOperations={
  *         "get"={
  *           "access_control"="is_granted('ROLE_MANAGER')",
@@ -27,17 +26,17 @@ use Symfony\Component\HttpFoundation\File\File;
  *         },
  *         "post"={
  *           "method"="POST",
- *           "path"="/web_image",
- *           "controller"=OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebImageAction::class,
+ *           "path"="/web_file",
+ *           "controller"=OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebFileAction::class,
  *           "defaults"={"_api_receive"=false},
  *           "access_control"="is_granted('ROLE_MANAGER')",
  *         },
  *     }
  * )
  * @Vich\UploaderBundle\Mapping\Annotation\Uploadable()
- * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_image")
+ * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_file")
  */
-class WebImage extends AbstractImage
+class WebFile extends AbstractFile
 {
     use BasicTrait;
     use TypeTrait;
@@ -47,15 +46,14 @@ class WebImage extends AbstractImage
     /**
      * @Symfony\Component\Validator\Constraints\NotNull()
      * @Vich\UploaderBundle\Mapping\Annotation\UploadableField(
-     *     mapping="web_image", fileNameProperty="contentName", mimeType="contentMimeType",
-     *     dimensions={"contentDimensionsWidth", "contentDimensionsHeight"}
+     *     mapping="web_file", fileNameProperty="contentName", mimeType="contentMimeType"
      * )
      */
     public ?File $file = null;
 
     /**
      * @Doctrine\ORM\Mapping\ManyToOne(
-     *     targetEntity="OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage", inversedBy="images", cascade={"all"}
+     *     targetEntity="OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage", inversedBy="files"
      * )
      * @Doctrine\ORM\Mapping\JoinColumn(name="abstract_web_page_id", referencedColumnName="id")
      */
@@ -85,11 +83,11 @@ class WebImage extends AbstractImage
     public function setWebPage(?AbstractWebPage $webPage): void
     {
         if (null !== $this->webPage && $webPage !== $this->webPage) {
-            $this->webPage->removeImage($this);
+            $this->webPage->removeFile($this);
         }
         $this->webPage = $webPage;
         if (null !== $webPage && $this->webPage !== $webPage) {
-            $webPage->addImage($this);
+            $webPage->addFile($this);
         }
     }
 }

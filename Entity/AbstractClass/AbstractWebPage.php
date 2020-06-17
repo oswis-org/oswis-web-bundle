@@ -1,12 +1,16 @@
 <?php
 /**
  * @noinspection MethodShouldBeFinalInspection
- * @noinspection PhpUnused
  */
 
 namespace OswisOrg\OswisWebBundle\Entity\AbstractClass;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use InvalidArgumentException;
+use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractWebContent;
+use OswisOrg\OswisCoreBundle\Entity\NonPersistent\DateTimeRange;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Nameable;
 use OswisOrg\OswisCoreBundle\Interfaces\Common\NameableInterface;
 use OswisOrg\OswisCoreBundle\Traits\Common\DateRangeTrait;
@@ -15,8 +19,10 @@ use OswisOrg\OswisCoreBundle\Traits\Common\NameableTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
 use OswisOrg\OswisWebBundle\Entity\MediaObject\ContactImage;
+use OswisOrg\OswisWebBundle\Entity\MediaObject\WebFile;
 use OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
+use OswisOrg\OswisWebBundle\Entity\WebContent;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
 use OswisOrg\OswisWebBundle\Entity\WebPage;
 
@@ -50,36 +56,124 @@ abstract class AbstractWebPage implements NameableInterface
     use TextValueTrait;
 
     /**
-     * @Doctrine\ORM\Mapping\OneToOne(
-     *     targetEntity="OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage",
-     *     cascade={"all"},
-     *     fetch="EAGER"
+     * @Doctrine\ORM\Mapping\OneToMany(
+     *     targetEntity="OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage", mappedBy="webPage", cascade={"all"}, orphanRemoval=true
      * )
      */
-    protected ?WebImage $image = null;
+    protected ?Collection $images = null;
 
-    public function __construct(
-        ?Nameable $nameable = null,
-        ?DateTime $dateTime = null,
-        ?DateTime $startDateTime = null,
-        ?DateTime $endDateTime = null,
-        ?int $priority = null
-    ) {
+    /**
+     * @Doctrine\ORM\Mapping\OneToMany(
+     *     targetEntity="OswisOrg\OswisWebBundle\Entity\MediaObject\WebFile", mappedBy="webPage", cascade={"all"}, orphanRemoval=true
+     * )
+     */
+    protected ?Collection $files = null;
+
+    /**
+     * @Doctrine\ORM\Mapping\OneToMany(
+     *     targetEntity="OswisOrg\OswisWebBundle\Entity\WebContent", mappedBy="webPage", cascade={"all"}, fetch="EAGER"
+     * )
+     */
+    protected ?Collection $contents = null;
+
+    public function __construct(?Nameable $nameable = null, ?DateTime $dateTime = null, ?DateTimeRange $range = null, ?int $priority = null)
+    {
+        $this->images = new ArrayCollection();
+        $this->files = new ArrayCollection();
         $this->setFieldsFromNameable($nameable);
         $this->setDateTime($dateTime);
-        $this->setStartDateTime($startDateTime);
-        $this->setEndDateTime($endDateTime);
+        $this->setDateTimeRange($range);
         $this->setPriority($priority);
     }
 
-    public function getImage(): ?WebImage
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function update(): void
     {
-        return $this->image;
+        if (!empty($this->getTextValue())) {
+            $this->addContent(new WebContent($this->getTextValue(), AbstractWebContent::HTML));
+        }
     }
 
-    public function setImage(?WebImage $image): void
+    public function addContent(?WebContent $webContent): void
     {
-        $this->image = $image;
+        if (null !== $webContent && !$this->getContents()->contains($webContent)) {
+            $this->removeContent($this->getContent($webContent->getType()));
+            $this->getContents()->add($webContent);
+            $webContent->setWebPage($this);
+        }
+    }
+
+    public function getContents(?string $type = null): Collection
+    {
+        $contents = $this->contents ?? new ArrayCollection();
+        if (null !== $type) {
+            $contents = $contents->filter(fn(WebContent $webContent) => $webContent->isType($type));
+        }
+
+        return $contents;
+    }
+
+    public function removeContent(?WebContent $webContent): void
+    {
+        if (null !== $webContent && $this->getContents()->removeElement($webContent)) {
+            $webContent->setWebPage(null);
+        }
+    }
+
+    public function getContent(?string $type = 'html'): ?WebContent
+    {
+        $content = $this->getContents($type)->first();
+
+        return $content instanceof WebContent ? $content : null;
+    }
+
+    public function getHtmlContent(): ?string
+    {
+        $htmlContent = $this->getContent(AbstractWebContent::HTML);
+
+        return null !== $htmlContent ? $htmlContent->getTextValue() : $this->getTextValue();
+    }
+
+    public function addImage(?WebImage $image): void
+    {
+        if (null !== $image && !$this->getImages()->contains($image)) {
+            $this->getImages()->add($image);
+            $image->setWebPage($this);
+        }
+    }
+
+    public function getImages(): Collection
+    {
+        return $this->images ?? new ArrayCollection();
+    }
+
+    public function removeImage(?WebImage $image): void
+    {
+        if (null !== $image && $this->getImages()->removeElement($image)) {
+            $image->setWebPage(null);
+        }
+    }
+
+    public function addFile(?WebFile $file): void
+    {
+        if (null !== $file && !$this->getFiles()->contains($file)) {
+            $this->getFiles()->add($file);
+            $file->setWebPage($this);
+        }
+    }
+
+    public function getFiles(): Collection
+    {
+        return $this->files ?? new ArrayCollection();
+    }
+
+    public function removeFile(?WebFile $file): void
+    {
+        if (null !== $file && $this->getFiles()->removeElement($file)) {
+            $file->setWebPage(null);
+        }
     }
 
     public function isWebPage(): bool
@@ -107,6 +201,8 @@ abstract class AbstractWebPage implements NameableInterface
      */
     public function getDateTime(): ?DateTime
     {
-        return $this->traitGetDateTime() ?? $this->getCreatedDateTime();
+        return $this->traitGetDateTime() ?? $this->getCreatedAt();
     }
+
+
 }

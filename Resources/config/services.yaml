@@ -11,7 +11,7 @@ services:
         public: true
         arguments:
             - '@oswis_org_oswis_web.web_service'
-            - '@oswis_org_oswis_web.faq_web_service'
+            - '@oswis_org_oswis_web.web_f_a_question_service'
     OswisOrg\OswisWebBundle\Controller\WebController:
         alias: oswis_org_oswis_web.web_controller
         public: true
@@ -22,7 +22,7 @@ services:
         autowire: true
         public: true
         arguments:
-            - '@oswis_org_oswis_web.faq_web_service'
+            - '@oswis_org_oswis_web.web_f_a_question_service'
     OswisOrg\OswisWebBundle\Controller\FaqWebController:
         alias: oswis_org_oswis_web.faq_web_controller
         public: true
@@ -33,19 +33,43 @@ services:
         autowire: true
         public: true
         arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@monolog.logger'
+            - '@oswis_org_oswis_web.abstract_web_page_repository'
     OswisOrg\OswisWebBundle\Service\WebService:
         alias: oswis_org_oswis_web.web_service
         public: true
 
     ### FAQ web service
-    oswis_org_oswis_web.faq_web_service:
-        class: OswisOrg\OswisWebBundle\Service\FaqWebService
+    oswis_org_oswis_web.web_f_a_question_service:
+        class: OswisOrg\OswisWebBundle\Service\WebFAQuestionService
         autowire: true
         public: true
         arguments:
-            - '@doctrine.orm.entity_manager'
-    OswisOrg\OswisWebBundle\Service\FaqWebService:
-        alias: oswis_org_oswis_web.faq_web_service
+            - '@oswis_org_oswis_web.web_f_a_question_repository'
+    OswisOrg\OswisWebBundle\Service\WebFAQuestionService:
+        alias: oswis_org_oswis_web.web_f_a_question_service
         public: true
+
+    ###
+    ###  REPOSITORIES
+    ###
+
+    oswis_org_oswis_web.abstract_web_page_repository:
+        class: OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository
+        autowire: true
+        public: true
+        arguments:
+            - '@doctrine'
+    OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository:
+        alias: oswis_org_oswis_web.abstract_web_page_repository
+        public: true
+
+    oswis_org_oswis_web.web_f_a_question_repository:
+        class: OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository
+        autowire: true
+        public: true
+        arguments:
+            - '@doctrine'
+    OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository:
+        alias: oswis_org_oswis_web.web_f_a_question_repository
+        public: true
+
