@@ -47,8 +47,7 @@ class WebImage extends AbstractImage
     /**
      * @Symfony\Component\Validator\Constraints\NotNull()
      * @Vich\UploaderBundle\Mapping\Annotation\UploadableField(
-     *     mapping="web_image", fileNameProperty="contentName", mimeType="contentMimeType",
-     *     dimensions={"contentDimensionsWidth", "contentDimensionsHeight"}
+     *     mapping="web_image", fileNameProperty="contentName", mimeType="contentMimeType", dimensions="contentDimensions"
      * )
      */
     public ?File $file = null;
