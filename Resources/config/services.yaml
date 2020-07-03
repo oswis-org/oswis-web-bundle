@@ -45,6 +45,7 @@ services:
         public: true
         arguments:
             - '@oswis_org_oswis_web.web_f_a_question_repository'
+            - '@doctrine.orm.entity_manager'
     OswisOrg\OswisWebBundle\Service\WebFAQuestionService:
         alias: oswis_org_oswis_web.web_f_a_question_service
         public: true

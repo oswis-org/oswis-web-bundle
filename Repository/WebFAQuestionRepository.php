@@ -30,7 +30,7 @@ class WebFAQuestionRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('faq')->where("faq.answer IS NOT NULL AND faq.answer != ''");
         $queryBuilder->orderBy('faq.priority', 'DESC');
-        $queryBuilder->addOrderBy('faq.createdDateTime', 'ASC')->addOrderBy('faq.id', 'ASC');
+        $queryBuilder->addOrderBy('faq.createdAt', 'ASC')->addOrderBy('faq.id', 'ASC');
         $queryBuilder->setMaxResults($limit)->setFirstResult($offset);
 
         return new ArrayCollection($queryBuilder->getQuery()->getArrayResult());
@@ -39,7 +39,7 @@ class WebFAQuestionRepository extends ServiceEntityRepository
     public function getLastUpdatedAnsweredQuestions(?int $limit = null, ?int $offset = null): Collection
     {
         $queryBuilder = $this->createQueryBuilder('faq')->where("faq.answer IS NOT NULL AND faq.answer != ''");
-        $queryBuilder->addOrderBy('faq.updatedDateTime', 'DESC')->addOrderBy('faq.id', 'DESC');
+        $queryBuilder->addOrderBy('faq.updatedAt', 'DESC')->addOrderBy('faq.id', 'DESC');
         $queryBuilder->setMaxResults($limit)->setFirstResult($offset);
 
         return new ArrayCollection($queryBuilder->getQuery()->getArrayResult());

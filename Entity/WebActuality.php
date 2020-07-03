@@ -42,8 +42,8 @@ use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
  *     "description",
  *     "note",
  *     "dateTime",
- *     "createdDateTime",
- *     "updatedDateTime",
+ *     "createdAt",
+ *     "updatedAt",
  *     "startDateTime",
  *     "endDateTime",
  *     "textValue"

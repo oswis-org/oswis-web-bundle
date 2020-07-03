@@ -32,7 +32,7 @@ use OswisOrg\OswisWebBundle\Entity\WebPage;
  * Abstract web page is base for many kind of web pages (ie. web page, web actuality, web gallery...).
  * Page is visible on website in interval given by startDateTime and endDateTime (no need to use publicOnWeb property).
  * Page is deleted by setting endDateTime (no need to use deleted property).
- * Column dateTime is used for overwriting createdDateTime on website.
+ * Column dateTime is used for overwriting createdAt on website.
  *
  * @Doctrine\ORM\Mapping\Entity(repositoryClass="OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository")
  * @Doctrine\ORM\Mapping\Table(name="web_abstract_web_page")

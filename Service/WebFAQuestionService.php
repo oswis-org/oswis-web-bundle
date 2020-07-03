@@ -7,6 +7,7 @@
 namespace OswisOrg\OswisWebBundle\Service;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use OswisOrg\OswisWebBundle\Entity\WebFAQuestion;
 use OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository;
 
@@ -14,9 +15,25 @@ class WebFAQuestionService
 {
     protected WebFAQuestionRepository $webFAQuestionRepository;
 
-    public function __construct(WebFAQuestionRepository $webFAQuestionRepository)
+    protected EntityManagerInterface $em;
+
+    public function __construct(WebFAQuestionRepository $webFAQuestionRepository, EntityManagerInterface $em)
     {
         $this->webFAQuestionRepository = $webFAQuestionRepository;
+        $this->em = $em;
+    }
+
+    final public function create(WebFAQuestion $webFAQuestion): ?WebFAQuestion
+    {
+        try {
+            $this->em->persist($webFAQuestion);
+            $this->em->flush();
+
+            return $webFAQuestion;
+        } catch (Exception $e) {
+
+            return null;
+        }
     }
 
     public function getLastUpdatedAnsweredQuestion(): ?WebFAQuestion
