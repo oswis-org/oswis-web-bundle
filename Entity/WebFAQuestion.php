@@ -58,7 +58,7 @@ class WebFAQuestion implements BasicInterface
     use PriorityTrait;
 
     /**
-     * @Doctrine\ORM\Mapping\Column(type="string", nullable=true)
+     * @Doctrine\ORM\Mapping\Column(type="text", nullable=true)
      */
     protected ?string $answer = null;
 

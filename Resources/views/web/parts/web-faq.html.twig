@@ -2,7 +2,7 @@
 <div class="row faq-container" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
     <article class="col-12">
         <header>
-            <p class="faq-question" itemprop="name">{{ question.textContent }}</p>
+            <h3 class="faq-question" itemprop="name"><span class="small">{{ question.textValue }}</span></h3>
         </header>
         {% if question.answer %}
             <main itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
