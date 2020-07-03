@@ -22,15 +22,15 @@ use Symfony\Component\HttpFoundation\File\File;
  *     collectionOperations={
  *         "get"={
  *           "access_control"="is_granted('ROLE_MANAGER')",
- *           "normalization_context"={"groups"={"web_actualities_get"}},
+ *           "normalization_context"={"groups"={"web_actualities_get"}}
  *         },
  *         "post"={
  *           "method"="POST",
  *           "path"="/web_file",
  *           "controller"=OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebFileAction::class,
  *           "defaults"={"_api_receive"=false},
- *           "access_control"="is_granted('ROLE_MANAGER')",
- *         },
+ *           "access_control"="is_granted('ROLE_MANAGER')"
+ *         }
  *     }
  * )
  * @Vich\UploaderBundle\Mapping\Annotation\Uploadable()
