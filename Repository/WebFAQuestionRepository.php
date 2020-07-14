@@ -33,7 +33,7 @@ class WebFAQuestionRepository extends ServiceEntityRepository
         $queryBuilder->addOrderBy('faq.createdAt', 'ASC')->addOrderBy('faq.id', 'ASC');
         $queryBuilder->setMaxResults($limit)->setFirstResult($offset);
 
-        return new ArrayCollection($queryBuilder->getQuery()->getArrayResult());
+        return new ArrayCollection($queryBuilder->getQuery()->getResult());
     }
 
     public function getLastUpdatedAnsweredQuestions(?int $limit = null, ?int $offset = null): Collection
@@ -42,6 +42,6 @@ class WebFAQuestionRepository extends ServiceEntityRepository
         $queryBuilder->addOrderBy('faq.updatedAt', 'DESC')->addOrderBy('faq.id', 'DESC');
         $queryBuilder->setMaxResults($limit)->setFirstResult($offset);
 
-        return new ArrayCollection($queryBuilder->getQuery()->getArrayResult());
+        return new ArrayCollection($queryBuilder->getQuery()->getResult());
     }
 }
