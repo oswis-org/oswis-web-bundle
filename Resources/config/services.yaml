@@ -50,6 +50,20 @@ services:
         alias: oswis_org_oswis_web.web_f_a_question_service
         public: true
 
+    oswis_org_oswis_web.web_site_map_extender:
+        class: OswisOrg\OswisWebBundle\Extender\WebSitemapExtender
+        autowire: true
+        public: true
+        arguments:
+            - '@router.default'
+            - '@oswis_org_oswis_web.web_service'
+            - '@oswis_org_oswis_web.web_f_a_question_service'
+        tags:
+            - 'oswis.site_map_extender'
+    OswisOrg\OswisWebBundle\Extender\WebSitemapExtender:
+        alias: oswis_org_oswis_web.web_site_map_extender
+        public: true
+
     ###
     ###  REPOSITORIES
     ###
