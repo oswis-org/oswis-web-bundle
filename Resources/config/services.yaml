@@ -11,7 +11,6 @@ services:
         public: true
         arguments:
             - '@oswis_org_oswis_web.web_service'
-            - '@oswis_org_oswis_web.web_f_a_question_service'
     OswisOrg\OswisWebBundle\Controller\WebController:
         alias: oswis_org_oswis_web.web_controller
         public: true
@@ -62,6 +61,19 @@ services:
             - 'oswis.site_map_extender'
     OswisOrg\OswisWebBundle\Extender\WebSitemapExtender:
         alias: oswis_org_oswis_web.web_site_map_extender
+        public: true
+
+    oswis_org_oswis_web.web_rss_extender:
+        class: OswisOrg\OswisWebBundle\Extender\WebRssExtender
+        autowire: true
+        public: true
+        arguments:
+            - '@router.default'
+            - '@oswis_org_oswis_web.web_service'
+        tags:
+            - 'oswis.rss_extender'
+    OswisOrg\OswisWebBundle\Extender\WebRssExtender:
+        alias: oswis_org_oswis_web.web_rss_extender
         public: true
 
     ###

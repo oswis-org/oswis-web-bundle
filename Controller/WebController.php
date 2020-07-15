@@ -1,7 +1,6 @@
 <?php
 /**
  * @noinspection MethodShouldBeFinalInspection
- * @noinspection PhpUnused
  */
 
 namespace OswisOrg\OswisWebBundle\Controller;
@@ -9,10 +8,8 @@ namespace OswisOrg\OswisWebBundle\Controller;
 use DateTime;
 use OswisOrg\OswisCoreBundle\Exceptions\NotFoundException;
 use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
-use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
-use OswisOrg\OswisWebBundle\Service\WebFAQuestionService;
 use OswisOrg\OswisWebBundle\Service\WebService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,12 +20,9 @@ class WebController extends AbstractController
 
     private WebService $webService;
 
-    private WebFAQuestionService $faqWebService;
-
-    public function __construct(WebService $webService, WebFAQuestionService $faqWebService)
+    public function __construct(WebService $webService)
     {
         $this->webService = $webService;
-        $this->faqWebService = $faqWebService;
     }
 
     /**
@@ -109,50 +103,6 @@ class WebController extends AbstractController
             '@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
             $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
         );
-    }
-
-    public function showRssChunk(): Response
-    {
-        $response = $this->render(
-            '@OswisOrgOswisCore/web/pages/rss-items.xml.twig',
-            [
-                'items' => $this->webService->getLastActualities()->map(
-                    fn(WebActuality $a) => [
-                        'path'      => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $a->getSlug()]),
-                        'name'      => $a->getName(),
-                        'textValue' => $a->getTextValue(),
-                        'dateTime'  => $a->getCreatedAt(),
-                    ]
-                ),
-            ]
-        );
-        $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
-
-        return $response;
-    }
-
-    public function showSitemapXmlChunk(): Response
-    {
-        $items = $this->webService->getAbstractWebPages()->map(
-            fn(AbstractWebPage $p) => [
-                'path'        => $this->generateUrl('oswis_org_oswis_web_page', ['slug' => $p->getSlug()]),
-                'isActuality' => $p instanceof WebActuality,
-                'created'     => $p->getCreatedAt(),
-                'changed'     => $p->getUpdatedAt(),
-                'title'       => $p->getName(),
-            ]
-        )->toArray();
-        $lastFaq = $this->faqWebService->getLastUpdatedAnsweredQuestion();
-        $items[] = [
-            'path'    => $this->generateUrl('oswis_org_oswis_web_faq'),
-            'changed' => $lastFaq ? $lastFaq->getUpdatedAt() : null,
-        ];
-//        $response = $this->render(
-//            '@OswisOrgOswisCore/web/pages/sitemap-items.xml.twig',
-//            ['items' => [...$items, ...$this->getOtherItems()]]
-//        );
-
-        return new Response();
     }
 
     /**
