@@ -1,7 +1,0 @@
-{% extends '@!OswisOrgOswisCore/web/pages/sitemap.xml.twig' %}
-
-{% block items_additional %}
-    {{ parent() }}
-    <!-- OswisWebBundle -->
-    {{ render_esi(controller('OswisOrg\\OswisWebBundle\\Controller\\WebController::showSitemapXmlChunk')) }}
-{% endblock items_additional %}

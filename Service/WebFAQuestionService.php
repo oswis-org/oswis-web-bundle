@@ -1,13 +1,13 @@
 <?php
 /**
  * @noinspection MethodShouldBeFinalInspection
- * @noinspection PhpUnused
  */
 
 namespace OswisOrg\OswisWebBundle\Service;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use OswisOrg\OswisWebBundle\Entity\WebFAQuestion;
 use OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository;
 

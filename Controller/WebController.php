@@ -147,13 +147,12 @@ class WebController extends AbstractController
             'path'    => $this->generateUrl('oswis_org_oswis_web_faq'),
             'changed' => $lastFaq ? $lastFaq->getUpdatedAt() : null,
         ];
-        $response = $this->render(
-            '@OswisOrgOswisCore/web/pages/sitemap-items.xml.twig',
-            ['items' => [...$items, ...$this->getOtherItems()]]
-        );
-        $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
+//        $response = $this->render(
+//            '@OswisOrgOswisCore/web/pages/sitemap-items.xml.twig',
+//            ['items' => [...$items, ...$this->getOtherItems()]]
+//        );
 
-        return $response;
+        return new Response();
     }
 
     /**
