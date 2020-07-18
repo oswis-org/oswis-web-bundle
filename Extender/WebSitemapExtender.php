@@ -8,7 +8,7 @@ namespace OswisOrg\OswisWebBundle\Extender;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\SiteMapItem;
-use OswisOrg\OswisCoreBundle\Interfaces\Common\SiteMapExtenderInterface;
+use OswisOrg\OswisCoreBundle\Interfaces\Web\SiteMapExtenderInterface;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use OswisOrg\OswisWebBundle\Service\WebFAQuestionService;
 use OswisOrg\OswisWebBundle\Service\WebService;

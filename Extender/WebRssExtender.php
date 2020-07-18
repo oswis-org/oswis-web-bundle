@@ -7,7 +7,7 @@ namespace OswisOrg\OswisWebBundle\Extender;
 
 use Doctrine\Common\Collections\Collection;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\RssItem;
-use OswisOrg\OswisCoreBundle\Interfaces\Common\RssExtenderInterface;
+use OswisOrg\OswisCoreBundle\Interfaces\Web\RssExtenderInterface;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Service\WebService;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
