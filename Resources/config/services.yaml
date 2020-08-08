@@ -32,7 +32,7 @@ services:
         autowire: true
         public: true
         arguments:
-            - '@oswis_org_oswis_web.abstract_web_page_repository'
+            - '@OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository'
     OswisOrg\OswisWebBundle\Service\WebService:
         alias: oswis_org_oswis_web.web_service
         public: true
@@ -43,7 +43,7 @@ services:
         autowire: true
         public: true
         arguments:
-            - '@oswis_org_oswis_web.web_f_a_question_repository'
+            - '@OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository'
             - '@doctrine.orm.entity_manager'
     OswisOrg\OswisWebBundle\Service\WebFAQuestionService:
         alias: oswis_org_oswis_web.web_f_a_question_service
@@ -80,23 +80,21 @@ services:
     ###  REPOSITORIES
     ###
 
-    oswis_org_oswis_web.abstract_web_page_repository:
+    OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository:
         class: OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository
         autowire: true
         public: true
         arguments:
             - '@doctrine'
-    OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository:
-        alias: oswis_org_oswis_web.abstract_web_page_repository
-        public: true
+        tags:
+            - 'doctrine.repository_service'
 
-    oswis_org_oswis_web.web_f_a_question_repository:
+    OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository:
         class: OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository
         autowire: true
         public: true
         arguments:
             - '@doctrine'
-    OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository:
-        alias: oswis_org_oswis_web.web_f_a_question_repository
-        public: true
+        tags:
+            - 'doctrine.repository_service'
 
