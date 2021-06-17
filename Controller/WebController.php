@@ -6,6 +6,8 @@
 namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
+use Doctrine\Common\Collections\Collection;
+use JetBrains\PhpStorm\ArrayShape;
 use OswisOrg\OswisCoreBundle\Exceptions\NotFoundException;
 use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
@@ -26,7 +28,7 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param string|null $slug
+     * @param  string|null  $slug
      *
      * @return Response
      * @throws NotFoundException
@@ -50,9 +52,9 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param int|null $limit      Limit of items on page.
-     * @param bool     $pagination Enables pagination.
-     * @param int      $page       Number of page.
+     * @param  int|null  $limit  Limit of items on page.
+     * @param  bool  $pagination  Enables pagination.
+     * @param  int  $page  Number of page.
      *
      * @return Response
      * @throws NotFoundException
@@ -66,15 +68,18 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param int|null $limit
-     * @param int      $page
-     * @param bool     $pagination
+     * @param  int|null  $limit
+     * @param  int  $page
+     * @param  bool  $pagination
      *
      * @return array
      * @throws NotFoundException
      */
-    public function getWebActualitiesData(int $page = 0, ?int $limit = null, bool $pagination = false): array
-    {
+    public function getWebActualitiesData(
+        int $page = 0,
+        ?int $limit = null,
+        bool $pagination = false
+    ): array {
         if ($page < 0) {
             throw new NotFoundException('Požadovaná stránka aktualit musí být kladným číslem.');
         }
@@ -90,9 +95,9 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param int|null $limit      Limit of items on page.
-     * @param bool     $pagination Enables pagination.
-     * @param int      $page       Number of page.
+     * @param  int|null  $limit  Limit of items on page.
+     * @param  bool  $pagination  Enables pagination.
+     * @param  int  $page  Number of page.
      *
      * @return Response
      * @throws NotFoundException

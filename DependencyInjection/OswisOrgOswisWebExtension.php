@@ -14,8 +14,8 @@ class OswisOrgOswisWebExtension extends Extension implements PrependExtensionInt
     /**
      * Loads a specific configuration.
      *
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param  array  $configs
+     * @param  ContainerBuilder  $container
      *
      * @throws Exception
      */
@@ -35,8 +35,8 @@ class OswisOrgOswisWebExtension extends Extension implements PrependExtensionInt
     /**
      * This work-around allows overriding of other bundles templates OswisCore.
      *
-     * @param ContainerBuilder $container
-     * @param array            $bundleNames
+     * @param  ContainerBuilder  $container
+     * @param  array  $bundleNames
      */
     final public static function prependForBundleTemplatesOverride(ContainerBuilder $container, array $bundleNames): void
     {

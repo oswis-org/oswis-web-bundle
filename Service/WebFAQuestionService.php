@@ -30,8 +30,7 @@ class WebFAQuestionService
             $this->em->flush();
 
             return $webFAQuestion;
-        } catch (Exception $e) {
-
+        } catch (Exception) {
             return null;
         }
     }

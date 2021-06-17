@@ -50,7 +50,7 @@ class WebSitemapExtender implements SiteMapExtenderInterface
                     $this->urlGenerator->generate('oswis_org_oswis_web_faq'), SiteMapItem::CHANGE_FREQUENCY_DAILY, $lastFaqAnsweredAt
                 )
             );
-        } catch (RouteNotFoundException|InvalidParameterException|MissingMandatoryParametersException $e) {
+        } catch (RouteNotFoundException | InvalidParameterException | MissingMandatoryParametersException) {
         }
 
         return $sitemapItems;

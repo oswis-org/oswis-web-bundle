@@ -19,7 +19,7 @@ use OswisOrg\OswisWebBundle\Entity\JobFairEvent;
 class AbstractWebPageRepository extends ServiceEntityRepository
 {
     /**
-     * @param ManagerRegistry $registry
+     * @param  ManagerRegistry  $registry
      *
      * @throws LogicException
      */
@@ -58,7 +58,7 @@ class AbstractWebPageRepository extends ServiceEntityRepository
         self::addSlugQuery($queryBuilder, $slug);
         self::addDateRangeQuery($queryBuilder, $dateTime);
         self::addLimit($queryBuilder, $limit, $offset);
-        self::addOrderBy($queryBuilder, true, true);
+        self::addOrderBy($queryBuilder);
         self::addClassQuery($queryBuilder, $class);
 
         return $queryBuilder;
@@ -121,7 +121,7 @@ class AbstractWebPageRepository extends ServiceEntityRepository
             $page = $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getOneOrNullResult();
 
             return $page instanceof AbstractWebPage && (empty($class) || $page instanceof $class) ? $page : null;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }

@@ -16,7 +16,7 @@ use OswisOrg\OswisWebBundle\Entity\WebFAQuestion;
 class WebFAQuestionRepository extends ServiceEntityRepository
 {
     /**
-     * @param ManagerRegistry $registry
+     * @param  ManagerRegistry  $registry
      *
      * @throws LogicException
      */
