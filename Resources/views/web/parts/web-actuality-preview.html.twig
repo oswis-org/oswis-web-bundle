@@ -16,13 +16,11 @@
                 {% endblock actuality_content %}
             </a>
         {% else %}
-            <div class="text-justify">
-                {{ block('actuality_content') }}
-            </div>
+            {{ block('actuality_content') }}
         {% endif %}
     </header>
     {% block inside_actuality %}{% endblock inside_actuality %}
-    <div class="col-lg-12" itemprop="articleBody">
+    <div class="col-lg-12 text-jusify" itemprop="articleBody">
         {{ actuality.textValue|markdown_to_html }}
     </div>
 </article>
