@@ -5,7 +5,7 @@
         <meta itemprop="mainEntityOfPage" content="{{ path('oswis_org_oswis_web_page', {'slug': pageData.slug}) }}">
     {% endif %}
     <header>
-        <h2 class="text-left text-uppercase" id="actuality-{{ pageData.id|default('0') }}">
+        <h2 class="text-end text-uppercase" id="actuality-{{ pageData.id|default('0') }}">
             <span itemprop="headline">{{ pageData.name }}</span>
             <time itemprop="datePublished" content="{{ pageData.dateTime|date("Y-m-d\\TH:i:sP")|default }}" class="small text-muted"
                   datetime="{{ pageData.dateTime|date("Y-m-d\\TH:i:sP")|default }}">
@@ -14,7 +14,7 @@
         </h2>
     </header>
     {% block inside_content %}{% endblock inside_content %}
-    <div class="web-actuality-content" itemprop="articleBody">
+    <div class="web-actuality-content text-justify" itemprop="articleBody">
         {{ pageData.textValue|markdown_to_html }}
     </div>
 </article>
