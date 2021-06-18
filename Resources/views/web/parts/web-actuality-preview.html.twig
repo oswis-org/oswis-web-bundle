@@ -6,7 +6,7 @@
             <a href="{{ path('oswis_org_oswis_web_page', {'slug': actuality.slug}) }}" itemprop="url">
                 <meta itemprop="mainEntityOfPage" content="{{ path('oswis_org_oswis_web_page', {'slug': actuality.slug}) }}">
                 {% block actuality_content %}
-                    <h3 class="text-start text-uppercase">
+                    <h3 class="text-start text-uppercase text-info">
                         <span itemprop="headline">{{ actuality.name }}</span>
                         <time itemprop="datePublished" content="{{ actuality.dateTime|date("Y-m-d\\TH:i:sP")|default }}"
                               datetime="{{ actuality.dateTime|date("Y-m-d\\TH:i:sP")|default }}" class="small text-muted">
