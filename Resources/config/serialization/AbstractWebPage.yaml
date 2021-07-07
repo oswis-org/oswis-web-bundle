@@ -1,5 +1,23 @@
 OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage:
     attributes:
+        name:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
+        shortName:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
+        description:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
+                - 'web_abstract_page_put'
         dateTime:
             groups:
                 - 'web_abstract_pages_get'
