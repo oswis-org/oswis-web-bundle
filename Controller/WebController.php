@@ -6,8 +6,6 @@
 namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
-use Doctrine\Common\Collections\Collection;
-use JetBrains\PhpStorm\ArrayShape;
 use OswisOrg\OswisCoreBundle\Exceptions\NotFoundException;
 use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
