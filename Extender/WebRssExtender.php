@@ -26,13 +26,11 @@ class WebRssExtender implements RssExtenderInterface
 
     public function getItems(): Collection
     {
-        return $this->webService->getLastActualities()->map(
-            fn(WebActuality $actuality) => new RssItem(
-                $this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $actuality->getSlug()]),
-                $actuality->getName(),
-                $actuality->getDateTime(),
-                $actuality->getTextValue()
-            )
-        );
+        return $this->webService->getLastActualities()->map(fn(WebActuality $actuality) => new RssItem(
+            $this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $actuality->getSlug()]),
+            $actuality->getName(),
+            $actuality->getDateTime(),
+            $actuality->getTextValue()
+        ));
     }
 }

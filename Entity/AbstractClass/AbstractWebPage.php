@@ -144,9 +144,17 @@ abstract class AbstractWebPage implements NameableInterface
         }
     }
 
-    public function getImages(): Collection
+    public function getImages(?string $type = null, ?bool $onlyPublic = false): Collection
     {
-        return $this->images ?? new ArrayCollection();
+        $images = WebImage::sortByPriority($this->images ?? new ArrayCollection());
+        if (!empty($type)) {
+            $images = $images->filter(static fn(WebImage $image) => $image->getType() === $type);
+        }
+        if ($onlyPublic) {
+            $images = $images->filter(static fn(WebImage $image) => $image->isPublicOnWeb());
+        }
+
+        return $images;
     }
 
     public function removeImage(?WebImage $image): void
@@ -204,5 +212,9 @@ abstract class AbstractWebPage implements NameableInterface
         return $this->traitGetDateTime() ?? $this->getCreatedAt();
     }
 
+    public function getImage(): ?WebImage
+    {
+        return $this->getImages()->first();
+    }
 
 }

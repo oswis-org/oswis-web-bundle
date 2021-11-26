@@ -86,8 +86,6 @@ class WebFile extends AbstractFile
             $this->webPage->removeFile($this);
         }
         $this->webPage = $webPage;
-        if (null !== $webPage && $this->webPage !== $webPage) {
-            $webPage->addFile($this);
-        }
+        $webPage?->addFile($this);
     }
 }

@@ -23,9 +23,6 @@ class FaqWebController extends AbstractController
      */
     public function showFaq(): Response
     {
-        return $this->render(
-            '@OswisOrgOswisWeb/web/pages/web-faq.html.twig',
-            ['questions' => $this->faqWebService->getAnsweredQuestions()]
-        );
+        return $this->render('@OswisOrgOswisWeb/web/pages/web-faq.html.twig', ['questions' => $this->faqWebService->getAnsweredQuestions()]);
     }
 }

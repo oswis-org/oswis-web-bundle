@@ -5,6 +5,8 @@
 
 namespace OswisOrg\OswisWebBundle\Entity\MediaObject;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Publicity;
 use OswisOrg\OswisCoreBundle\Exceptions\InvalidTypeException;
@@ -76,6 +78,23 @@ class WebImage extends AbstractImage
         $this->setFieldsFromPublicity($publicity);
     }
 
+    public static function compareByPriority(self $item1, self $item2): int
+    {
+        if ($item1->getPriority() === $item2->getPriority()) {
+            return $item1->getId() <=> $item2->getId();
+        }
+
+        return $item1->getPriority() <=> $item2->getPriority();
+    }
+
+    public static function sortByPriority(?Collection $webImages): Collection
+    {
+        $items = $webImages ? $webImages->toArray() : [];
+        usort($items, static fn(self $item1, self $item2) => self::compare($item1, $item2));
+
+        return new ArrayCollection($items);
+    }
+
     public function getWebPage(): ?AbstractWebPage
     {
         return $this->webPage;
@@ -87,8 +106,6 @@ class WebImage extends AbstractImage
             $this->webPage->removeImage($this);
         }
         $this->webPage = $webPage;
-        if (null !== $webPage && $this->webPage !== $webPage) {
-            $webPage->addImage($this);
-        }
+        $webPage?->addImage($this);
     }
 }

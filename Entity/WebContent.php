@@ -37,9 +37,7 @@ class WebContent extends AbstractWebContent
             $this->webPage->removeContent($this);
         }
         $this->webPage = $webPage;
-        if ($this->webPage) {
-            $this->webPage->addContent($this);
-        }
+        $this->webPage?->addContent($this);
     }
 
 }

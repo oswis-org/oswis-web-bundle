@@ -42,9 +42,9 @@ class AbstractWebPageRepository extends ServiceEntityRepository
         ?string $slug = null,
         ?string $class = null
     ): Collection {
-        return new ArrayCollection(
-            $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getResult()
-        );
+        $result = $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getResult();
+
+        return new ArrayCollection(is_array($result) ? $result : []);
     }
 
     public function getAbstractPagesQueryBuilder(

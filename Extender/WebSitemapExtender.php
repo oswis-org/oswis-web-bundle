@@ -35,16 +35,14 @@ class WebSitemapExtender implements SiteMapExtenderInterface
     public function getItems(): Collection
     {
         $sitemapItems = new ArrayCollection();
-        $this->webService->getAbstractWebPages()->map(
-            fn(AbstractWebPage $page) => $sitemapItems->add(
-                new SiteMapItem(
-                    $this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $page->getSlug()]), SiteMapItem::CHANGE_FREQUENCY_WEEKLY, null, 0.9, $page
-                )
+        $this->webService->getAbstractWebPages()->map(fn(AbstractWebPage $page) => $sitemapItems->add(
+            new SiteMapItem(
+                $this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $page->getSlug()]), SiteMapItem::CHANGE_FREQUENCY_WEEKLY, null, 0.9, $page
             )
-        );
+        ));
         try {
             $lastFaqAnswered = $this->faqWebService->getLastUpdatedAnsweredQuestion();
-            $lastFaqAnsweredAt = $lastFaqAnswered ? $lastFaqAnswered->getUpdatedAt() : null;
+            $lastFaqAnsweredAt = $lastFaqAnswered?->getUpdatedAt();
             $sitemapItems->add(
                 new SiteMapItem(
                     $this->urlGenerator->generate('oswis_org_oswis_web_faq'), SiteMapItem::CHANGE_FREQUENCY_DAILY, $lastFaqAnsweredAt
