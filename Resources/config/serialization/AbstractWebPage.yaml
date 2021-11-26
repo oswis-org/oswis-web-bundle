@@ -12,6 +12,11 @@ OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage:
                 - 'web_abstract_pages_post'
                 - 'web_abstract_page_get'
                 - 'web_abstract_page_put'
+        slug:
+            groups:
+                - 'web_abstract_pages_get'
+                - 'web_abstract_pages_post'
+                - 'web_abstract_page_get'
         description:
             groups:
                 - 'web_abstract_pages_get'
