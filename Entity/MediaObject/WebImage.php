@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Publicity;
 use OswisOrg\OswisCoreBundle\Exceptions\InvalidTypeException;
+use OswisOrg\OswisCoreBundle\Interfaces\Common\BasicInterface;
 use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\EntityPublicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
@@ -90,7 +91,15 @@ class WebImage extends AbstractImage
     public static function sortByPriority(?Collection $webImages): Collection
     {
         $items = $webImages ? $webImages->toArray() : [];
-        usort($items, static fn(self $item1, self $item2) => self::compare($item1, $item2));
+        usort(
+            $items,
+            static function (mixed $item1, mixed $item2) {
+                assert($item1 instanceof BasicInterface);
+                assert($item2 instanceof BasicInterface);
+
+                return self::compare($item1, $item2);
+            }
+        );
 
         return new ArrayCollection($items);
     }

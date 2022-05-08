@@ -13,14 +13,10 @@ use OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository;
 
 class WebFAQuestionService
 {
-    protected WebFAQuestionRepository $webFAQuestionRepository;
-
-    protected EntityManagerInterface $em;
-
-    public function __construct(WebFAQuestionRepository $webFAQuestionRepository, EntityManagerInterface $em)
-    {
-        $this->webFAQuestionRepository = $webFAQuestionRepository;
-        $this->em = $em;
+    public function __construct(
+        private readonly WebFAQuestionRepository $webFAQuestionRepository,
+        private readonly EntityManagerInterface $em,
+    ) {
     }
 
     final public function create(WebFAQuestion $webFAQuestion): ?WebFAQuestion
@@ -39,7 +35,7 @@ class WebFAQuestionService
     {
         $lastFaq = $this->getRepository()->getLastUpdatedAnsweredQuestions(1)->first();
 
-        return empty($lastFaq) ? null : $lastFaq;
+        return empty($lastFaq) || !($lastFaq instanceof WebFAQuestion) ? null : $lastFaq;
     }
 
     public function getRepository(): WebFAQuestionRepository

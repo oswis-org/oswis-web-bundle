@@ -1,5 +1,6 @@
 <?php
 /**
+ * @noinspection PhpUnused
  * @noinspection MethodShouldBeFinalInspection
  */
 
@@ -29,7 +30,7 @@ use OswisOrg\OswisWebBundle\Entity\WebPage;
 /**
  * Abstract web page (page, actuality, web gallery...).
  *
- * Abstract web page is base for many kind of web pages (ie. web page, web actuality, web gallery...).
+ * Abstract web page is base for many kind of web pages (i.e. web page, web actuality, web gallery...).
  * Page is visible on website in interval given by startDateTime and endDateTime (no need to use publicOnWeb property).
  * Page is deleted by setting endDateTime (no need to use deleted property).
  * Column dateTime is used for overwriting createdAt on website.
@@ -56,25 +57,28 @@ abstract class AbstractWebPage implements NameableInterface
     use TextValueTrait;
 
     /**
+     * @var Collection<WebImage>
      * @Doctrine\ORM\Mapping\OneToMany(
      *     targetEntity="OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage", mappedBy="webPage", cascade={"all"}, orphanRemoval=true
      * )
      */
-    protected ?Collection $images = null;
+    protected Collection $images;
 
     /**
+     * @var Collection<WebFile>
      * @Doctrine\ORM\Mapping\OneToMany(
      *     targetEntity="OswisOrg\OswisWebBundle\Entity\MediaObject\WebFile", mappedBy="webPage", cascade={"all"}, orphanRemoval=true
      * )
      */
-    protected ?Collection $files = null;
+    protected Collection $files;
 
     /**
+     * @var Collection<WebContent>
      * @Doctrine\ORM\Mapping\OneToMany(
      *     targetEntity="OswisOrg\OswisWebBundle\Entity\WebContent", mappedBy="webPage", cascade={"all"}, fetch="EAGER"
      * )
      */
-    protected ?Collection $contents = null;
+    protected Collection $contents;
 
     public function __construct(?Nameable $nameable = null, ?DateTime $dateTime = null, ?DateTimeRange $range = null, ?int $priority = null)
     {
@@ -109,7 +113,9 @@ abstract class AbstractWebPage implements NameableInterface
     {
         $contents = $this->contents ?? new ArrayCollection();
         if (null !== $type) {
-            $contents = $contents->filter(fn(WebContent $webContent) => $webContent->isType($type));
+            $contents = $contents->filter(
+                fn(mixed $webContent) => $webContent instanceof WebContent && $webContent->isType($type),
+            );
         }
 
         return $contents;
@@ -146,12 +152,16 @@ abstract class AbstractWebPage implements NameableInterface
 
     public function getImages(?string $type = null, ?bool $onlyPublic = false): Collection
     {
-        $images = WebImage::sortByPriority($this->images ?? new ArrayCollection());
+        $images = WebImage::sortByPriority($this->images);
         if (!empty($type)) {
-            $images = $images->filter(static fn(WebImage $image) => $image->getType() === $type);
+            $images = $images->filter(
+                static fn(mixed $image) => $image instanceof WebImage && $image->getType() === $type,
+            );
         }
         if ($onlyPublic) {
-            $images = $images->filter(static fn(WebImage $image) => $image->isPublicOnWeb());
+            $images = $images->filter(
+                static fn(mixed $image) => $image instanceof WebImage && $image->isPublicOnWeb(),
+            );
         }
 
         return $images;
@@ -174,7 +184,7 @@ abstract class AbstractWebPage implements NameableInterface
 
     public function getFiles(): Collection
     {
-        return $this->files ?? new ArrayCollection();
+        return $this->files;
     }
 
     public function removeFile(?WebFile $file): void
@@ -214,7 +224,7 @@ abstract class AbstractWebPage implements NameableInterface
 
     public function getImage(): ?WebImage
     {
-        return $this->getImages()->first();
+        return ($image = $this->getImages()->first()) instanceof WebImage ? $image : null;
     }
 
 }

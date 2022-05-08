@@ -14,23 +14,24 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class WebRssExtender implements RssExtenderInterface
 {
-    protected UrlGeneratorInterface $urlGenerator;
-
-    private WebService $webService;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, WebService $webService)
-    {
-        $this->urlGenerator = $urlGenerator;
-        $this->webService = $webService;
+    public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly WebService $webService,
+    ) {
     }
 
     public function getItems(): Collection
     {
-        return $this->webService->getLastActualities()->map(fn(WebActuality $actuality) => new RssItem(
-            $this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $actuality->getSlug()]),
-            $actuality->getName(),
-            $actuality->getDateTime(),
-            $actuality->getTextValue()
-        ));
+        return $this->webService->getLastActualities()->map(
+            function (mixed $actuality) {
+                /** @var WebActuality $actuality */
+                return new RssItem(
+                    $this->urlGenerator->generate(
+                        'oswis_org_oswis_web_page',
+                        ['slug' => $actuality->getSlug()],
+                    ), $actuality->getName(), $actuality->getDateTime(), $actuality->getTextValue(),
+                );
+            }
+        );
     }
 }
