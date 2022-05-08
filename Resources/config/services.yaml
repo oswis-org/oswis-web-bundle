@@ -9,6 +9,8 @@ services:
         class: OswisOrg\OswisWebBundle\Controller\WebController
         autowire: true
         public: true
+        tags:
+            - 'container.service_subscriber'
         arguments:
             - '@oswis_org_oswis_web.web_service'
     OswisOrg\OswisWebBundle\Controller\WebController:
@@ -20,6 +22,8 @@ services:
         class: OswisOrg\OswisWebBundle\Controller\FaqWebController
         autowire: true
         public: true
+        tags:
+            - 'container.service_subscriber'
         arguments:
             - '@oswis_org_oswis_web.web_f_a_question_service'
     OswisOrg\OswisWebBundle\Controller\FaqWebController:
