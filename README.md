@@ -1,7 +1,7 @@
 # Web module for OSWIS
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ae37261a0a1491fb913db1b1b4126ac)](https://www.codacy.com/gh/oswis-org/oswis-web-bundle/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=oswis-org/oswis-web-bundle&amp;utm_campaign=Badge_Grade)
 [![BCH compliance](https://bettercodehub.com/edge/badge/oswis-org/oswis-web-bundle?branch=master)](https://bettercodehub.com/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/665635a6c607414e88dbbeb064d8f3fc)](https://app.codacy.com/manual/mail_106/oswis-web-bundle?utm_source=github.com&utm_medium=referral&utm_content=oswis-org/oswis-web-bundle&utm_campaign=Badge_Grade_Dashboard)
 
 Web module for One Simple Web IS.
 
