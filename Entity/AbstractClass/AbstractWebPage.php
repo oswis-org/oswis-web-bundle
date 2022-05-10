@@ -84,6 +84,7 @@ abstract class AbstractWebPage implements NameableInterface
     {
         $this->images = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->contents = new ArrayCollection();
         $this->setFieldsFromNameable($nameable);
         $this->setDateTime($dateTime);
         $this->setDateTimeRange($range);
