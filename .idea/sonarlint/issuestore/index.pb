@@ -1,8 +1,6 @@
 
 G
 Entity/WebActuality.php,0/a/0a8efe6d22008c9172748db1bc6594bcbb54ce22
-c
-3Resources/config/serialization/AbstractWebPage.yaml,b/4/b48f2fd61290015da47e0f8bc1b8e3d77d7ae651
 X
 (Repository/AbstractWebPageRepository.php,1/5/15d7178962a36e3a995ded006db3ba129e84ea52
 H
@@ -17,8 +15,6 @@ O
 composer.json,3/9/3957b91a0d8450cea0115cfd5af69eac90d75897
 A
 phpstan.neon.dist,5/4/54bc7406fedf3f1c199468e6dba587f2e8dc19ab
-X
-(Entity/AbstractClass/AbstractWebPage.php,3/e/3e36e033a4a906ac9ece8feb6b0f0014ab4d7692
 O
 Entity/MediaObject/WebImage.php,b/d/bd5094e90e949a3b82e101d17fa291272d0016c5
 =

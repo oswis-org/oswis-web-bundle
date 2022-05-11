@@ -112,7 +112,7 @@ abstract class AbstractWebPage implements NameableInterface
 
     public function getContents(?string $type = null): Collection
     {
-        $contents = $this->contents ?? new ArrayCollection();
+        $contents = $this->contents;
         if (null !== $type) {
             $contents = $contents->filter(
                 fn(mixed $webContent) => $webContent instanceof WebContent && $webContent->isType($type),
