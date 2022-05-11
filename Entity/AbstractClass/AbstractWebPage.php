@@ -223,7 +223,7 @@ abstract class AbstractWebPage implements NameableInterface
         return $this->traitGetDateTime() ?? $this->getCreatedAt();
     }
 
-    public function getImage(): ?WebImage
+    public function getOneImage(): ?WebImage
     {
         return ($image = $this->getImages()->first()) instanceof WebImage ? $image : null;
     }
