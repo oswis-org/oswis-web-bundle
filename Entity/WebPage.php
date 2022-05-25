@@ -2,11 +2,25 @@
 
 namespace OswisOrg\OswisWebBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use Doctrine\ORM\Mapping\Cache;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
 /**
- * @Doctrine\ORM\Mapping\Entity()
- * @Doctrine\ORM\Mapping\Table(name="web_page")
+ * @author Jakub Zak <mail@jakubzak.eu>
+ * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
+ *     "id",
+ *     "slug",
+ *     "name",
+ *     "shortName",
+ *     "description",
+ *     "note",
+ *     "startDateTime",
+ *     "endDateTime"
+ * })
  * @ApiPlatform\Core\Annotation\ApiResource(
  *   attributes={
  *     "filters"={"search"},
@@ -37,20 +51,11 @@ use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
  *     }
  *   }
  * )
- * @ApiPlatform\Core\Annotation\ApiFilter(ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter::class)
- * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
- *     "id",
- *     "slug",
- *     "name",
- *     "shortName",
- *     "description",
- *     "note",
- *     "startDateTime",
- *     "endDateTime"
- * })
- * @author Jakub Zak <mail@jakubzak.eu>
- * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
  */
+#[Entity]
+#[Table(name: 'web_page')]
+#[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]
+#[ApiFilter(OrderFilter::class)]
 class WebPage extends AbstractWebPage
 {
 }

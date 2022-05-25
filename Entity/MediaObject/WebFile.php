@@ -5,6 +5,12 @@
 
 namespace OswisOrg\OswisWebBundle\Entity\MediaObject;
 
+use Doctrine\ORM\Mapping\Cache;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
+use Gedmo\Mapping\Annotation\Uploadable;
 use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractFile;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Publicity;
 use OswisOrg\OswisCoreBundle\Exceptions\InvalidTypeException;
@@ -14,10 +20,10 @@ use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TypeTrait;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 /**
- * @Doctrine\ORM\Mapping\Entity()
- * @Doctrine\ORM\Mapping\Table(name="web_file")
  * @ApiPlatform\Core\Annotation\ApiResource(
  *     collectionOperations={
  *         "get"={
@@ -33,9 +39,11 @@ use Symfony\Component\HttpFoundation\File\File;
  *         }
  *     }
  * )
- * @Vich\UploaderBundle\Mapping\Annotation\Uploadable()
- * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_file")
  */
+#[Entity]
+#[Table(name: 'web_file')]
+#[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_file')]
+#[Uploadable]
 class WebFile extends AbstractFile
 {
     use BasicTrait;
@@ -43,20 +51,12 @@ class WebFile extends AbstractFile
     use PriorityTrait;
     use EntityPublicTrait;
 
-    /**
-     * @Symfony\Component\Validator\Constraints\NotNull()
-     * @Vich\UploaderBundle\Mapping\Annotation\UploadableField(
-     *     mapping="web_file", fileNameProperty="contentName", mimeType="contentMimeType"
-     * )
-     */
+    #[NotNull]
+    #[UploadableField(mapping: 'web_file', fileNameProperty: 'contentName', mimeType: 'contentMimeType')]
     public ?File $file = null;
 
-    /**
-     * @Doctrine\ORM\Mapping\ManyToOne(
-     *     targetEntity="OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage", inversedBy="files"
-     * )
-     * @Doctrine\ORM\Mapping\JoinColumn(name="abstract_web_page_id", referencedColumnName="id")
-     */
+    #[ManyToOne(targetEntity: AbstractWebPage::class, inversedBy: 'files')]
+    #[JoinColumn(name: 'abstract_web_page_id', referencedColumnName: 'id')]
     protected ?AbstractWebPage $webPage = null;
 
     /**

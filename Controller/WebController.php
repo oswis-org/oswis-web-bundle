@@ -59,10 +59,7 @@ class WebController extends AbstractController
      */
     public function showWebActualitiesChunk(int $page = 0, ?int $limit = null, bool $pagination = false): Response
     {
-        return $this->render(
-            '@OswisOrgOswisWeb/web/parts/web-actualities.html.twig',
-            $this->getWebActualitiesData($page, $limit, $pagination)
-        );
+        return $this->render('@OswisOrgOswisWeb/web/parts/web-actualities.html.twig', $this->getWebActualitiesData($page, $limit, $pagination));
     }
 
     /**
@@ -102,10 +99,8 @@ class WebController extends AbstractController
      */
     public function showWebActualities(int $page = 0, ?int $limit = null, bool $pagination = true): Response
     {
-        return $this->render(
-            '@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
-            $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
-        );
+        return $this->render('@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
+            $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination));
     }
 
     /**

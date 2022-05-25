@@ -5,8 +5,15 @@
 
 namespace OswisOrg\OswisWebBundle\Entity\MediaObject;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\Cache;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
+use Gedmo\Mapping\Annotation\Uploadable;
 use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Publicity;
 use OswisOrg\OswisCoreBundle\Exceptions\InvalidTypeException;
@@ -15,31 +22,29 @@ use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\EntityPublicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TypeTrait;
+use OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebImageAction;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
-/**
- * @Doctrine\ORM\Mapping\Entity()
- * @Doctrine\ORM\Mapping\Table(name="web_image")
- * @ApiPlatform\Core\Annotation\ApiResource(
- *     iri="http://schema.org/ImageObject",
- *     collectionOperations={
- *         "get"={
- *           "access_control"="is_granted('ROLE_MANAGER')",
- *           "normalization_context"={"groups"={"web_actualities_get"}},
- *         },
- *         "post"={
- *           "method"="POST",
- *           "path"="/web_image",
- *           "controller"=OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebImageAction::class,
- *           "defaults"={"_api_receive"=false},
- *           "access_control"="is_granted('ROLE_MANAGER')",
- *         },
- *     }
- * )
- * @Vich\UploaderBundle\Mapping\Annotation\Uploadable()
- * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_image")
- */
+#[Entity]
+#[Table(name: 'web_image')]
+#[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_image')]
+#[Uploadable]
+#[ApiResource(collectionOperations: [
+    'get'  => [
+        'access_control'        => "is_granted('ROLE_MANAGER')",
+        'normalization_context' => ['groups' => ["web_actualities_get"]],
+    ],
+    'post' => [
+        'method'         => 'POST',
+        'path'           => '/web_image',
+        'controller'     => CreateWebImageAction::class,
+        'access_control' => "is_granted('ROLE_MANAGER')",
+        'defaults'       => ['_api_receive' => false],
+    ],
+])]
 class WebImage extends AbstractImage
 {
     use BasicTrait;
@@ -47,20 +52,12 @@ class WebImage extends AbstractImage
     use PriorityTrait;
     use EntityPublicTrait;
 
-    /**
-     * @Symfony\Component\Validator\Constraints\NotNull()
-     * @Vich\UploaderBundle\Mapping\Annotation\UploadableField(
-     *     mapping="web_image", fileNameProperty="contentName", mimeType="contentMimeType"
-     * )
-     */
+    #[NotNull]
+    #[UploadableField(mapping: 'web_image', fileNameProperty: 'contentName', mimeType: 'contentMimeType')]
     public ?File $file = null;
 
-    /**
-     * @Doctrine\ORM\Mapping\ManyToOne(
-     *     targetEntity="OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage", inversedBy="images", cascade={"all"}
-     * )
-     * @Doctrine\ORM\Mapping\JoinColumn(name="abstract_web_page_id", referencedColumnName="id")
-     */
+    #[ManyToOne(targetEntity: AbstractWebPage::class, cascade: ['all'], inversedBy: 'images')]
+    #[JoinColumn(name: 'abstract_web_page_id', referencedColumnName: 'id')]
     protected ?AbstractWebPage $webPage = null;
 
     /**
@@ -91,15 +88,12 @@ class WebImage extends AbstractImage
     public static function sortByPriority(?Collection $webImages): Collection
     {
         $items = $webImages ? $webImages->toArray() : [];
-        usort(
-            $items,
-            static function (mixed $item1, mixed $item2) {
-                assert($item1 instanceof BasicInterface);
-                assert($item2 instanceof BasicInterface);
+        usort($items, static function (mixed $item1, mixed $item2) {
+            assert($item1 instanceof BasicInterface);
+            assert($item2 instanceof BasicInterface);
 
-                return self::compare($item1, $item2);
-            }
-        );
+            return self::compare($item1, $item2);
+        });
 
         return new ArrayCollection($items);
     }

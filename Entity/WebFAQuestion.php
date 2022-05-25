@@ -5,14 +5,23 @@
 
 namespace OswisOrg\OswisWebBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use Doctrine\ORM\Mapping\Cache;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
 use OswisOrg\OswisCoreBundle\Interfaces\Common\BasicInterface;
 use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
+use OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository;
 
 /**
- * @Doctrine\ORM\Mapping\Entity(repositoryClass="OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository")
- * @Doctrine\ORM\Mapping\Table(name="web_frequently_asked_question")
+ * @author Jakub Zak <mail@jakubzak.eu>
+ * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
+ *     "id"
+ * })
  * @ApiPlatform\Core\Annotation\ApiResource(
  *   attributes={
  *     "filters"={"search"},
@@ -43,22 +52,18 @@ use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
  *     }
  *   }
  * )
- * @ApiPlatform\Core\Annotation\ApiFilter(ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter::class)
- * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
- *     "id"
- * })
- * @author Jakub Zak <mail@jakubzak.eu>
- * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
  */
+#[Entity(repositoryClass: WebFAQuestionRepository::class)]
+#[Table(name: 'web_frequently_asked_question')]
+#[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]
+#[ApiFilter(OrderFilter::class)]
 class WebFAQuestion implements BasicInterface
 {
     use BasicTrait;
     use TextValueTrait;
     use PriorityTrait;
 
-    /**
-     * @Doctrine\ORM\Mapping\Column(type="text", nullable=true)
-     */
+    #[Column(type: 'text', nullable: true)]
     protected ?string $answer = null;
 
     public function __construct(?string $textValue = null, ?string $answer = null, ?int $priority = null)

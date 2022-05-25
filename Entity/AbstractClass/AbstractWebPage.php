@@ -9,6 +9,13 @@ namespace OswisOrg\OswisWebBundle\Entity\AbstractClass;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\Cache;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\Table;
 use InvalidArgumentException;
 use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractWebContent;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\DateTimeRange;
@@ -26,6 +33,7 @@ use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebContent;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
 use OswisOrg\OswisWebBundle\Entity\WebPage;
+use OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository;
 
 /**
  * Abstract web page (page, actuality, web gallery...).
@@ -34,18 +42,17 @@ use OswisOrg\OswisWebBundle\Entity\WebPage;
  * Page is visible on website in interval given by startDateTime and endDateTime (no need to use publicOnWeb property).
  * Page is deleted by setting endDateTime (no need to use deleted property).
  * Column dateTime is used for overwriting createdAt on website.
- *
- * @Doctrine\ORM\Mapping\Entity(repositoryClass="OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository")
- * @Doctrine\ORM\Mapping\Table(name="web_abstract_web_page")
- * @Doctrine\ORM\Mapping\InheritanceType("JOINED")
- * @Doctrine\ORM\Mapping\DiscriminatorColumn(name="discriminator", type="text")
- * @Doctrine\ORM\Mapping\DiscriminatorMap({
- *   "web_page" = "OswisOrg\OswisWebBundle\Entity\WebPage",
- *   "web_actuality" = "OswisOrg\OswisWebBundle\Entity\WebActuality",
- *   "web_media_gallery" = "OswisOrg\OswisWebBundle\Entity\WebMediaGallery"
- * })
- * @Doctrine\ORM\Mapping\Cache(usage="NONSTRICT_READ_WRITE", region="web_web_page")
  */
+#[Entity(repositoryClass: AbstractWebPageRepository::class)]
+#[Table(name: 'web_abstract_web_page')]
+#[InheritanceType('JOINED')]
+#[DiscriminatorColumn(name: 'discriminator', type: 'text')]
+#[DiscriminatorMap([
+    'web_page'          => WebPage::class,
+    'web_actuality'     => WebActuality::class,
+    'web_media_gallery' => WebMediaGallery::class,
+])]
+#[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]
 abstract class AbstractWebPage implements NameableInterface
 {
     use NameableTrait;
@@ -58,26 +65,20 @@ abstract class AbstractWebPage implements NameableInterface
 
     /**
      * @var Collection<WebImage>
-     * @Doctrine\ORM\Mapping\OneToMany(
-     *     targetEntity="OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage", mappedBy="webPage", cascade={"all"}, orphanRemoval=true
-     * )
      */
+    #[OneToMany(mappedBy: 'webPage', targetEntity: WebImage::class, cascade: ['all'], orphanRemoval: true)]
     protected Collection $images;
 
     /**
      * @var Collection<WebFile>
-     * @Doctrine\ORM\Mapping\OneToMany(
-     *     targetEntity="OswisOrg\OswisWebBundle\Entity\MediaObject\WebFile", mappedBy="webPage", cascade={"all"}, orphanRemoval=true
-     * )
      */
+    #[OneToMany(mappedBy: 'webPage', targetEntity: WebFile::class, cascade: ['all'], orphanRemoval: true)]
     protected Collection $files;
 
     /**
      * @var Collection<WebContent>
-     * @Doctrine\ORM\Mapping\OneToMany(
-     *     targetEntity="OswisOrg\OswisWebBundle\Entity\WebContent", mappedBy="webPage", cascade={"all"}, fetch="EAGER"
-     * )
      */
+    #[OneToMany(mappedBy: 'webPage', targetEntity: WebContent::class, cascade: ['all'], fetch: 'EAGER')]
     protected Collection $contents;
 
     public function __construct(?Nameable $nameable = null, ?DateTime $dateTime = null, ?DateTimeRange $range = null, ?int $priority = null)
@@ -114,9 +115,7 @@ abstract class AbstractWebPage implements NameableInterface
     {
         $contents = $this->contents;
         if (null !== $type) {
-            $contents = $contents->filter(
-                fn(mixed $webContent) => $webContent instanceof WebContent && $webContent->isType($type),
-            );
+            $contents = $contents->filter(fn(mixed $webContent) => $webContent instanceof WebContent && $webContent->isType($type),);
         }
 
         return $contents;
@@ -155,14 +154,10 @@ abstract class AbstractWebPage implements NameableInterface
     {
         $images = WebImage::sortByPriority($this->images);
         if (!empty($type)) {
-            $images = $images->filter(
-                static fn(mixed $image) => $image instanceof WebImage && $image->getType() === $type,
-            );
+            $images = $images->filter(static fn(mixed $image) => $image instanceof WebImage && $image->getType() === $type,);
         }
         if ($onlyPublic) {
-            $images = $images->filter(
-                static fn(mixed $image) => $image instanceof WebImage && $image->isPublicOnWeb(),
-            );
+            $images = $images->filter(static fn(mixed $image) => $image instanceof WebImage && $image->isPublicOnWeb(),);
         }
 
         return $images;
@@ -227,5 +222,4 @@ abstract class AbstractWebPage implements NameableInterface
     {
         return ($image = $this->getImages()->first()) instanceof WebImage ? $image : null;
     }
-
 }

@@ -104,9 +104,7 @@ class AbstractWebPageRepository extends ServiceEntityRepository
     public static function addClassQuery(QueryBuilder $queryBuilder, ?string $class = null): void
     {
         if (!empty($class)) {
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->isInstanceOf('p', $class)
-            );
+            $queryBuilder->andWhere($queryBuilder->expr()->isInstanceOf('p', $class));
         }
     }
 
