@@ -2,6 +2,9 @@
 
 {% set page = "web-page" %}
 
+{% block html_title %}{{ page.name }} :: {{ oswis.web.name }}{% endblock %}
+{% block html_description %}{{ page.textValue|markdown_to_html|striptags|u.truncate(100, '...', false) }}{% endblock %}
+
 {% block body_content %}
     <main class="container web-page-main" id="main-content-container">
         {% include '@OswisOrgOswisWeb/web/parts/web-page.html.twig' %}

@@ -48,3 +48,9 @@ L
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
 X
 (Entity/AbstractClass/AbstractWebPage.php,3/e/3e36e033a4a906ac9ece8feb6b0f0014ab4d7692
+=
+composer.json,3/9/3957b91a0d8450cea0115cfd5af69eac90d75897
+=
+composer.lock,c/3/c3262e2a0879195bd6a727e90f768bc85ad79ffd
+\
+,Resources/views/web/parts/web-page.html.twig,3/7/37238a5c56266e639e6a64c6477fcfcca4c642ae
