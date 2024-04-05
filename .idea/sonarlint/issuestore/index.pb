@@ -54,3 +54,15 @@ X
 composer.lock,c/3/c3262e2a0879195bd6a727e90f768bc85ad79ffd
 \
 ,Resources/views/web/parts/web-page.html.twig,3/7/37238a5c56266e639e6a64c6477fcfcca4c642ae
+e
+5Resources/views/web/pages/web-media-gallery.html.twig,2/b/2b0b26879e89d89bbe9a976e11ad42aa55b3585b
+e
+5Resources/views/web/parts/web-media-gallery.html.twig,4/e/4ef8762f135ab4448e0c8aaccfc9df6262e23e3f
+c
+3Resources/views/web/pages/web-actualities.html.twig,9/2/92685996d1b78d3a770fb2bfcb55e4984448cde6
+L
+Resources/config/routes.yaml,c/7/c7e7cf739616e8673064dd9edd4c8365f22aacd9
+O
+Controller/FaqWebController.php,e/6/e663cb8c59fcfa6e71c002adb91c9833d1bd3abe
+j
+:Resources/views/bundles/OswisOrgOswisCoreBundle/.gitignore,7/c/7cd647fa17ddc7c56c69948a4c5babf6d0747551
