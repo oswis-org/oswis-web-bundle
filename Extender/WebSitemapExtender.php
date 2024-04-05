@@ -32,7 +32,7 @@ class WebSitemapExtender implements SiteMapExtenderInterface
         $this->webService->getAbstractWebPages()->map(function (mixed $page) use ($sitemapItems) {
             /** @var AbstractWebPage $page */
             $sitemapItems->add(new SiteMapItem($this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $page->getSlug()]),
-                    SiteMapItem::CHANGE_FREQUENCY_WEEKLY, null, 0.75, $page),);
+                    SiteMapItem::CHANGE_FREQUENCY_WEEKLY, $page->getUpdatedAt(), 0.75, $page),);
         });
         try {
             $lastFaqAnswered = $this->faqWebService->getLastUpdatedAnsweredQuestion();
