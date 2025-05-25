@@ -5,6 +5,9 @@
 
 namespace OswisOrg\OswisWebBundle\Entity\MediaObject;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping\Cache;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
@@ -18,28 +21,26 @@ use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\EntityPublicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TypeTrait;
+use OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebImageAction;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
-/**
- * @ApiPlatform\Core\Annotation\ApiResource(
- *     collectionOperations={
- *         "get"={
- *           "access_control"="is_granted('ROLE_MANAGER')",
- *           "normalization_context"={"groups"={"web_actualities_get"}}
- *         },
- *         "post"={
- *           "method"="POST",
- *           "path"="/web_file",
- *           "controller"=OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebFileAction::class,
- *           "defaults"={"_api_receive"=false},
- *           "access_control"="is_granted('ROLE_MANAGER')"
- *         }
- *     }
- * )
- */
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            normalizationContext: ['groups' => ['web_actualities_get']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Post(
+            uriTemplate: '/web_file',
+            controller: CreateWebImageAction::class,
+            security: "is_granted('ROLE_MANAGER')",
+            deserialize: false
+        ),
+    ]
+)]
 #[Entity]
 #[Table(name: 'web_file')]
 #[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_file')]
@@ -60,10 +61,10 @@ class WebFile extends AbstractFile
     protected ?AbstractWebPage $webPage = null;
 
     /**
-     * @param  File|null  $file
-     * @param  string|null  $type
-     * @param  int|null  $priority
-     * @param  Publicity|null  $publicity
+     * @param File|null      $file
+     * @param string|null    $type
+     * @param int|null       $priority
+     * @param Publicity|null $publicity
      *
      * @throws InvalidTypeException
      */

@@ -5,8 +5,14 @@
 
 namespace OswisOrg\OswisWebBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping\Cache;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -22,37 +28,33 @@ use OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository;
  * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
  *     "id"
  * })
- * @ApiPlatform\Core\Annotation\ApiResource(
- *   attributes={
- *     "filters"={"search"},
- *     "access_control"="is_granted('ROLE_MANAGER')"
- *   },
- *   collectionOperations={
- *     "get"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "normalization_context"={"groups"={"web_frequently_asked_questions_get"}},
- *     },
- *     "post"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "denormalization_context"={"groups"={"web_frequently_asked_questions_post"}}
- *     }
- *   },
- *   itemOperations={
- *     "get"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "normalization_context"={"groups"={"web_frequently_asked_question_get"}},
- *     },
- *     "put"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "denormalization_context"={"groups"={"web_frequently_asked_question_put"}}
- *     },
- *     "delete"={
- *       "access_control"="is_granted('ROLE_ADMIN')",
- *       "denormalization_context"={"groups"={"web_frequently_asked_question_delete"}}
- *     }
- *   }
- * )
  */
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            normalizationContext: ['groups' => ['web_frequently_asked_questions_get']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Post(
+            denormalizationContext: ['groups' => ['web_frequently_asked_questions_post']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Get(
+            normalizationContext: ['groups' => ['web_frequently_asked_question_get']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Put(
+            denormalizationContext: ['groups' => ['web_frequently_asked_question_put']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Delete(
+            denormalizationContext: ['groups' => ['web_frequently_asked_question_delete']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+    ],
+    filters: ['search'],
+    security: "is_granted('ROLE_MANAGER')"
+)]
 #[Entity(repositoryClass: WebFAQuestionRepository::class)]
 #[Table(name: 'web_frequently_asked_question')]
 #[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]

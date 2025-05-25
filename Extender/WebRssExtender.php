@@ -24,8 +24,10 @@ class WebRssExtender implements RssExtenderInterface
     {
         return $this->webService->getLastActualities()->map(function (mixed $actuality) {
             /** @var WebActuality $actuality */
-            return new RssItem($this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $actuality->getSlug()],), $actuality->getName(),
-                $actuality->getDateTime(), $actuality->getTextValue(),);
+            return new RssItem($this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $actuality->getSlug()]),
+                $actuality->getName(),
+                $actuality->getDateTime(),
+                $actuality->getTextValue(),);
         });
     }
 }

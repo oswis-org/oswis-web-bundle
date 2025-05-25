@@ -48,8 +48,8 @@ use OswisOrg\OswisWebBundle\Repository\AbstractWebPageRepository;
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'discriminator', type: 'text')]
 #[DiscriminatorMap([
-    'web_page'          => WebPage::class,
-    'web_actuality'     => WebActuality::class,
+    'web_page' => WebPage::class,
+    'web_actuality' => WebActuality::class,
     'web_media_gallery' => WebMediaGallery::class,
 ])]
 #[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]
@@ -115,7 +115,7 @@ abstract class AbstractWebPage implements NameableInterface
     {
         $contents = $this->contents;
         if (null !== $type) {
-            $contents = $contents->filter(fn(mixed $webContent) => $webContent instanceof WebContent && $webContent->isType($type),);
+            $contents = $contents->filter(fn (mixed $webContent) => $webContent instanceof WebContent && $webContent->isType($type));
         }
 
         return $contents;
@@ -154,10 +154,10 @@ abstract class AbstractWebPage implements NameableInterface
     {
         $images = WebImage::sortByPriority($this->images);
         if (!empty($type)) {
-            $images = $images->filter(static fn(mixed $image) => $image instanceof WebImage && $image->getType() === $type,);
+            $images = $images->filter(static fn (mixed $image) => $image instanceof WebImage && $image->getType() === $type);
         }
         if ($onlyPublic) {
-            $images = $images->filter(static fn(mixed $image) => $image instanceof WebImage && $image->isPublicOnWeb(),);
+            $images = $images->filter(static fn (mixed $image) => $image instanceof WebImage && $image->isPublicOnWeb());
         }
 
         return $images;

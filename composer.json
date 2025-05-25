@@ -27,7 +27,7 @@
     }
   ],
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.4",
     "oswis-org/oswis-core-bundle": "^0.0"
   },
   "require-dev": {

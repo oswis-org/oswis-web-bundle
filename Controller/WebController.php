@@ -26,12 +26,12 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param  string|null  $slug
+     * @param string|null $slug
      *
      * @return Response
      * @throws NotFoundException
      */
-    public function showPage(string $slug = null): Response
+    public function showPage(?string $slug = null): Response
     {
         $data = [
             'pageData' => $this->webService->getAbstractWebPage(new DateTime(), null, null, $slug),
@@ -50,22 +50,25 @@ class WebController extends AbstractController
     }
 
     /**
-     * @param  int|null  $limit  Limit of items on page.
-     * @param  bool  $pagination  Enables pagination.
-     * @param  int  $page  Number of page.
+     * @param int|null $limit      Limit of items on page.
+     * @param bool     $pagination Enables pagination.
+     * @param int      $page       Number of page.
      *
      * @return Response
      * @throws NotFoundException
      */
     public function showWebActualitiesChunk(int $page = 0, ?int $limit = null, bool $pagination = false): Response
     {
-        return $this->render('@OswisOrgOswisWeb/web/parts/web-actualities.html.twig', $this->getWebActualitiesData($page, $limit, $pagination));
+        return $this->render(
+            '@OswisOrgOswisWeb/web/parts/web-actualities.html.twig',
+            $this->getWebActualitiesData($page, $limit, $pagination)
+        );
     }
 
     /**
-     * @param  int|null  $limit
-     * @param  int  $page
-     * @param  bool  $pagination
+     * @param int|null $limit
+     * @param int      $page
+     * @param bool     $pagination
      *
      * @return array
      * @throws NotFoundException
@@ -82,25 +85,27 @@ class WebController extends AbstractController
         $offset = $page * $limit;
 
         return [
-            'page'        => $page,
-            'pagination'  => $pagination,
-            'limit'       => $limit,
+            'page' => $page,
+            'pagination' => $pagination,
+            'limit' => $limit,
             'actualities' => $this->webService->getAbstractWebPages(new DateTime(), $limit, $offset, null, WebActuality::class),
         ];
     }
 
     /**
-     * @param  int|null  $limit  Limit of items on page.
-     * @param  bool  $pagination  Enables pagination.
-     * @param  int  $page  Number of page.
+     * @param int|null $limit      Limit of items on page.
+     * @param bool     $pagination Enables pagination.
+     * @param int      $page       Number of page.
      *
      * @return Response
      * @throws NotFoundException
      */
     public function showWebActualities(int $page = 0, ?int $limit = null, bool $pagination = true): Response
     {
-        return $this->render('@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
-            $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination));
+        return $this->render(
+            '@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
+            $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
+        );
     }
 
     /**

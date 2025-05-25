@@ -2,60 +2,49 @@
 
 namespace OswisOrg\OswisWebBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping\Cache;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
-/**
- * @author Jakub Zak <mail@jakubzak.eu>
- * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
- *     "id",
- *     "slug",
- *     "name",
- *     "shortName",
- *     "description",
- *     "note",
- *     "startDateTime",
- *     "endDateTime"
- * })
- * @ApiPlatform\Core\Annotation\ApiResource(
- *   attributes={
- *     "filters"={"search"},
- *     "access_control"="is_granted('ROLE_MANAGER')"
- *   },
- *   collectionOperations={
- *     "get"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "normalization_context"={"groups"={"web_pages_get"}},
- *     },
- *     "post"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "denormalization_context"={"groups"={"web_pages_post"}}
- *     }
- *   },
- *   itemOperations={
- *     "get"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "normalization_context"={"groups"={"web_page_get"}},
- *     },
- *     "put"={
- *       "access_control"="is_granted('ROLE_MANAGER')",
- *       "denormalization_context"={"groups"={"web_page_put"}}
- *     },
- *     "delete"={
- *       "access_control"="is_granted('ROLE_ADMIN')",
- *       "denormalization_context"={"groups"={"web_page_delete"}}
- *     }
- *   }
- * )
- */
 #[Entity]
 #[Table(name: 'web_page')]
 #[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]
 #[ApiFilter(OrderFilter::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            normalizationContext: ['groups' => ['web_pages_get']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Post(
+            denormalizationContext: ['groups' => ['web_pages_post']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Get(
+            normalizationContext: ['groups' => ['web_page_get']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Put(
+            denormalizationContext: ['groups' => ['web_page_put']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Delete(
+            denormalizationContext: ['groups' => ['web_page_delete']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+    ],
+    filters: ['search'],
+    security: "is_granted('ROLE_MANAGER')"
+)]
 class WebPage extends AbstractWebPage
 {
 }

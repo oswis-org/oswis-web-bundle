@@ -1,11 +1,10 @@
 <?php
-/**
- * @noinspection MethodShouldBeFinalInspection
- */
 
 namespace OswisOrg\OswisWebBundle\Entity\MediaObject;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Cache;
@@ -16,7 +15,6 @@ use Doctrine\ORM\Mapping\Table;
 use Gedmo\Mapping\Annotation\Uploadable;
 use OswisOrg\OswisCoreBundle\Entity\AbstractClass\AbstractImage;
 use OswisOrg\OswisCoreBundle\Entity\NonPersistent\Publicity;
-use OswisOrg\OswisCoreBundle\Exceptions\InvalidTypeException;
 use OswisOrg\OswisCoreBundle\Interfaces\Common\BasicInterface;
 use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\EntityPublicTrait;
@@ -32,19 +30,20 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 #[Table(name: 'web_image')]
 #[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_image')]
 #[Uploadable]
-#[ApiResource(collectionOperations: [
-    'get'  => [
-        'access_control'        => "is_granted('ROLE_MANAGER')",
-        'normalization_context' => ['groups' => ["web_actualities_get"]],
-    ],
-    'post' => [
-        'method'         => 'POST',
-        'path'           => '/web_image',
-        'controller'     => CreateWebImageAction::class,
-        'access_control' => "is_granted('ROLE_MANAGER')",
-        'defaults'       => ['_api_receive' => false],
-    ],
-])]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            normalizationContext: ['groups' => ['web_actualities_get']],
+            security: "is_granted('ROLE_MANAGER')"
+        ),
+        new Post(
+            uriTemplate: '/web_image',
+            controller: CreateWebImageAction::class,
+            security: "is_granted('ROLE_MANAGER')",
+            deserialize: false
+        ),
+    ]
+)]
 class WebImage extends AbstractImage
 {
     use BasicTrait;
@@ -60,14 +59,6 @@ class WebImage extends AbstractImage
     #[JoinColumn(name: 'abstract_web_page_id', referencedColumnName: 'id')]
     protected ?AbstractWebPage $webPage = null;
 
-    /**
-     * @param  File|null  $file
-     * @param  string|null  $type
-     * @param  int|null  $priority
-     * @param  Publicity|null  $publicity
-     *
-     * @throws InvalidTypeException
-     */
     public function __construct(?File $file = null, ?string $type = null, ?int $priority = null, ?Publicity $publicity = null)
     {
         $this->setFile($file);

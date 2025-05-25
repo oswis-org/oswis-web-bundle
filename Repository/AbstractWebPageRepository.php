@@ -19,7 +19,7 @@ use OswisOrg\OswisWebBundle\Entity\JobFairEvent;
 class AbstractWebPageRepository extends ServiceEntityRepository
 {
     /**
-     * @param  ManagerRegistry  $registry
+     * @param ManagerRegistry $registry
      *
      * @throws LogicException
      */

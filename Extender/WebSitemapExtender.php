@@ -32,13 +32,17 @@ class WebSitemapExtender implements SiteMapExtenderInterface
         $this->webService->getAbstractWebPages()->map(function (mixed $page) use ($sitemapItems) {
             /** @var AbstractWebPage $page */
             $sitemapItems->add(new SiteMapItem($this->urlGenerator->generate('oswis_org_oswis_web_page', ['slug' => $page->getSlug()]),
-                    SiteMapItem::CHANGE_FREQUENCY_WEEKLY, $page->getUpdatedAt(), 0.75, $page),);
+                SiteMapItem::CHANGE_FREQUENCY_WEEKLY, $page->getUpdatedAt(), 0.75, $page),);
         });
         try {
             $lastFaqAnswered = $this->faqWebService->getLastUpdatedAnsweredQuestion();
             $lastFaqAnsweredAt = $lastFaqAnswered?->getUpdatedAt();
-            $sitemapItems->add(new SiteMapItem($this->urlGenerator->generate('oswis_org_oswis_web_faq'), SiteMapItem::CHANGE_FREQUENCY_DAILY,
-                    $lastFaqAnsweredAt));
+            $sitemapItems->add(
+                new SiteMapItem(
+                    $this->urlGenerator->generate('oswis_org_oswis_web_faq'), SiteMapItem::CHANGE_FREQUENCY_DAILY,
+                    $lastFaqAnsweredAt
+                )
+            );
         } catch (RouteNotFoundException|InvalidParameterException|MissingMandatoryParametersException) {
         }
 
