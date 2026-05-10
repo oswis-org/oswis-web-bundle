@@ -43,8 +43,8 @@ class OswisOrgOswisWebExtension extends Extension implements PrependExtensionInt
         $twigConfigs = $container->getExtensionConfig('twig');
         $paths = [];
         foreach ($twigConfigs as $twigConfig) {
-            if (isset($twigConfig['paths'])) {
-                $paths[] = $twigConfig['paths'];
+            if (isset($twigConfig['paths']) && \is_array($twigConfig['paths'])) {
+                $paths = array_merge($paths, $twigConfig['paths']);
             }
         }
         foreach ($bundleNames as $bundleName) {

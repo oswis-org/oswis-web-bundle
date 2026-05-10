@@ -102,3 +102,10 @@ services:
         tags:
             - 'doctrine.repository_service'
 
+    ### MEDIA OBJECT API CONTROLLERS
+
+    OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebImageAction:
+        autowire: true
+        public: true
+        tags: [ 'controller.service_arguments' ]
+
