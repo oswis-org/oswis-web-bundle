@@ -7,7 +7,6 @@ namespace OswisOrg\OswisWebBundle\Controller;
 
 use DateTime;
 use OswisOrg\OswisCoreBundle\Exceptions\NotFoundException;
-use OswisOrg\OswisCoreBundle\Exceptions\OswisNotFoundException;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;
 use OswisOrg\OswisWebBundle\Entity\WebMediaGallery;
 use OswisOrg\OswisWebBundle\Service\WebService;
