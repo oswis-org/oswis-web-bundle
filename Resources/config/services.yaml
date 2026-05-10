@@ -109,3 +109,8 @@ services:
         public: true
         tags: [ 'controller.service_arguments' ]
 
+    OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebFileAction:
+        autowire: true
+        public: true
+        tags: [ 'controller.service_arguments' ]
+

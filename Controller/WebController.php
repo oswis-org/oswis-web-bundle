@@ -104,7 +104,7 @@ class WebController extends AbstractController
     {
         return $this->render(
             '@OswisOrgOswisWeb/web/pages/web-actualities.html.twig',
-            $this->getWebActualitiesData($limit ?? self::PAGE_SIZE, $page, $pagination)
+            $this->getWebActualitiesData($page, $limit, $pagination)
         );
     }
 

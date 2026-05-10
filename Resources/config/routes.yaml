@@ -4,9 +4,9 @@ oswis_org_oswis_web_page:
 
 oswis_org_oswis_web_actualities:
     controller: oswis_org_oswis_web.web_controller::showWebActualities
-    path: "/aktuality/{pages?}/{limit?}"
+    path: "/aktuality/{page}/{limit}"
     defaults:
-        page: null
+        page: 0
         limit: null
 
 oswis_org_oswis_web_faq:

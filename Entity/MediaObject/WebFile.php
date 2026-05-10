@@ -21,7 +21,7 @@ use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\EntityPublicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TypeTrait;
-use OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebImageAction;
+use OswisOrg\OswisWebBundle\Controller\MediaObject\CreateWebFileAction;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -35,7 +35,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
         ),
         new Post(
             uriTemplate: '/web_file',
-            controller: CreateWebImageAction::class,
+            controller: CreateWebFileAction::class,
             security: "is_granted('ROLE_MANAGER')",
             deserialize: false
         ),
