@@ -26,7 +26,6 @@ use OswisOrg\OswisCoreBundle\Traits\Common\DateTimeTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\NameableTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
-use OswisOrg\OswisWebBundle\Entity\MediaObject\ContactImage;
 use OswisOrg\OswisWebBundle\Entity\MediaObject\WebFile;
 use OswisOrg\OswisWebBundle\Entity\MediaObject\WebImage;
 use OswisOrg\OswisWebBundle\Entity\WebActuality;

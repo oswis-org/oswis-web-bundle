@@ -14,7 +14,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use LogicException;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
-use OswisOrg\OswisWebBundle\Entity\JobFairEvent;
 
 class AbstractWebPageRepository extends ServiceEntityRepository
 {

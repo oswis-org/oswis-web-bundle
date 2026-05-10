@@ -10,7 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 use LogicException;
-use OswisOrg\OswisWebBundle\Entity\JobFairEvent;
 use OswisOrg\OswisWebBundle\Entity\WebFAQuestion;
 
 class WebFAQuestionRepository extends ServiceEntityRepository
