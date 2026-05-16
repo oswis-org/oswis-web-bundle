@@ -13,18 +13,14 @@ use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping\Cache;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
+use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
-/**
- * @author Jakub Zak <mail@jakubzak.eu>
- * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
- *     "id"
- * })
- */
 #[Entity]
 #[Table(name: 'web_media_gallery')]
 #[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]
 #[ApiFilter(OrderFilter::class)]
+#[SearchAnnotation(['id'])]
 #[ApiResource(
     operations: [
         new GetCollection(

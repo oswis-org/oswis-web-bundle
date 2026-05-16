@@ -9,9 +9,9 @@ use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Exception;
 use LogicException;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
@@ -116,10 +116,10 @@ class AbstractWebPageRepository extends ServiceEntityRepository
     ): ?AbstractWebPage {
         try {
             $page = $this->getAbstractPagesQueryBuilder($dateTime, $limit, $offset, $slug, $class)->getQuery()->getOneOrNullResult();
-
-            return $page instanceof AbstractWebPage && (empty($class) || $page instanceof $class) ? $page : null;
-        } catch (Exception) {
+        } catch (NonUniqueResultException) {
             return null;
         }
+
+        return $page instanceof AbstractWebPage && (empty($class) || $page instanceof $class) ? $page : null;
     }
 }

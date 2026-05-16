@@ -17,18 +17,14 @@ use Doctrine\ORM\Mapping\Cache;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
+use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation;
 use OswisOrg\OswisCoreBundle\Interfaces\Common\BasicInterface;
 use OswisOrg\OswisCoreBundle\Traits\Common\BasicTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\PriorityTrait;
 use OswisOrg\OswisCoreBundle\Traits\Common\TextValueTrait;
 use OswisOrg\OswisWebBundle\Repository\WebFAQuestionRepository;
 
-/**
- * @author Jakub Zak <mail@jakubzak.eu>
- * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
- *     "id"
- * })
- */
+#[SearchAnnotation(['id'])]
 #[ApiResource(
     operations: [
         new GetCollection(

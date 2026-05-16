@@ -12,29 +12,27 @@ use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping\Cache;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
+use OswisOrg\OswisCoreBundle\Filter\SearchAnnotation;
 use OswisOrg\OswisWebBundle\Entity\AbstractClass\AbstractWebPage;
 
-/**
- * @author Jakub Zak <mail@jakubzak.eu>
- * @OswisOrg\OswisCoreBundle\Filter\SearchAnnotation({
- *     "id",
- *     "slug",
- *     "name",
- *     "shortName",
- *     "description",
- *     "note",
- *     "dateTime",
- *     "createdAt",
- *     "updatedAt",
- *     "startDateTime",
- *     "endDateTime",
- *     "textValue"
- * })
- */
 #[Entity]
 #[Table(name: 'web_actuality')]
 #[Cache(usage: 'NONSTRICT_READ_WRITE', region: 'web_web_page')]
 #[ApiFilter(OrderFilter::class)]
+#[SearchAnnotation([
+    'id',
+    'slug',
+    'name',
+    'shortName',
+    'description',
+    'note',
+    'dateTime',
+    'createdAt',
+    'updatedAt',
+    'startDateTime',
+    'endDateTime',
+    'textValue',
+])]
 #[ApiResource(
     operations: [
         new GetCollection(
