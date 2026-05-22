@@ -15,7 +15,7 @@
     </header>
     {% block inside_content %}{% endblock inside_content %}
     <div class="web-actuality-content text-justify" itemprop="articleBody">
-        {{ pageData.textValue|markdown_to_html }}
+        {{ pageData.textValue|markdown_to_html|sanitize_html }}
     </div>
 </article>
 {% block after_content %}{% endblock after_content %}

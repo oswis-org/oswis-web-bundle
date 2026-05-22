@@ -21,7 +21,7 @@
     </header>
     {% block inside_actuality %}{% endblock inside_actuality %}
     <div class="col-lg-12 text-justify" itemprop="articleBody">
-        {{ actuality.textValue|markdown_to_html }}
+        {{ actuality.textValue|markdown_to_html|sanitize_html }}
     </div>
 </article>
 {% block after_actuality %}{% endblock after_actuality %}
