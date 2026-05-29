@@ -10,11 +10,21 @@
     </article>
 {% endfor %}
 {% if pagination is defined and pagination %}
-    <div class="col-12 actualities-pagination ">
+    <div class="col-12 actualities-pagination">
         <div class="container">
             <nav class="row">
-                <a class="col-6 text-start">⇐<small class="d-none d-md-inline"> Starší</small></a>
-                <a class="col-6 text-end"><small class="d-none d-md-inline">Novější </small>⇒</a>
+                {% if actualities|length >= limit %}
+                    <a class="col-6 text-start"
+                       href="{{ path('oswis_org_oswis_web_actualities', {'page': page + 1, 'limit': limit}) }}">⇐<small class="d-none d-md-inline"> Starší</small></a>
+                {% else %}
+                    <span class="col-6 text-start text-muted">⇐<small class="d-none d-md-inline"> Starší</small></span>
+                {% endif %}
+                {% if page > 0 %}
+                    <a class="col-6 text-end"
+                       href="{{ path('oswis_org_oswis_web_actualities', {'page': page - 1, 'limit': limit}) }}"><small class="d-none d-md-inline">Novější </small>⇒</a>
+                {% else %}
+                    <span class="col-6 text-end text-muted"><small class="d-none d-md-inline">Novější </small>⇒</span>
+                {% endif %}
             </nav>
         </div>
     </div>
